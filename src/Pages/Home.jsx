@@ -8,7 +8,8 @@ import CardPallete from '../components/CardPallete'
 import slide1 from '../assets/slide1.jpg'
 import slide3 from '../assets/slide3.jpg'
 import Block from '../components/block'
-import ReviewCard from '../components/ReviewCard'
+import UserReview from '../components/UserReview'
+import { Link } from 'react-router-dom'
 const Home = () => {
     const slides=[
         slide1,
@@ -46,14 +47,14 @@ const Home = () => {
             What to Experience
             </div>
             <div>
-            <button className="text-center bg-red-600 text-white rounded-3xl p-3 pl-5 pr-5">View All</button>
+            <Link to={"/explore"}><button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-3xl p-3 pl-5 pr-5">View All</button></Link>
             </div>
         </div>
 
      <CardPallete details={location}/>
      </div>
      <Block />
-     <ReviewCard />
+     <UserReview />
     </div>
   )
 }

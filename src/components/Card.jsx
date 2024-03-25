@@ -21,7 +21,7 @@ const Card = (props) => {
                 </div>
             </div>
             <div className="link">
-                <button className="text-center bg-red-600 text-white rounded-md p-2">Book Now</button>
+                <button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-md p-2">Book Now</button>
             </div>
         </div>
     )
