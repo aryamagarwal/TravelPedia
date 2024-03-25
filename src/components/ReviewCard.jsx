@@ -14,7 +14,7 @@ const ReviewCard = (props) => {
     }
     useEffect(()=>
     {const timer=setInterval(
-       next, 3000);
+       next, props.duration);
        return ()=>{clearInterval(timer)}
     },[count]);
     return (
@@ -24,7 +24,7 @@ const ReviewCard = (props) => {
             <button onClick={back}><IoIosArrowBack className="hover:text-white relative left-0 text-5xl"/></button>
             
             <div className="flex flex-col shadow-md rounded-md w-60 bg-white p-3 h-auto items-center m-9">
-                <div className="image h-40 w-full rounded-lg bg-red-800 items-center flex justify-center" >
+                <div className="image h-40 w-full rounded-lg bg-red-400 items-center flex justify-center" >
                     <img className="w-20 h-20 rounded-full" src={props.details[count].img} alt="img" />
                 </div>
                 <div className="User font-bold  w-full">

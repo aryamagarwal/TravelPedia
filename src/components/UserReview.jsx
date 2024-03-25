@@ -20,7 +20,7 @@ const UserReview = () => {
       <h1 className="text-5xl text-center font-bold translate-y-10">
         Customer Reviews
       </h1>
-      <ReviewCard details={details}/>
+      <ReviewCard details={details} duration={3000}/>
     </div>
   )
 }
