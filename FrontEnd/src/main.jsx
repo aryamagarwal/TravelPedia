@@ -49,12 +49,12 @@ const router = createBrowserRouter([
         path: "Blogs",
         element: <Blogs />,
       },
-      {
-        path: "LogIn",
-        element: <Login />,
-        children: [
+      // {
+        // path: "LogIn",
+        // element: <Login />,
+        // children: [
           {
-            path: "",
+            path: "LogIn",
             element: <LoginForm />
           },
           {
@@ -65,8 +65,8 @@ const router = createBrowserRouter([
             path: "ForgotPassword",
             element: <ForgotPassword />
           },
-        ]
-      }
+        // ]
+      // }
     ],
   },
 ]);
