@@ -1,21 +1,14 @@
 import React from 'react'
 import SlideShow from '../components/SlideShow'
 import logo from '../assets/logo.png'
-import slide2 from '../assets/Amber-fort-Jaipur.jpg'
+import slides from '../components/Slides'
 import location1 from '../assets/Amber-fort-Jaipur.jpg'
 import location2 from '../assets/logo.png'
 import CardPallete from '../components/CardPallete'
-import slide1 from '../assets/slide1.jpg'
-import slide3 from '../assets/slide3.jpg'
 import Block from '../components/block'
 import UserReview from '../components/UserReview'
 import { Link } from 'react-router-dom'
 const Home = () => {
-    const slides=[
-        slide1,
-        slide2,
-        slide3,
-    ]
     const location=[
         {
            img: location1,
