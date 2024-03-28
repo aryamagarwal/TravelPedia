@@ -8,15 +8,15 @@ const LoginForm = () => {
         <>
         <Block></Block>
         <div className='flex justify-center p-32 '>
-        <div className="backdrop-blur-sm w-96 rounded-lg p-7 mb-auto box-content shadow-md rounded-lg ">
+        <div className="backdrop-blur-sm w-96 p-7 mb-auto box-content shadow-md rounded-lg ">
             <form action="">
                 <h1 className="text-4xl text-center mb-5 font-bold">Login</h1>
                 <div className="inputBox flex relative items-center my-3 h-12 w-full ">
-                   <input className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 border-cyan-100" type="email" placeholder="Email" required />
+                   <input className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 focus:border-red-400" type="email" placeholder="Email" required />
                    <FaUser className="absolute right-5 top-1/2 -translate-y-2/4"/>
                 </div>
                 <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                   <input className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 border-cyan-100" type="password" placeholder="Password" required />
+                   <input className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 focus:border-red-400" type="password" placeholder="Password" required />
                    <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4"/>
                 </div>
                 <div className="rememberForgot flex justify-between my-3">

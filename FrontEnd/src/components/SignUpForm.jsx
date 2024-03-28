@@ -33,26 +33,26 @@ const SignUpForm = () => {
         <>
         <Block></Block>
          <div className='flex justify-center '>
-            <div className="bg-transparent backdrop-blur-sm lg:w-96 rounded-lg p-12 sm:w-full m-12 box-content shadow-md rounded-lg">
+            <div className="bg-transparent backdrop-blur-sm lg:w-96  p-12 sm:w-full m-12 box-content shadow-md rounded-lg">
                 <form action="">
                     <h1 className="text-4xl text-center mb-5 font-bold">Sign Up</h1>
                     <div className="inputBox flex relative items-center my-3 h-12 w-full ">
-                        <input className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 border-cyan-100" type="text" placeholder="Username" required />
+                        <input className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 focus:border-red-400" type="text" placeholder="Username" required />
                         <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
                     <div className="inputBox flex relative items-center my-3 h-12 w-full ">
-                        <input className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 border-cyan-100" type="email" placeholder="Email" required onChange={checkEmail} value={email}/>
+                        <input className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 focus:border-red-400" type="email" placeholder="Email" required onChange={checkEmail} value={email}/>
                         <MdEmail className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
                     <h5 className='text-red-800 bg-white '>{message3}</h5>  
                     <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                        <input className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 border-cyan-100" type="password" placeholder="Password" required onChange={checkPass} value={password} />
+                        <input className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 focus:border-red-400" type="password" placeholder="Password" required onChange={checkPass} value={password} />
                         <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
                           
                     </div>
                     <h5 className='text-red-800 bg-white '>{message}</h5>
                     <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                        <input className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 border-cyan-100" type="password" placeholder="Confirm Password" required onChange={checkCpass} value={cpass}/>
+                        <input className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 focus:border-red-400" type="password" placeholder="Confirm Password" required onChange={checkCpass} value={cpass}/>
                         <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
                     <h5 className='text-red-800 bg-white '>{message2}</h5>
