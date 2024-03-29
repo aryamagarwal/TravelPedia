@@ -84,6 +84,7 @@ const data={dest,days,bud};
         <p className="pl-32 mr-32 text-lg">Welcome to your gateway to adventure and relaxation, where wanderlust meets convenience. Explore the world, one click at a time, and let us be your compass on the journey of a lifetime.</p>
        <div className='shadow-sm pb-12 mt-16 mr-4 bg-gray-50 rounded-3xl '> <center><div className="bg-red-800 text-white text-4xl w-48 rounded-lg mt-8">MY PLANS</div></center>
         <div className='flex flex-row'>
+          <div>{Error && <div>Error</div>}</div>
         <div>{!data_dest && <center><div className='text-2xl'>Loading...</div></center>}</div>
           <div className='grid grid-cols-5 justify-between gap-x-4 gap-y-2'>{data_dest && data_dest.map((data_db)=>(
              <div className="flex flex-col justify-items-start mx-4 mt-4 w-52 h-52 shadow-md hover:shadow-2xl" ><h2 className='text-3xl m-4'><FaTruckPlane/>{data_db.dest}</h2><h3 className='text-md pl-8 mt-4'>DAYS:{data_db.days}</h3><h3 className='text-md pl-8 '>BUDGET:{data_db.bud}</h3></div>
@@ -91,6 +92,7 @@ const data={dest,days,bud};
 
 <div className='shadow-sm pb-12 mt-16 mr-4 bg-gray-50 rounded-3xl mb-40'><center><div className="bg-red-800 text-white text-4xl w-80 rounded-lg  mt-8 ">TOP DESTINATIONS</div></center>
         <div className='flex flex-row mb-8'>
+        <div>{Error && <div>Error</div>}</div>
           <div>{!data_dest2 && <center><div className='text-2xl'>Loading...</div></center>}</div>
           {data_dest2 && <div className='grid grid-cols-5 gap-x-4 gap-y-2'>{data_dest && data_dest2.map((data_db)=>(
              <div className="flex flex-col justify-items-start mx-4 mt-4 w-52 h-52 shadow-md hover:shadow-2xl" ><h2 className='text-3xl m-4'><FaTruckPlane/>{data_db.dest}</h2><h3 className='text-md pl-8 mt-4'>DAYS:{data_db.days}</h3><h3 className='text-md pl-8 '>PRICE:{data_db.bud}</h3></div>
