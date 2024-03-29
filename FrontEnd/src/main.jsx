@@ -16,6 +16,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.jsx";
+import UserDashboard from './Pages/UserDashboard.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
           {
             path: "ForgotPassword",
             element: <ForgotPassword />
+          },
+          {
+            path: "Dashboard",
+            element: <UserDashboard />
           },
         // ]
       // }
