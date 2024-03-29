@@ -67,7 +67,7 @@ const router = createBrowserRouter([
             element: <ForgotPassword />
           },
           {
-            path: "Dashboard",
+            path: "Dashboard/:id",
             element: <UserDashboard />
           },
         // ]

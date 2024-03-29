@@ -4,12 +4,15 @@ import avatar from '../assets/avatar.jpg'
 import Calendar from 'react-calendar'
 import { useState ,useEffect} from 'react'
 import useFetch from '../components/useFetch'
+import { useParams } from 'react-router-dom'
+
 // import TailSpin from 'react-loading-icons'
 // import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FaTruckPlane } from "react-icons/fa6";
 const UserDashboard = () => {
+  const { id }=useParams();
 
 
   // useEffect(()=>{
@@ -80,7 +83,7 @@ const data={dest,days,bud};
         <img className="pt-12 ml-20 w-20 h-32 rounded-full" src={avatar} alt="img" />
       </div>
         <div className='flex flex-col'>
-        <h1 className="text-6xl pt-12 pl-32">Welcome Back! $username</h1>
+        <h1 className="text-6xl pt-12 pl-32">Welcome Back! {id}</h1>
         <p className="pl-32 mr-32 text-lg">Welcome to your gateway to adventure and relaxation, where wanderlust meets convenience. Explore the world, one click at a time, and let us be your compass on the journey of a lifetime.</p>
        <div className='shadow-sm pb-12 mt-16 mr-4 bg-gray-50 rounded-3xl '> <center><div className="bg-red-800 text-white text-4xl w-48 rounded-lg mt-8">MY PLANS</div></center>
         <div className='flex flex-row'>
