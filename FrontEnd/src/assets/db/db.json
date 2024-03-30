@@ -1,0 +1,74 @@
+{
+  "cityList":{"cities":["BANARAS","AYODHYA","LUCKNOW","KANPUR","KOLKATA","MUMBAI","BENGALURU","SURAT","JAIPUR","KOCHI","VADODARA","UDAIPUR"]},
+  "destinations": [
+    {
+      "dest": "BANARAS",
+      "days": "10 Days",
+      "bud": "8000",
+      "id": "4520"
+    },
+    {
+      "dest": "AYODHYA",
+      "days": "7 DAYS",
+      "bud": "10000",
+      "id": "b028"
+    },
+    {
+      "dest": "LUCKNOW",
+      "days": "7 DAYS",
+      "bud": "8000",
+      "id": "4482"
+    },
+    {
+      "id": "5de9",
+      "dest": "KANPUR",
+      "days": "6 days",
+      "bud": "7000"
+    },
+    {
+      "id": "4955",
+      "dest": "SURAT",
+      "days": "5 days",
+      "bud": "8000"
+    }
+  ],
+  "TOP_Destinations": [
+    {
+      "dest": "GOA",
+      "days": "10 Days",
+      "bud": "50000",
+      "id": "4520"
+    },
+    {
+      "dest": "GWALIOR",
+      "days": "8 DAYS",
+      "bud": "20000",
+      "id": "b028"
+    },
+    {
+      "dest": "INDORE",
+      "days": "7 DAYS",
+      "bud": "80000",
+      "id": "4482"
+    },
+    {
+      "id": "5de9",
+      "dest": "ALLAHABAD",
+      "days": "5 days",
+      "bud": "5000"
+    },
+    {
+      "id": "5df9",
+      "dest": "CHENNAI",
+      "days": "5 days",
+      "bud": "5000"
+    },
+    {
+      "id": "5df9",
+      "dest": "BANGLORE",
+      "days": "5 days",
+      "bud": "5000"
+    }
+
+  ]
+}

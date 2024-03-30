@@ -3,7 +3,7 @@ import slide2 from '../assets/Amber-fort-Jaipur.jpg'
 const Card = (props) => {
    
     return (
-        <div className="flex flex-col shadow-md rounded-md w-60 p-3 items-center m-9">
+        <div className="flex flex-col shadow-md hover:shadow-2xl hover:w-64 rounded-md w-60 p-3 items-center m-9">
             <div className="image h-60" >
                 <img className="w-80" src={props.details.img} alt="img" />
             </div>
