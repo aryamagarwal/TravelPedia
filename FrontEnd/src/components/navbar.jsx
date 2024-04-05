@@ -2,10 +2,13 @@ import React from 'react'
 import logo from '../assets/logo.png'
 import { CgProfile } from "react-icons/cg";
 import { Link } from 'react-router-dom';
+import {IsLoggedInContext} from '../App.jsx'
 const Navbar = () => {
     const items = [
        "Home", "Explore", "Experiences", "Events", "Blogs"
     ]
+    const {isLoggedIn , user} = React.useContext(IsLoggedInContext);
+    const url = isLoggedIn ? `/user/dashboard/${user.firstName} ${user.LastName}` : "/LogIn";
     return (
         <div className='flex justify-between  bg-red-800 items-center h-auto flex-row p-1 pl-5 pr-5 text-white'>
 
@@ -19,7 +22,7 @@ const Navbar = () => {
                 }
             </ul>
             <div className="logIn flex gap-3 items-center">
-                <Link to={`/LogIn`}>
+                <Link to={url}>
                     <CgProfile
                     style={{
                         color: "white",

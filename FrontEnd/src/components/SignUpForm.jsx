@@ -23,11 +23,12 @@ const SignUpForm = () => {
         setMessage2(cpass==password?"":"Confirm Password doesn't match with password");
     }
     const checkEmail=(e)=>
-    {
-        const eregex=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        setEmail(e.target.value);
-        setMessage3((email.match(eregex))?"":"Kindly enter a valid Email Address!")
-    }
+{
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    setEmail(e.target.value);
+    setMessage3(emailRegex.test(email) ? "" : "Invalid email format");
+}
+   
 
     return (
         <>

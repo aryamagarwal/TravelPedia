@@ -7,7 +7,6 @@ import Explore from "./Pages/Explore";
 import Experiences from "./Pages/Experiences";
 import Events from "./Pages/Events";
 import Blogs from "./Pages/Blogs";
-import Login from './Pages/login.jsx'
 import SignUpForm from './components/SignUpForm.jsx'
 import LoginForm from './components/LoginFrom.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
@@ -17,6 +16,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.jsx";
 import UserDashboard from './Pages/UserDashboard.jsx'
+import PrivateRoutes from './components/PrivateRoutes.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,8 +67,14 @@ const router = createBrowserRouter([
             element: <ForgotPassword />
           },
           {
+            path: "user",
+            element: <  PrivateRoutes/>,
+            children: [
+              {
             path: "Dashboard/:id",
             element: <UserDashboard />
+            }
+          ]
           },
         // ]
       // }
