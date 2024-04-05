@@ -12,7 +12,7 @@ const SlideShow = (props) => {
       return ()=> clearInterval(timer);
     } , [currentIndex]);
   return (
-    <div className="h-96 w-full bg-yellow-500 bg-center bg-no-repeat" 
+    <div className="h-screen/2 w-full bg-yellow-500 bg-cover bg-center bg-no-repeat" 
     style={{
         backgroundImage: `url(${props.slides[currentIndex]})`,
     }

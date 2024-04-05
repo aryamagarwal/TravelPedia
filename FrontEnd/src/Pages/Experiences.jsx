@@ -2,6 +2,7 @@ import React from 'react'
 import Block from '../components/block'
 import trial from '../assets/slide1.jpg'
 import ExperienceCard from '../components/ExperienceCard'
+import bgVideo from '../assets/video/video_bg.mp4'
 const Experiences = () => {
   const items = [
     "Rajasthan", "UP", "South India", "Himalaya"
@@ -28,8 +29,13 @@ const Experiences = () => {
   ]
   return (
     <div>
-      <div className="header w-full bg-red-800 pt-10  text-center h-40 text-5xl text-white font-bold">
+      <div className="header w-full  overflow-hidden text-center h-screen/2 text-6xl text-white font-bold">
+        <video className='w-full' autoPlay loop muted >
+          <source src={bgVideo} type='video/mp4'/>
+        </video>
+        <div className='absolute top-1/3 left-1/4'>
         Book the Best Experiences in India
+        </div>
       </div>
       <Block />
       <div className="flex flex-row items-start">
