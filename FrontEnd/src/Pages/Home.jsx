@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <div>
       <header className="flex">
-        <SlideShow duration={5000} slides={slides}/>
+        <SlideShow duration={7000} slides={slides}/>
       </header>
       <Block/>
       <div className="flex-row w-full ">

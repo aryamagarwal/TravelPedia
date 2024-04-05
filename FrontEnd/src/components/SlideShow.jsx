@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
+import './SlideShow.css';
 const SlideShow = (props) => {
     const [currentIndex , updateIndex] = useState(0);
     useEffect(()=>{
@@ -12,11 +13,8 @@ const SlideShow = (props) => {
       return ()=> clearInterval(timer);
     } , [currentIndex]);
   return (
-    <div className="h-screen/2 w-full bg-yellow-500 bg-cover bg-center bg-no-repeat" 
-    style={{
-        backgroundImage: `url(${props.slides[currentIndex]})`,
-    }
-    }>
+    <div className="h-screen70 w-full flex justify-center overflow-hidden bg-yellow-500 bg-cover bg-center bg-no-repeat" >
+      <img src={props.slides[currentIndex]} alt="slide" className="slide " />
     </div>
   )
 }
