@@ -23,7 +23,7 @@ const ExperienceCard = (props) => {
                 </div>
                 <div className=" w-full flex flex-row items-center gap-2 justify-between ">
                 <LuCalendarClock className='text-red-800 text-2xl'/>
-                    _ days
+                    {props.details.days} days
                 </div>
                 <div className=" w-full text-center ">
                 <button className="text-center p-2"><FaRegArrowAltCircleRight className=' hover:text-red-600 text-red-800 text-3xl'/></button>

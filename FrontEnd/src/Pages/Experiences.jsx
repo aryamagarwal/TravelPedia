@@ -143,11 +143,11 @@ const Experiences = () => {
   return (
     <div>
 
-      <div className="header w-full  overflow-hidden text-center h-screen/2 text-6xl text-white font-bold">
+      <div className="header w-full  overflow-hidden text-center h-screen/2 text-screen/5 text-white font-bold">
         <video className='w-full' autoPlay loop muted style={{ background: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9))' }}>
           <source src={bgVideo} type='video/mp4' />
         </video>
-        <div className='absolute top-1/3 left-1/4'>
+        <div className='absolute top-1/4 left-1/4 text-screen4 p-3 bg-red-800 text-white'>
           Book the Best Experiences in India
         </div>
       </div>
@@ -221,7 +221,7 @@ const Experiences = () => {
         <div className="my-5 w-full flex flex-col">
           {
             detail.map((item, i) =>
-              (statusList.length === 0 || statusList.includes(item.region)) && (parseInt(item.amount)<=amount || amount===0) && (parseInt(item.days)==dayCount || dayCount===0)? (
+              (statusList.length === 0 || statusList.includes(item.region)) && (parseInt(item.amount) <= amount || amount === 0) && (parseInt(item.days) == dayCount || dayCount === 0) ? (
                 <ExperienceCard key={i} details={item} />
               ) : null)
           }

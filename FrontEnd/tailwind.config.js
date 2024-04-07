@@ -15,6 +15,13 @@ export default {
         "screen/4": "calc(100vh / 4)",
         "screen/5": "calc(100vh / 5)",
       }),
+      fontSize: theme => ({
+        "screen4": "4vw",
+        "screen/2": "50vw",
+        "screen/3": "calc(100vw / 3)",
+        "screen/4": "calc(100vw / 4)",
+        "screen/5": "calc(100vw / 5)",
+      }),
   },
   plugins: [],
 }
