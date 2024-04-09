@@ -1,35 +1,111 @@
 {
-  "cityList":{"cities":["BANARAS","AYODHYA","LUCKNOW","KANPUR","KOLKATA","MUMBAI","BENGALURU","SURAT","JAIPUR","KOCHI","VADODARA","UDAIPUR"]},
+  "cityList": {
+    "cities": [
+      "BANARAS",
+      "AYODHYA",
+      "LUCKNOW",
+      "KANPUR",
+      "KOLKATA",
+      "MUMBAI",
+      "BENGALURU",
+      "SURAT",
+      "JAIPUR",
+      "KOCHI",
+      "VADODARA",
+      "UDAIPUR"
+    ]
+  },
   "destinations": [
     {
       "dest": "BANARAS",
       "days": "10 Days",
       "bud": "8000",
-      "id": "4520"
+      "id": "4520",
+      "user": "Aryam Agarwal"
     },
     {
       "dest": "AYODHYA",
       "days": "7 DAYS",
       "bud": "10000",
-      "id": "b028"
+      "id": "b028",
+      "user": "Priyanshu Agarwal"
     },
     {
       "dest": "LUCKNOW",
       "days": "7 DAYS",
       "bud": "8000",
-      "id": "4482"
+      "id": "4482",
+      "user": "Priyanshu Agarwal"
     },
     {
       "id": "5de9",
       "dest": "KANPUR",
       "days": "6 days",
-      "bud": "7000"
+      "bud": "7000",
+      "user": "Priyanshu Agarwal"
     },
     {
       "id": "4955",
       "dest": "SURAT",
       "days": "5 days",
-      "bud": "8000"
+      "bud": "8000",
+      "user": "Aryam Agarwal"
+    },
+    {
+      "id": "33eb",
+      "dest": "VADODARA",
+      "days": "7 Days",
+      "bud": "5000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "6696",
+      "dest": "AYODHYA",
+      "days": "8 Days",
+      "bud": "5000",
+      "user": "Aryam Agarwal"
+    },
+    {
+      "id": "c92a",
+      "dest": "BANARAS",
+      "days": "5 Days",
+      "bud": "6000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "e131",
+      "dest": "MUMBAI",
+      "days": "8 Days",
+      "bud": "9000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "eedf",
+      "dest": "KOCHI",
+      "days": "7 Days",
+      "bud": "7000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "346b",
+      "dest": "UDAIPUR",
+      "days": "5 Days",
+      "bud": "8000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "e385",
+      "dest": "SURAT",
+      "days": "10 Days",
+      "bud": "9000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "f124",
+      "dest": "JAIPUR",
+      "days": "5 Days",
+      "bud": "8000",
+      "user": "Priyanshu Agarwal"
     }
   ],
   "TOP_Destinations": [
@@ -69,6 +145,43 @@
       "days": "5 days",
       "bud": "5000"
     }
-
+  ],
+  "userData": [
+    {
+      "username": "aryam",
+      "firstName": "Aryam",
+      "LastName": "Agarwal",
+      "email": "lcs2023045@iiitl.ac.in",
+      "password": "Aa1234@",
+      "review": "Travelpedia made planning my vacation a breeze! From flight bookings to hotel reservations, everything was seamless and hassle-free.",
+      "id": "Aryam Agarwal"
+    },
+    {
+      "userName": "priyanshu",
+      "firstName": "Priyanshu",
+      "lastName": "Agarwal",
+      "email": "lit2023022@iiitl.ac.in",
+      "password": "Pa1234@",
+      "review": "Using Travelpedia was like having a personal travel agent at my fingertips. I found amazing deals and had all the information I needed to make informed decisions.",
+      "id": "Priyanshu Agarwal"
+    },
+    {
+      "username": "rewant",
+      "firstName": "Rewant",
+      "LastName": "Kurapati",
+      "email": "lit2023023@iiitl.ac.in",
+      "password": "Rk1234@",
+      "review": "Great Site! Loved it",
+      "id": "Rewant Kurapati"
+    },
+    {
+      "username": "akshat",
+      "firstName": "Akshat",
+      "LastName": "Sing",
+      "email": "lcs2023041@iiitl.ac.in",
+      "password": "As1234@",
+      "review": "Great Site! Loved it",
+      "id": "Akshat Singh"
+    }
   ]
 }
