@@ -198,7 +198,7 @@ const Account = () => {
                     </div> */}
                     <div className="box-border border-4 h-80 w-80 ">
                       <img
-                        className="h-60 w-60   pt-12 w-20 h-32 rounded-full"
+                        className="pt-12 w-20 h-32 rounded-full"
                         src={avatar}
                         alt="img"
                       />

@@ -14,16 +14,21 @@ function Package() {
         { dayNo: "7", dayDetails: "Barli to Delhi", dayMoreDetails: "Barli to Delhi and check in to the hotel" }
       ]
     },
-    { title: "Budget", details: "Budget details here" },
-    { title: "Review", details: "Review details here" },
-    { title: "Info", details: "Info details here" }
+    { title: "Budget" },
+    {
+      title: "Review", details: [
+        { name: "John Doe", review: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?", date: "2021-10-13" },
+        { name: "Jane Doe", review: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?", date: "2021-10-13" }
+      ]
+    },
+    
   ];
   const [selectedMenu, setSelectedMenu] = React.useState(menu[0].title);
   const [itinerayDetails, setItineraryDetails] = React.useState(false);
   // const properties = "h-auto w-full justify-center bg-red-200 gap-5"
   return (
     <div>
-      <div className='w-full bg-red-800 h-auto flex flex-row mt-3 '>
+      <div className='w-full bg-red-800 h-auto flex flex-row mt-3  '>
         {menu.map((item, index) => (
           <button
             key={index}
@@ -85,24 +90,88 @@ function Package() {
                   </ul>
                 </div>
               ) : null}
+              {item.title === menu[2].title ? (
+                <div>
+                  <div className='text-xl'>
+                    <div class="w-full flex flex-row gap-8 p-5">
+                      <div class="w-1/2 ">
+                        <h4 class="font-bold ">Our price Include</h4>
+                        <div class="text-xl">
+                          <ul>
+                            <li className='list-disc'>Accommodation based on two persons sharing one double room with breakfasts included as mentioned in the itinerary</li>
+                            <li className='list-disc'>Transfer from the airport to the first hotel and from the last hotel back to the airport&nbsp;</li>
+                            <li className='list-disc'>All transfers and sightseeing by private Air-Conditioned vehicle with a private chauffeur.</li>
+                            <li className='list-disc'>Personal and experienced tour guide throughout the tour from arrival to departure.</li>
+                            <li className='list-disc'>Fuel charges, road tax, toll and parking charges.</li>
+                            <li className='list-disc'>All hotel taxes included.</li>
+                            <li className='list-disc'>24x7 assistance by the Team of Indian Experience.</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="w-1/2">
+                        <h4 class="font-bold ">Our price Do Not Include</h4>
+                        <div class="text-xl">
+                          <ul >
+                            <li className='list-disc'>Accommodation based on two persons sharing one double room with breakfasts included as mentioned in the itinerary</li>
+                            <li className='list-disc'>Transfer from the airport to the first hotel and from the last hotel back to the airport&nbsp;</li>
+                            <li className='list-disc'>All transfers and sightseeing by private Air-Conditioned vehicle with a private chauffeur.</li>
+                            <li className='list-disc'>Personal and experienced tour guide throughout the tour from arrival to departure.</li>
+                            <li className='list-disc'>Fuel charges, road tax, toll and parking charges.</li>
+                            <li className='list-disc'>All hotel taxes included.</li>
+                            <li className='list-disc'>24x7 assistance by the Team of Indian Experience.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="entry-content">
+                      <p>** Additional cost will be charged for extra services except mentioned in the “Inclusions” in every trip.</p>
+                      <p><br />In case of <strong>cancellation of your trip</strong>, the cancellation fees charged by Indian Experience will be calculated according to the following scale</p>
+                      <p>• More than 60 days before departure: 35% of the total price of the trip.&nbsp;&nbsp;<br />• From 60 to 31 days before departure: 40% of the total price of the trip.&nbsp;&nbsp;<br />• From 30 to 21 days: 40% of the total price of the trip.&nbsp;&nbsp;&nbsp;<br />• From 20 to 14 days: 60% of the total price of the trip.&nbsp;&nbsp;<br />• From 13 to 8 days: 70% of the total price of the trip.&nbsp;&nbsp;<br />• From 7 to 2 days: 75% of the total price of the trip.&nbsp;&nbsp;<br />• The day before or the day of departure: 100% of the total price of the trip</p>
+                    </div>
+                  </div>
+                </div>
+
+              ) : null}
+              {item.title === menu[3].title ? (
+                <div className='flex flex-col justify-center items-center ' >
+                  <h1 className='font-bold text-3xl'>{item.details.length} Reviews</h1>
+                  {
+                    item.details.map((ele, index) => (
+                      <div key={index} className='w-3/4 flex flex-row items-center gap-8 justify-center'>
+                        <div className='w-1/2 flex flex-col justify-center'>
+                          <img className="rounded-full" src="" alt="" />
+                          <h4 className='font-bold'>{ele.name}</h4>
+                        </div>
+                        <div className='p-8'>
+                          <h5 className='font-bold text-xl m-1'>{ele.date}</h5>
+                          <p>{ele.review}</p>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              ) : null}
             </div>
-            <div className="flex flex-col w-4/6 p-1 items-center  my-5 text-white">
-              <div className="bg-red-800 w-4/6 flex flex-col my-4 justify-center items-center p-5">
-                <h1 className="font-bold">Key Points of the tour</h1>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?
-                </p>
+            {item.title !== menu[3].title &&
+              <div className="flex flex-col w-4/6 p-1 items-center  my-5 text-white">
+                <div className="bg-red-800 w-4/6 flex flex-col my-4 justify-center items-center p-5">
+                  <h1 className="font-bold">Key Points of the tour</h1>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?
+                  </p>
+                </div>
+                <div className="bg-red-800 w-4/6 flex flex-col my-4 justify-center items-center p-5">
+                  <AiOutlineMail className="text-6xl" />
+                  <p> Need Help?</p>
+                </div>
               </div>
-              <div className="bg-red-800 w-4/6 flex flex-col my-4 justify-center items-center p-5">
-                <AiOutlineMail className="text-6xl" />
-                <p> Need Help?</p>
-              </div>
-            </div>
+            }
           </div>
         ))}
       </div>
     </div>
   );
 }
-
 export default Package
+
+
