@@ -10,7 +10,7 @@ const Navbar = () => {
     const {isLoggedIn , user} = React.useContext(IsLoggedInContext);
     const url = isLoggedIn ? `/user/dashboard/${user.firstName} ${user.LastName}` : "/LogIn";
     return (
-        <div className='flex justify-between  bg-red-800 items-center h-auto flex-row p-1 pl-5 pr-5 text-white'>
+        <div className='flex justify-between sticky top-0 z-10 bg-red-800 items-center h-auto flex-row p-1 pl-5 pr-5 text-white'>
 
             <div className="logo">
                <Link to={"/"}><img className="h-14 w-14" src={logo} alt="logo" /></Link> 

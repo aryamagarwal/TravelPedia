@@ -154,7 +154,7 @@ const Experiences = () => {
 
       <Block />
       <div className="flex flex-row items-start">
-        <div className="flex flex-col my-7 p-7 w-1/3 text-center justify-center sticky items-center">
+        <div className="flex flex-col my-7 p-7 w-1/3 text-center justify-center top-8 sticky items-center">
           <div className="text-center text-red-800 font-bold text-2xl ">
             Destinations
           </div>
@@ -162,7 +162,7 @@ const Experiences = () => {
             {
               items.map((item, i) => (
                 <div key={i} className="flex flex-row gap-2 bg-red-800 text-white p-3 text-xl border-white border-solid border-2 w-full">
-                  <input className="accent-red-200" type='checkbox' onChange={(e) => handleOnChange(item)} checked={statusList.includes(item)} />
+                <input className="accent-red-200" type='checkbox' onChange={(e) => handleOnChange(item)} checked={statusList.includes(item)} />
                   <label key={i}>{item}</label>
                 </div>
               ))
