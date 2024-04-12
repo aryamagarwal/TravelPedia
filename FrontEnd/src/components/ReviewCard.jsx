@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { IoIosArrowBack , IoIosArrowForward} from "react-icons/io";
 
+
+
 const ReviewCard = (props) => {
     const [count , updateCount] = useState(0);
     const l=props.details.length;
