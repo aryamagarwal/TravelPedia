@@ -3,8 +3,9 @@ import Block from '../components/block'
 import trial from '../assets/slide1.jpg'
 import ExperienceCard from '../components/ExperienceCard'
 import bgVideo from '../assets/video/video_bg.mp4'
-const Experiences = () => {
 
+const Experiences = () => {
+  
   const detail = [
     {
       "name": "xyz",
@@ -151,7 +152,7 @@ const Experiences = () => {
           Book the Best Experiences in India
         </div>
       </div>
-
+       
       <Block />
       <div className="flex flex-row items-start">
         <div className="flex flex-col my-7 p-7 w-1/3 text-center justify-center top-8 sticky items-center">

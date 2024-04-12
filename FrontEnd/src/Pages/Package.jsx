@@ -1,6 +1,9 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import { AiOutlineMail, AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 function Package() {
+  const { id } = useParams();
+  const title=id.split('-').join(' ');
   const menu = [
     { title: "The Essence", details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?" },
     {

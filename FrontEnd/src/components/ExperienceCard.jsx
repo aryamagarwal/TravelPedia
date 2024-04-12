@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaMoneyBill , FaRegArrowAltCircleRight } from "react-icons/fa";
 import { LuCalendarClock } from "react-icons/lu";
+import {useNavigate} from 'react-router-dom'
+
 const ExperienceCard = (props) => {
+    const navigate = useNavigate();
     return (
         <div className="flex flex-row shadow-md rounded-md w-auto p-3 items-center m-9 bg-red-200">
             <div className="h-60 flex items-center" >
@@ -26,7 +29,11 @@ const ExperienceCard = (props) => {
                     {props.details.days} days
                 </div>
                 <div className=" w-full text-center ">
-                <button className="text-center p-2"><FaRegArrowAltCircleRight className=' hover:text-red-600 text-red-800 text-3xl'/></button>
+                <button className="text-center p-2" onClick={()=>{
+                    const str=props.details.name.split(' ').join('-');
+                    navigate(`/package/${str}`);
+
+                }}><FaRegArrowAltCircleRight className=' hover:text-red-600 text-red-800 text-3xl'/></button>
             </div>
                 </div>
             </div>
