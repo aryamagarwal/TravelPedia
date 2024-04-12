@@ -16,6 +16,7 @@ import Account from "./components/Account.jsx";
 import UserDashboard from "./Pages/UserDashboard.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import { MdAccountBalance } from "react-icons/md";
+import Package from "./Pages/Package.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "Package",
+        element: <Package />,
+      }
       // ]
       // }
     ],
