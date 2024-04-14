@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import {IsLoggedInContext} from '../App.jsx'
 const Navbar = () => {
     const items = [
-       "Home", "Explore", "Experiences", "Events", "Blogs"
+       "Home", "About Us", "Experiences", "Trips", "Blogs" , "Contact Us"
     ]
     const {isLoggedIn , user} = React.useContext(IsLoggedInContext);
     const url = isLoggedIn ? `/user/dashboard/${user.firstName} ${user.LastName}` : "/LogIn";
@@ -17,7 +17,7 @@ const Navbar = () => {
             </div>
             <ul className=" list-none flex gap-10 ">
                 {items.map((item , i) => (
-                  <Link to={`/${item}`} key={i}><li key={i} className='hover:bg-red-900 p-2 rounded-md'>{item}</li></Link>
+                  <Link to={`/${item.split(' ').join("")}`} key={i}><li key={i} className='hover:bg-red-900 p-2 rounded-md'>{item}</li></Link>
                 ))
                 }
             </ul>

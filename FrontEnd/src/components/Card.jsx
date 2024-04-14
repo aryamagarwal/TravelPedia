@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import slide2 from '../assets/Amber-fort-Jaipur.jpg'
 const Card = (props) => {
-   
+   const navigate = useNavigate()
     return (
         <div className="flex flex-col shadow-md hover:shadow-2xl hover:w-64 rounded-md w-60 p-3 items-center m-9">
             <div className="image h-60" >
@@ -21,7 +22,7 @@ const Card = (props) => {
                 </div>
             </div>
             <div className="link">
-                <button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-md p-2">Book Now</button>
+                <button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-md p-2" onClick={()=>{navigate(`../package/${props.details.name.split(' ').join('-')}`)}}>Book Now</button>
             </div>
         </div>
     )

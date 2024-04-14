@@ -17,6 +17,9 @@ import UserDashboard from "./Pages/UserDashboard.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import { MdAccountBalance } from "react-icons/md";
 import Package from "./Pages/Package.jsx";
+import Trips from "./Pages/Trips.jsx";
+import AboutUs from "./Pages/AboutUs.jsx";
+import ContactUs from "./Pages/ContactUs.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,25 +35,21 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "Explore",
-        element: <Explore />,
+        path: "AboutUs",
+        element: <AboutUs />
       },
       {
         path: "Experiences",
         element: <Experiences />,
       },
       {
-        path: "Events",
-        element: <Events />,
+        path: "ContactUs",
+        element: <ContactUs />,
       },
       {
         path: "Blogs",
         element: <Blogs />,
       },
-      // {
-      // path: "LogIn",
-      // element: <Login />,
-      // children: [
       {
         path: "LogIn",
         element: <LoginForm />,
@@ -81,9 +80,12 @@ const router = createBrowserRouter([
       {
         path: "Package/:id",
         element: <Package />,
+      },
+      {
+        path: "trips",
+        element: <Trips />,
       }
-      // ]
-      // }
+      
     ],
   },
 ]);
