@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import Block from '../components/block'
-import trial from '../assets/slide1.jpg'
-import ExperienceCard from '../components/ExperienceCard'
-import bgVideo from '../assets/video/video_bg.mp4'
+import React, { useEffect, useState } from "react";
+import Block from "../components/block";
+import trial from "../assets/slide1.jpg";
+import ExperienceCard from "../components/ExperienceCard";
+import bgVideo from "../assets/video/video_bg.mp4";
 
 const Experiences = () => {
-
   const detail = [
     {
       name: "The Maharaja Experience",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
+        "“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. ",
       region: "Rajasthan",
       img: trial,
       days: "5",

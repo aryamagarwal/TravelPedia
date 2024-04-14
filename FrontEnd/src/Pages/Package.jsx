@@ -2,22 +2,27 @@ import React from "react";
 import { useState, useEffect } from "react";
 import useFetch from "../components/useFetch";
 import { useParams } from "react-router-dom";
-import img from "../assets/video/video_bg.mp4";
+// import img from "../assets/video/video_bg.mp4";
+import img from "../assets/The-Maharaja-Experience.png";
+import { FaStar } from "react-icons/fa";
+import img_specialist from "../assets/Akshat_singh.jpg";
 
 import {
   AiOutlineMail,
   AiOutlinePlusCircle,
   AiOutlineMinusCircle,
 } from "react-icons/ai";
-import React from 'react'
-import { useParams } from 'react-router-dom';
-import { AiOutlineMail, AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+// import { useParams } from "react-router-dom";
+
 function Package() {
+  const { id } = useParams();
+  const title = id.split("-").join(" ");
   const {
     data: menu,
     menu_isPending,
     menu_Error,
   } = useFetch("http://localhost:8000/menus");
+
   // const menu = [
   //   {
   //     title: "The Essence",
@@ -84,57 +89,174 @@ function Package() {
   //   },
   // ];
   const [selectedMenu, setSelectedMenu] = React.useState();
+  const [itinerayDetails, setItineraryDetails] = React.useState(false);
+  const items = ["The Essence", "Itinerary", "Review", "Info"];
+
+  useEffect(() => {
+    setSelectedMenu(items[0]);
+  }, [items]);
+
   useEffect(() => {
     if (menu && !menu_isPending && !menu_Error) {
       setSelectedMenu(menu[0].title);
     }
   }, [menu, menu_isPending, menu_Error]);
 
-  useEffect(() => {
-    
-  }, [pack]);
-
-  const img_display = require("../assets/" + img);
-  const { id } = useParams();
-  const title=id.split('-').join(' ');
-  const menu = [
-    { title: "The Essence", details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?" },
-    {
-      title: "Itenirary", details: [
-        { dayNo: "1", dayDetails: "Arrival at Delhi", dayMoreDetails: "Arrival at Delhi and check in to the hotel" },
-        { dayNo: "2", dayDetails: "Delhi to Agra", dayMoreDetails: "Delhi to Agra and check in to the hotel" },
-        { dayNo: "3", dayDetails: "Agra to Jaipur", dayMoreDetails: "Agra to Jaipur and check in to the hotel" },
-        { dayNo: "4", dayDetails: "Jaipur to Udaipur", dayMoreDetails: "Jaipur to Udaipur and check in to the hotel" },
-        { dayNo: "5", dayDetails: "Udaipur to Dungarpur", dayMoreDetails: "Udaipur to Dungarpur and check in to the hotel" },
-        { dayNo: "6", dayDetails: "Dungarpur to Barli", dayMoreDetails: "Dungarpur to Barli and check in to the hotel" },
-        { dayNo: "7", dayDetails: "Barli to Delhi", dayMoreDetails: "Barli to Delhi and check in to the hotel" }
-      ]
-    },
-    { title: "Budget" },
-    {
-      title: "Review", details: [
-        { name: "John Doe", review: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?", date: "2021-10-13" },
-        { name: "Jane Doe", review: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?", date: "2021-10-13" }
-      ]
-    },
-    
-  ];
-  const [selectedMenu, setSelectedMenu] = React.useState(menu[0].title);
-  const [itinerayDetails, setItineraryDetails] = React.useState(false);
-
+  console.log(title);
   const {
     data: pack,
     isPending,
     Error,
   } = useFetch("http://localhost:8000/package");
+
+  const image = "../assets/" + id + ".png";
+
+  useEffect(() => {
+    if (pack) {
+    }
+  }, [pack]);
+
+  // const img_display = require("../assets/" + img);
+
   const properties = "h-auto w-full justify-center bg-red-200 gap-5";
 
   return (
     <div>
-      <div>
-        <img src=""></img>
-        <div></div>
+      <div className=" relative h-screen">
+        <div
+          className="item text-center align-items-end bg-cover h-4/6"
+          style={{
+            backgroundImage:
+              "url('https://www.indianexperience.com/assets/uploads/Jodhpur-fort.jpg')",
+          }}
+        >
+          <div>
+            <div>
+              <div className="pt-96  text-4xl text-white font-extrabold tracking-wide">
+                {title.toUpperCase()}
+              </div>
+              <div className="flex justify-center pt-8 tracking-widest pb-20">
+                <FaStar className="text-yellow-500 text-2xl"></FaStar>
+                <FaStar className="text-yellow-500 text-2xl"></FaStar>
+                <FaStar className="text-yellow-500 text-2xl"></FaStar>
+                <FaStar className="text-yellow-500 text-2xl"></FaStar>
+                <FaStar className="text-white text-2xl"></FaStar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <center>
+          <div className="flex flex-row">
+            <div className=" absolute  mt-20 top-1/2  ">
+              <div className="flex flex-row">
+                <div className="bg-red-800 w-3/5 h-1/5 ml-40  text-white rounded-lg ">
+                  <div className="mr-48 text-2xl font-bold mt-8 text-left ml-4">
+                    A Romantic Rendezvous!!
+                  </div>
+                  <p className="mt-4 text-left ml-8 text-xl mb-12 ">
+                    “THE MAHARAJA EXPERIENCE”, is a splendid Golden tour,
+                    through which Indian Experience offers you a romantic escape
+                    into the lap of luxury, to let you create memories for life.
+                    An Indulgence to explore the exotic ends of the world and
+                    break away from the ordinary. Witness the grandeur of The
+                    Taj in Agra. Delve deep into Rajasthan’s most palatial
+                    Palace Hotels that make you feel no less than a King or a
+                    Queen.
+                  </p>
+                  <div className="flex justify-evenly ">
+                    <div className="flex-col justify-center">
+                      <div className="text-xl tracking-wide font-bold">
+                        Art & Culture
+                      </div>
+                      <div className="flex mb-4">
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                      </div>
+                    </div>
+                    <div className="flex-col justify-center align-middle">
+                      <div className="text-xl tracking-wide font-bold">
+                        OffBeat Experience
+                      </div>
+                      <center>
+                        <div className="flex mb-4 ml-8">
+                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        </div>
+                      </center>
+                    </div>
+                    <div className="flex-col">
+                      <div className="text-xl tracking-wide font-bold">
+                        Nature Observation
+                      </div>
+
+                      <div className="flex mb-4 ml-8">
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-red-800 w-1/5 h-1/5 ml-8 text-white rounded-lg">
+                  <div className="tracking-widest mt-8 font-bold text-2xl">
+                    YOUR SPECIALIST
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="h-48 w-28 ml-8 ">
+                      <img
+                        className="pt-12 w-28 h-48 rounded-lg"
+                        src={img_specialist}
+                        alt="img"
+                      />
+                    </div>
+
+                    <div className="mr-12 mt-12 ml-4">
+                      <div className="mt-8 text-xl font-semibold ">
+                        Akshat Singh
+                      </div>
+                      <div className="mt-2 text-lg">0091-8587902207 </div>
+                      <div className="mt-2 text-lg">PRICE:2000 per trip</div>
+                      <div className="w-full mt-4"></div>
+                    </div>
+                  </div>
+                  <button className="bg-yellow-500 mt-12 w-11/12 font-bold text-2xl pb-3 pt-3 mb-5 rounded-lg ">
+                    BOOK NOW
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </center>
       </div>
+
+      <div className="mb-8 text-white">{id}</div>
+
+      {!menu && (
+        <div className="w-full bg-red-800 h-auto flex flex-row mt-3 mb-20  ">
+          {items.map((item, index) => (
+            <button
+              key={index}
+              className={
+                selectedMenu === item
+                  ? "text-white p-4 hover:bg-red-600 bg-red-600 font-bold"
+                  : "text-white p-4 hover:bg-red-700 font-bold"
+              }
+              // onClick={() => setSelectedMenu(item.title)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      )}
+
       {menu && (
         <div>
           <div className="w-full bg-red-800 h-auto flex flex-row mt-3  ">

@@ -113,6 +113,13 @@
       "days": "7 Dyas",
       "bud": "9000",
       "user": "Aryam Agarwal"
+    },
+    {
+      "id": "278e",
+      "dest": "BANARAS",
+      "days": " 8 days",
+      "bud": "10000",
+      "user": "Priyanshu Agarwal"
     }
   ],
   "TOP_Destinations": [
@@ -191,21 +198,19 @@
       "id": "Akshat Singh"
     }
   ],
-  "package":[
+  "package": [
     {
-      "img":"Hawa_Mahal_Rajasthan",
-      "id":"The Maharaja Experience",
-      "head1":"A Romantic Rendezvous!!",
-      "description":"“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. Witness the grandeur of The Taj in Agra. Delve deep into Rajasthan’s most palatial Palace Hotels that make you feel no less than a King or a Queen."
-
+      "img": "Hawa_Mahal_Rajasthan",
+      "id": "The Maharaja Experience",
+      "head1": "A Romantic Rendezvous!!",
+      "description": "“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. Witness the grandeur of The Taj in Agra. Delve deep into Rajasthan’s most palatial Palace Hotels that make you feel no less than a King or a Queen."
     }
-
   ],
-  "menus" : [
+  "menus": [
     {
       "title": "The Essence",
-      "details":
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?"
+      "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+      "id": "503b"
     },
     {
       "title": "Itenirary",
@@ -245,25 +250,28 @@
           "dayDetails": "Barli to Delhi",
           "dayMoreDetails": "Barli to Delhi and check in to the hotel"
         }
-      ]
+      ],
+      "id": "441b"
     },
-    { "title": "Budget" },
+    {
+      "title": "Budget",
+      "id": "0fea"
+    },
     {
       "title": "Review",
       "details": [
         {
           "name": "John Doe",
-          "review":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+          "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
           "date": "2021-10-13"
         },
         {
           "name": "Jane Doe",
-          "review":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+          "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
           "date": "2021-10-13"
         }
-      ]
+      ],
+      "id": "a1af"
     }
   ]
 }
