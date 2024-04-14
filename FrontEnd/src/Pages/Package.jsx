@@ -92,9 +92,9 @@ function Package() {
   const [itinerayDetails, setItineraryDetails] = React.useState(false);
   const items = ["The Essence", "Itinerary", "Review", "Info"];
 
-  useEffect(() => {
-    setSelectedMenu(items[0]);
-  }, [items]);
+  // useEffect(() => {
+  //   setSelectedMenu(items[0]);
+  // }, [items]);
 
   useEffect(() => {
     if (menu && !menu_isPending && !menu_Error) {
@@ -237,7 +237,7 @@ function Package() {
         </center>
       </div>
 
-      <div className="mb-8 text-white">{id}</div>
+      <div className="mb-20 text-white">{id}</div>
 
       {!menu && (
         <div className="w-full bg-red-800 h-auto flex flex-row mt-3 mb-20  ">
