@@ -190,5 +190,80 @@
       "review": "Great Site! Loved it",
       "id": "Akshat Singh"
     }
+  ],
+  "package":[
+    {
+      "img":"Hawa_Mahal_Rajasthan",
+      "id":"The Maharaja Experience",
+      "head1":"A Romantic Rendezvous!!",
+      "description":"“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. Witness the grandeur of The Taj in Agra. Delve deep into Rajasthan’s most palatial Palace Hotels that make you feel no less than a King or a Queen."
+
+    }
+
+  ],
+  "menus" : [
+    {
+      "title": "The Essence",
+      "details":
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?"
+    },
+    {
+      "title": "Itenirary",
+      "details": [
+        {
+          "dayNo": "1",
+          "dayDetails": "Arrival at Delhi",
+          "dayMoreDetails": "Arrival at Delhi and check in to the hotel"
+        },
+        {
+          "dayNo": "2",
+          "dayDetails": "Delhi to Agra",
+          "dayMoreDetails": "Delhi to Agra and check in to the hotel"
+        },
+        {
+          "dayNo": "3",
+          "dayDetails": "Agra to Jaipur",
+          "dayMoreDetails": "Agra to Jaipur and check in to the hotel"
+        },
+        {
+          "dayNo": "4",
+          "dayDetails": "Jaipur to Udaipur",
+          "dayMoreDetails": "Jaipur to Udaipur and check in to the hotel"
+        },
+        {
+          "dayNo": "5",
+          "dayDetails": "Udaipur to Dungarpur",
+          "dayMoreDetails": "Udaipur to Dungarpur and check in to the hotel"
+        },
+        {
+          "dayNo": "6",
+          "dayDetails": "Dungarpur to Barli",
+          "dayMoreDetails": "Dungarpur to Barli and check in to the hotel"
+        },
+        {
+          "dayNo": "7",
+          "dayDetails": "Barli to Delhi",
+          "dayMoreDetails": "Barli to Delhi and check in to the hotel"
+        }
+      ]
+    },
+    { "title": "Budget" },
+    {
+      "title": "Review",
+      "details": [
+        {
+          "name": "John Doe",
+          "review":
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+          "date": "2021-10-13"
+        },
+        {
+          "name": "Jane Doe",
+          "review":
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+          "date": "2021-10-13"
+        }
+      ]
+    }
   ]
 }
