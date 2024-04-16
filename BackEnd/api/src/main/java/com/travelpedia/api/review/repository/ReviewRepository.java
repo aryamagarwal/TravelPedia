@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<ReviewModel , Long> {
     List<ReviewModel> findByExperienceExperienceId(Long experienceId);
-
+    ReviewModel findByReviewId(Long reviewId);
 }

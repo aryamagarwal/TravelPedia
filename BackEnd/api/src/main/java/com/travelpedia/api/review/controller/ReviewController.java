@@ -33,10 +33,17 @@ public class ReviewController {
         r.setReview(review);
         return rs.addReview(r);
     }
+
     @CrossOrigin(origins = "http://localhost:5173")
     @DeleteMapping("/delete/{reviewId}")
     public void deleteReview(@PathVariable("reviewId") Long reviewId) {
         rs.deleteReview(reviewId);
+    }
+
+    @CrossOrigin(origins = "http://localhost:5173")
+    @PutMapping("/update/{reviewId}")
+    public ReviewModel updateReview(@PathVariable("reviewId") Long reviewId, @RequestParam("username") String username, @RequestParam ("review") String review) {
+        return rs.updateReview(reviewId, username, review);
     }
 
 }

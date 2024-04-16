@@ -30,4 +30,12 @@ public class ReviewServiceImpl implements ReviewService{
     public void deleteReview(Long reviewId) {
         rr.deleteById(reviewId);
     }
+
+    @Override
+    public ReviewModel updateReview(Long reviewId, String username, String review) {
+        ReviewModel r=rr.findByReviewId(reviewId);
+        r.setUsername(username);
+        r.setReview(review);
+        return rr.save(r);
+    }
 }

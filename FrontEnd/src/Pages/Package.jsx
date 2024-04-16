@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 // import img from "../assets/video/video_bg.mp4";
 import img from "../assets/The-Maharaja-Experience.png";
+import { FaPencilAlt } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import img_specialist from "../assets/Akshat_singh.jpg";
 import {
@@ -71,6 +72,8 @@ function postReviewData(reviewData) {
 function Package() {
   const { user, isLoggedIn } = useContext(IsLoggedInContext);
   const [showReviewPopUp, setShowReviewPopUp] = useState(false);
+  const [updateReview, setUpdateReview] = useState(false);
+  const [updateReviewId, setUpdateReviewId] = useState(0);
   const [name, setName] = useState(isLoggedIn ? user.username : "");
   const [review, setReview] = useState("");
 
@@ -113,6 +116,36 @@ function Package() {
           setReviews(data)
       })
       } , [])
+      const handleUpdateReview = () => {
+        if (name && review) {
+          const data = {
+            reviewId: updateReviewId.toString(),
+            username: name,
+            review: review,
+          };
+          fetch("http://localhost:8085/reviews/update/"+data.reviewId, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              "username": data.username,
+              "review": data.review
+            }),
+          })
+            .then((response) => response.json())
+            .then(() => {
+              fetchReviewData(title).then((data)=>{setReviews(data); alert("Review Updated Successfully!")});
+              setShowReviewPopUp(!showReviewPopUp);
+              setName("");
+              setReview("");
+            })
+            .catch((error) => {
+              console.error("Error updating review data:", error);
+            });
+          
+        }
+      }
   const handleSubmitReview = () => {
     if (name && review) {
       const data = {
@@ -137,19 +170,19 @@ function Package() {
   }
   
 
-  const {
-    data: pack,
-    isPending,
-    Error,
-  } = useFetch("http://localhost:8000/package");
+  // const {
+  //   data: pack,
+  //   isPending,
+  //   Error,
+  // } = useFetch("http://localhost:8000/package");
 
-  const image = "../assets/" + id + ".png";
+  // const image = "../assets/" + id + ".png";
 
-  useEffect(() => {
-    if (pack) {
-    }
-  }, [pack]);
- const properties = "h-auto w-full justify-center bg-red-200 gap-5";
+  // useEffect(() => {
+  //   if (pack) {
+  //   }
+  // }, [pack]);
+//  const properties = "h-auto w-full justify-center bg-red-200 gap-5";
 
   return (
     <div>
@@ -476,12 +509,17 @@ function Package() {
                         <p>{ele.review}</p>
                         
                       </div>
+                      <div>
+                      <FaPencilAlt className="text-red-800 "
+                          onClick={() => { setShowReviewPopUp(!showReviewPopUp); setUpdateReview(true); setName(ele.username); setReview(ele.review); setUpdateReviewId(ele.reviewId) }
+                          }/>
                       <MdDelete className="text-red-800 " onClick={()=>{
                           deleteReviewData(ele.reviewId).then(()=>{
                             alert("Review Deleted Successfully!")
                             fetchReviewData(title).then((data)=>{
                               setReviews(data);
                           })})}} />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -524,8 +562,9 @@ function Package() {
                       onChange={(e) => handleReviewChange(e)}
                       value={review}
                     ></textarea>
-                    <button className="bg-blue-500 text-white rounded-md p-2" onClick={()=>handleSubmitReview()}>Submit</button>
+                   {updateReview ? <button className="bg-blue-500 text-white rounded-md p-2" onClick={()=>handleUpdateReview()}>Update</button> : <button className="bg-blue-500 text-white rounded-md p-2" onClick={()=>handleSubmitReview()}>Submit</button>} 
                   </div>
+                  
                   <button
                     className="text-red-500 font-bold"
                     onClick={()=>handleCancelReview()}>Close
