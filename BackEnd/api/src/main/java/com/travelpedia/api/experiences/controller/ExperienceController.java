@@ -24,18 +24,19 @@ public class ExperienceController {
         return es.createExperience(experience);
     }
     @GetMapping("/get/{title}")
-    public ExperienceModel getExperienceByTitle(@RequestParam("title") String title)
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ExperienceModel getExperienceByTitle(@PathVariable ("title") String title)
     {
         title=title.replace("-"," ");
         return es.getExperienceByTitle(title);
     }
     @PutMapping("/update/{id}")
-    public ExperienceModel updateExperience(@RequestParam("id") Long id, @RequestBody ExperienceModel experience)
+    public ExperienceModel updateExperience(@PathVariable("id") Long id, @RequestBody ExperienceModel experience)
     {
         return es.updateExperience(id,experience);
     }
     @DeleteMapping("/delete/{id}")
-    public void deleteExperience(@RequestParam("id") Long id){
+    public void deleteExperience(@PathVariable("id") Long id){
         es.deleteExperience(id);
     }
 }
