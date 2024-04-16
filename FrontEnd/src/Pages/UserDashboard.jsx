@@ -2,7 +2,7 @@ import React from "react";
 import Block from "../components/block";
 import avatar from "../assets/avatar.jpg";
 import { useState, useEffect } from "react";
-import useFetch from "../components/useFetch";
+import useFetch from "../components/useFetch.jsx";
 import { useParams } from "react-router-dom";
 import { FaCity } from "react-icons/fa";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
@@ -24,7 +24,7 @@ const UserDashboard = () => {
     data: data_dest,
     isPending,
     Error,
-  } = useFetch("http://localhost:8000/destinations");
+  } = useFetch("http://localhost:8085/trips");
 
   const {
     data: cityList,
@@ -47,7 +47,7 @@ const UserDashboard = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     data.user = id;
-    fetch("http://localhost:8000/destinations", {
+    fetch("http://localhost:8085/trips/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

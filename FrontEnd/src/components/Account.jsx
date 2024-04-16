@@ -2,7 +2,7 @@ import React from "react";
 import Block from "../components/block";
 import avatar from "../assets/avatar.jpg";
 import { useState, useEffect } from "react";
-import useFetch from "../components/useFetch";
+import useFetch from "./useFetch.jsx";
 import { useParams } from "react-router-dom";
 import { FaCity } from "react-icons/fa";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
