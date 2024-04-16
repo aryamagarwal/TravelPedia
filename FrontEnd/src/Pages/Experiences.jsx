@@ -59,6 +59,7 @@ const Experiences = () => {
   } = useFetch("http://localhost:8085/experiences/all");
   const [items , setItems]=useState([]);
   useEffect(()=>{
+    console.log(detail!=null ? detail : null);
     let list = detail!=null ? detail.map((ex) => {
       return ex.region;
     }) : [];
