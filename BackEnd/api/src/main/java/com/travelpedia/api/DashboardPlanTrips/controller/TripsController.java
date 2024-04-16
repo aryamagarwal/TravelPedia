@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.travelpedia.api.DashboardPlanTrips.Trips;
+import com.travelpedia.api.DashboardPlanTrips.model.Trips;
 import com.travelpedia.api.DashboardPlanTrips.repository.TripsRepository;
+import com.travelpedia.api.DashboardPlanTrips.service.TripsServiceImpl;
+import com.travelpedia.api.experiences.service.ExperienceService;
 
 
 
@@ -24,6 +26,8 @@ import com.travelpedia.api.DashboardPlanTrips.repository.TripsRepository;
 public class TripsController {
 	@Autowired
 	TripsRepository repo;
+	@Autowired
+	TripsServiceImpl es;
 	@CrossOrigin(origins = "http://localhost:5173")
 	
 	@GetMapping("/trips")
@@ -32,12 +36,14 @@ public class TripsController {
 		return trips;
 		
 	}
+	
 	@CrossOrigin(origins = "http://localhost:5173")
 	@GetMapping("trips/{id}")
 	public Trips getTrip(@PathVariable int id) {
 		Trips trips=repo.findById(id).get();
 		return trips;
 	}
+	
 	@CrossOrigin(origins = "http://localhost:5173")
 	@PostMapping("/trips/add")
 	@ResponseStatus(code=HttpStatus.CREATED)
@@ -45,24 +51,21 @@ public class TripsController {
 		repo.save(trips);
 		
 	}
+	
 	@CrossOrigin(origins = "http://localhost:5173")
-	@PutMapping("/trips/update")
-	public void updateTrip(@RequestBody Trips trips) {
-		repo.save(trips);
-		
+	@PutMapping("/trips/update/{id}")
+	public Trips updateTrip(@PathVariable("id") Long id,@RequestBody Trips trips) {
+		return es.updateTrip(id,trips);
 	}
+	
 	@CrossOrigin(origins = "http://localhost:5173")
 	@DeleteMapping("/trips/delete/{id}")
 	public void deleteTrip(@PathVariable int id) {
 		Trips trip=repo.findById(id).get();
 		repo.delete(trip);
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }
+
+
+
+
