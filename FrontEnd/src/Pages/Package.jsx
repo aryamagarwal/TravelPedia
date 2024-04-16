@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import useFetch from "../components/useFetch";
+import useFetch from "../components/useFetch.jsx";
 import { useParams , useNavigate} from "react-router-dom";
+
 // import img from "../assets/video/video_bg.mp4";
 import img from "../assets/The-Maharaja-Experience.png";
 import { FaStar } from "react-icons/fa";
