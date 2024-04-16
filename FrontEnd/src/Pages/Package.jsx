@@ -23,9 +23,9 @@ function Package() {
 
   const [selectedMenu, setSelectedMenu] = React.useState();
   const [itinerayDetails, setItineraryDetails] = React.useState(false);
-  const menu = ["The Essence", "Itinerary", "Budget" , "Review", "Info"];
-  const [detail , setDetail] = useState ([]);
-  
+  const menu = ["The Essence", "Itinerary", "Budget", "Review", "Info"];
+  const [detail, setDetail] = useState([]);
+
   useEffect(() => {
     if (load_detail && !detail_isPending && !detail_Error) {
       setSelectedMenu(menu[0]);
@@ -54,7 +54,7 @@ function Package() {
 
   return (
     <div>
-      {/* <div className=" relative h-screen">
+      <div className=" ">
         <div
           className="item text-center align-items-end bg-cover h-4/6"
           style={{
@@ -77,97 +77,93 @@ function Package() {
             </div>
           </div>
         </div>
-        <center>
-          <div className="flex flex-row">
-            <div className=" absolute  mt-20 top-1/2  ">
-              <div className="flex flex-row">
-                <div className="bg-red-800 w-3/5 h-1/5 ml-40  text-white rounded-lg ">
-                  <div className="mr-48 text-2xl font-bold mt-8 text-left ml-4">
-                    A Romantic Rendezvous!!
+        <div className="w-full flex flex-col justify-center items-center">
+        <div className="flex flex-row relative w-2/3 justify-center h-auto gap-10 -top-14">
+          <div className="bg-red-800  text-white rounded-lg p-5">
+              <div className="text-2xl font-bold w-full m-4 text-center ">
+                A Romantic Rendezvous!!
+              </div>
+              <p className="text-left  text-xl mb-12 ">
+                “THE MAHARAJA EXPERIENCE”, is a splendid Golden tour,
+                through which Indian Experience offers you a romantic escape
+                into the lap of luxury, to let you create memories for life.
+                An Indulgence to explore the exotic ends of the world and
+                break away from the ordinary. Witness the grandeur of The
+                Taj in Agra. Delve deep into Rajasthan’s most palatial
+                Palace Hotels that make you feel no less than a King or a
+                Queen.
+              </p>
+              <div className="flex justify-evenly ">
+                <div className="flex-col justify-center">
+                  <div className="text-xl tracking-wide font-bold">
+                    Art & Culture
                   </div>
-                  <p className="mt-4 text-left ml-8 text-xl mb-12 ">
-                    “THE MAHARAJA EXPERIENCE”, is a splendid Golden tour,
-                    through which Indian Experience offers you a romantic escape
-                    into the lap of luxury, to let you create memories for life.
-                    An Indulgence to explore the exotic ends of the world and
-                    break away from the ordinary. Witness the grandeur of The
-                    Taj in Agra. Delve deep into Rajasthan’s most palatial
-                    Palace Hotels that make you feel no less than a King or a
-                    Queen.
-                  </p>
-                  <div className="flex justify-evenly ">
-                    <div className="flex-col justify-center">
-                      <div className="text-xl tracking-wide font-bold">
-                        Art & Culture
-                      </div>
-                      <div className="flex mb-4">
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                      </div>
-                    </div>
-                    <div className="flex-col justify-center align-middle">
-                      <div className="text-xl tracking-wide font-bold">
-                        OffBeat Experience
-                      </div>
-                      <center>
-                        <div className="flex mb-4 ml-8">
-                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                          <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        </div>
-                      </center>
-                    </div>
-                    <div className="flex-col">
-                      <div className="text-xl tracking-wide font-bold">
-                        Nature Observation
-                      </div>
-
-                      <div className="flex mb-4 ml-8">
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                        <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
-                      </div>
-                    </div>
+                  <div className="flex mb-4">
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
                   </div>
                 </div>
-                <div className="bg-red-800 w-1/5 h-1/5 ml-8 text-white rounded-lg">
-                  <div className="tracking-widest mt-8 font-bold text-2xl">
-                    YOUR SPECIALIST
+                <div className="flex-col justify-center align-middle">
+                  <div className="text-xl tracking-wide font-bold">
+                    OffBeat Experience
                   </div>
-                  <div className="flex justify-start">
-                    <div className="h-48 w-28 ml-8 ">
-                      <img
-                        className="pt-12 w-28 h-48 rounded-lg"
-                        src={img_specialist}
-                        alt="img"
-                      />
+                  <center>
+                    <div className="flex mb-4 ml-8">
+                      <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                      <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                      <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                      <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                      <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
                     </div>
+                  </center>
+                </div>
+                <div className="flex-col">
+                  <div className="text-xl tracking-wide font-bold">
+                    Nature Observation
+                  </div>
 
-                    <div className="mr-12 mt-12 ml-4">
-                      <div className="mt-8 text-xl font-semibold ">
-                        Akshat Singh
-                      </div>
-                      <div className="mt-2 text-lg">0091-8587902207 </div>
-                      <div className="mt-2 text-lg">PRICE:2000 per trip</div>
-                      <div className="w-full mt-4"></div>
-                    </div>
+                  <div className="flex mb-4 ml-8">
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
+                    <div className="bg-[url('https://www.indianexperience.com/front/images/flower-icon.png')] h-6 w-6"></div>
                   </div>
-                  <button className="bg-yellow-500 mt-12 w-11/12 font-bold text-2xl pb-3 pt-3 mb-5 rounded-lg ">
-                    BOOK NOW
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </center>
-      </div> */}
+            <div className="bg-red-800 flex flex-col items-center  text-white rounded-lg ">
+              <div className="tracking-widest mt-8 text-center font-bold text-2xl">
+                YOUR SPECIALIST
+              </div>
+              <div className="flex justify-start">
+                <div className="h-48 w-28 ml-8 ">
+                  <img
+                    className="pt-12 w-28 h-48 rounded-lg"
+                    src={img_specialist}
+                    alt="img"
+                  />
+                </div>
+
+                <div className="mr-12 mt-12 ml-4">
+                  <div className="mt-8 text-xl font-semibold ">
+                    Akshat Singh
+                  </div>
+                  <div className="mt-2 text-lg">0091-8587902207</div>
+                  <div className="mt-2 text-lg">PRICE:2000 per trip</div>
+                  <div className="w-full mt-4"></div>
+                </div>
+              </div>
+              <button className="bg-yellow-500 mt-12 w-11/12 font-bold text-2xl pb-3 pt-3 mb-5 rounded-lg ">
+                BOOK NOW
+              </button>
+            </div>
+        </div>
+        </div>
+      </div>
 
       <div className="w-full bg-red-800 h-auto flex flex-row mt-3  ">
         {menu.map((item, index) => (
@@ -178,7 +174,7 @@ function Package() {
                 ? "text-white p-4 hover:bg-red-600 bg-red-600 font-bold"
                 : "text-white p-4 hover:bg-red-700 font-bold"
             }
-            onClick={()=>{setSelectedMenu(item)}}
+            onClick={() => { setSelectedMenu(item) }}
           >
             {item}
           </button>
@@ -193,7 +189,7 @@ function Package() {
           >
             <div className="flex flex-col w-full text-red-900 text-2xl m-5 mr-0">
               {selectedMenu === menu[0] ? detail.description : null}
-              {selectedMenu === menu[1]? (
+              {selectedMenu === menu[1] ? (
                 <div>
                   <iframe
                     className="m-3 mb-6"
@@ -241,7 +237,7 @@ function Package() {
                   </ul>
                 </div>
               ) : null}
-              {selectedMenu === menu[2]? (
+              {selectedMenu === menu[2] ? (
                 <div>
                   <div className="text-xl">
                     <div class="w-full flex flex-row gap-8 p-5">
@@ -401,6 +397,6 @@ function Package() {
     </div>
   )
 
-    
+
 }
 export default Package;
