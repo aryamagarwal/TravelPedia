@@ -251,12 +251,12 @@
       ],
       "review" : [
         {
-          "name": "John Doe",
+          "username": "John Doe",
           "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
           "date": "2021-10-13"
         },
         {
-          "name": "Jane Doe",
+          "username": "Jane Doe",
           "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
           "date": "2021-10-13"
         }

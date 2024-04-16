@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import useFetch from "../components/useFetch";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate} from "react-router-dom";
 // import img from "../assets/video/video_bg.mp4";
 import img from "../assets/The-Maharaja-Experience.png";
 import { FaStar } from "react-icons/fa";
@@ -13,28 +13,42 @@ import {
   AiOutlineMinusCircle,
 } from "react-icons/ai";
 function Package() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const title = id.split("-").join(" ");
   const {
     data: load_detail,
     detail_isPending,
     detail_Error,
-  } = useFetch("http://localhost:8000/experience");
+  } = useFetch("http://localhost:8085/experiences/get/"+title);
 
   const [selectedMenu, setSelectedMenu] = React.useState();
   const [itinerayDetails, setItineraryDetails] = React.useState(false);
   const menu = ["The Essence", "Itinerary", "Budget", "Review", "Info"];
   const [detail, setDetail] = useState([]);
-
+  const [reviews , setReviews] = useState([]);
   useEffect(() => {
     if (load_detail && !detail_isPending && !detail_Error) {
       setSelectedMenu(menu[0]);
-      console.log(load_detail[0]);
-      setDetail(load_detail[0]);
+      console.log(load_detail);
+      setDetail(load_detail);
     }
   }, [load_detail, detail_isPending, detail_Error]);
+  
+  const {
+    data: load_reviews,
+    reviews_isPending,
+    reviews_Error,
+  } = useFetch("http://localhost:8085/reviews/"+title);
 
-  console.log(title);
+  useEffect(()=>{
+     if(load_reviews && !reviews_isPending && !reviews_Error){
+       setReviews(load_reviews);
+       console.log(reviews);
+     }
+  } , [load_reviews])
+
+
   const {
     data: pack,
     isPending,
@@ -212,7 +226,7 @@ function Package() {
                     )}
                     Details
                   </button>
-                  <ul>
+                  {/* <ul>
                     {detail.itenirary.map((day, index) => (
                       <li key={index}>
                         <div className="flex flex-row gap-3 h-full items-center">
@@ -234,7 +248,7 @@ function Package() {
                         </div>
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
                 </div>
               ) : null}
               {selectedMenu === menu[2] ? (
@@ -352,20 +366,20 @@ function Package() {
               {selectedMenu === menu[3] ? (
                 <div className="flex flex-col justify-center items-center ">
                   <h1 className="font-bold text-3xl">
-                    {detail.review.length} Reviews
+                    {reviews.length} Reviews
                   </h1>
-                  {detail.review.map((ele, index) => (
+                  {reviews.map((ele, index) => (
                     <div
                       key={index}
-                      className="w-3/4 flex flex-row items-center gap-8 justify-center"
+                      className="w-full flex flex-row items-center gap-8 justify-center "
                     >
-                      <div className="w-1/2 flex flex-col justify-center">
+                    <div className="w-1/2 flex flex-col justify-center text-center">
                         <img className="rounded-full" src="" alt="" />
-                        <h4 className="font-bold">{ele.name}</h4>
+                        <h4 className="font-bold">{ele.username}</h4>
                       </div>
-                      <div className="p-8">
+                      <div className=" w-1/2 p-8">
                         <h5 className="font-bold text-xl m-1">
-                          {ele.date}
+                          {ele.creationDate.split("T")[0]}
                         </h5>
                         <p>{ele.review}</p>
                       </div>
@@ -386,7 +400,7 @@ function Package() {
                   </p>
                 </div>
                 <div className="bg-red-800 w-4/6 flex flex-col my-4 justify-center items-center p-5">
-                  <AiOutlineMail className="text-6xl" />
+                  <AiOutlineMail className="text-6xl cursor-pointer" onClick={()=>{navigate('../contactUs')}}/>
                   <p> Need Help?</p>
                 </div>
               </div>
