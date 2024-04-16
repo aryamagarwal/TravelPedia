@@ -1,54 +1,141 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import useFetch from "../components/useFetch.jsx";
-import { useParams , useNavigate} from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { MdDelete } from "react-icons/md";
 // import img from "../assets/video/video_bg.mp4";
 import img from "../assets/The-Maharaja-Experience.png";
 import { FaStar } from "react-icons/fa";
 import img_specialist from "../assets/Akshat_singh.jpg";
-
 import {
   AiOutlineMail,
   AiOutlinePlusCircle,
   AiOutlineMinusCircle,
 } from "react-icons/ai";
+import { IsLoggedInContext } from "../App.jsx";
+function deleteReviewData(reviewId) {
+  return new Promise((resolve, reject) => {
+    fetch("http://localhost:8085/reviews/delete/"+reviewId, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete review");
+        }
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+const fetchExperienceData = (title) => {
+  return new Promise((resolve, reject) => {
+    fetch("http://localhost:8085/experiences/get/"+title)
+    .then((response) => response.json())
+    .then((data) => { resolve(data)})
+    .catch((error) => reject(error));
+  });
+};
+const fetchReviewData = (title) => {
+    return new Promise((resolve, reject) => {
+    fetch("http://localhost:8085/reviews/" + title)
+        .then((response) => response.json())
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
+    });
+  };
+function postReviewData(reviewData) {
+  return new Promise((resolve, reject) => {
+    fetch("http://localhost:8085/reviews/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        "experienceId": reviewData.experienceId,
+        "username": reviewData.username,
+        "review": reviewData.review
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
 function Package() {
+  const { user, isLoggedIn } = useContext(IsLoggedInContext);
+  const [showReviewPopUp, setShowReviewPopUp] = useState(false);
+  const [name, setName] = useState(isLoggedIn ? user.username : "");
+  const [review, setReview] = useState("");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleReviewChange = (e) => {
+    setReview(e.target.value);
+  };
+  const handleCancelReview = () => {
+    setShowReviewPopUp(!showReviewPopUp)
+    setName("");
+    setReview("");
+  };
   const navigate = useNavigate();
   const { id } = useParams();
   const title = id.split("-").join(" ");
-  const {
-    data: load_detail,
-    detail_isPending,
-    detail_Error,
-  } = useFetch("http://localhost:8085/experiences/get/"+title);
-
-  const [selectedMenu, setSelectedMenu] = React.useState();
-  const [itinerayDetails, setItineraryDetails] = React.useState(false);
   const menu = ["The Essence", "Itinerary", "Budget", "Review", "Info"];
-  const [detail, setDetail] = useState([]);
-  const [reviews , setReviews] = useState([]);
-  useEffect(() => {
-    if (load_detail && !detail_isPending && !detail_Error) {
-      setSelectedMenu(menu[0]);
-      console.log(load_detail);
-      setDetail(load_detail);
-    }
-  }, [load_detail, detail_isPending, detail_Error]);
-  
-  const {
-    data: load_reviews,
-    reviews_isPending,
-    reviews_Error,
-  } = useFetch("http://localhost:8085/reviews/"+title);
-
+  const [selectedMenu, setSelectedMenu] = React.useState(menu[0]);
+  const [itinerayDetails, setItineraryDetails] = React.useState(false);
+  const [detail, setDetail] = useState(null);
+  const [reviews, setReviews] = useState([]);
   useEffect(()=>{
-     if(load_reviews && !reviews_isPending && !reviews_Error){
-       setReviews(load_reviews);
-       console.log(reviews);
-     }
-  } , [load_reviews])
-
+// axios.get("http://localhost:8085/experiences/get/" + title )
+//             .then((response) => {
+//                 const data = response.data;
+//                 setDetail(data);
+//             });
+  //   fetch("http://localhost:8085/experiences/get/" + title)
+  //       .then((response) => response.json())
+  //       .then((data) => setDetail(data))
+  //       .catch((error) => console.log(error))
+  // fetch("http://localhost:8085/reviews/" + title)
+  //       .then((response) => response.json())
+  //       .then((data) => setReviews(data))
+  //       .catch((error) => console.log(error))
+      fetchExperienceData(title).then((data)=>{setDetail(data)})
+      fetchReviewData(title).then((data)=>{
+          setReviews(data)
+      })
+      } , [])
+  const handleSubmitReview = () => {
+    if (name && review) {
+      const data = {
+        experienceId: detail ? detail.experienceId.toString() : "0",
+        username: name,
+        review: review,
+      };
+      postReviewData(data)
+        .then(() => {
+          fetchReviewData(title).then((data)=>{
+            setReviews(data);
+          });
+          setShowReviewPopUp(!showReviewPopUp);
+          setName("");
+          setReview("");
+        })
+        .catch((error) => {
+          console.error("Error posting review data:", error);
+        });
+      
+    }
+  }
+  
 
   const {
     data: pack,
@@ -62,13 +149,11 @@ function Package() {
     if (pack) {
     }
   }, [pack]);
-
-  // const img_display = require("../assets/" + img);
-
-  const properties = "h-auto w-full justify-center bg-red-200 gap-5";
+ const properties = "h-auto w-full justify-center bg-red-200 gap-5";
 
   return (
     <div>
+      
       <div className=" ">
         <div
           className="item text-center align-items-end bg-cover h-4/6"
@@ -93,8 +178,8 @@ function Package() {
           </div>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
-        <div className="flex flex-row relative w-2/3 justify-center h-auto gap-10 -top-14">
-          <div className="bg-red-800  text-white rounded-lg p-5">
+          <div className="flex flex-row relative w-2/3 justify-center h-auto gap-10 -top-14">
+            <div className="bg-red-800  text-white rounded-lg p-5">
               <div className="text-2xl font-bold w-full m-4 text-center ">
                 A Romantic Rendezvous!!
               </div>
@@ -176,7 +261,7 @@ function Package() {
                 BOOK NOW
               </button>
             </div>
-        </div>
+          </div>
         </div>
       </div>
 
@@ -202,6 +287,7 @@ function Package() {
               "flex flex-row"
             }
           >
+            
             <div className="flex flex-col w-full text-red-900 text-2xl m-5 mr-0">
               {selectedMenu === menu[0] ? detail.description : null}
               {selectedMenu === menu[1] ? (
@@ -369,21 +455,33 @@ function Package() {
                   <h1 className="font-bold text-3xl">
                     {reviews.length} Reviews
                   </h1>
+                  {(isLoggedIn || !isLoggedIn) ? (
+                    <div>
+                      <button className="bg-yellow-500 mt-12 w-11/12 font-bold text-2xl pb-3 pt-3 mb-5 rounded-lg " onClick={() => { setShowReviewPopUp(!showReviewPopUp) }}>Add Review</button>
+                    </div>
+                  ) : null}
                   {reviews.map((ele, index) => (
                     <div
                       key={index}
-                      className="w-full flex flex-row items-center gap-8 justify-center "
+                      className="w-full flex flex-row items-center justify-center "
                     >
-                    <div className="w-1/2 flex flex-col justify-center text-center">
+                  <div className=" w-1/3 flex flex-col justify-center ">
                         <img className="rounded-full" src="" alt="" />
                         <h4 className="font-bold">{ele.username}</h4>
                       </div>
-                      <div className=" w-1/2 p-8">
+                      <div className=" w-1/3 p-8">
                         <h5 className="font-bold text-xl m-1">
                           {ele.creationDate.split("T")[0]}
                         </h5>
                         <p>{ele.review}</p>
+                        
                       </div>
+                      <MdDelete className="text-red-800 " onClick={()=>{
+                          deleteReviewData(ele.reviewId).then(()=>{
+                            alert("Review Deleted Successfully!")
+                            fetchReviewData(title).then((data)=>{
+                              setReviews(data);
+                          })})}} />
                     </div>
                   ))}
                 </div>
@@ -401,7 +499,7 @@ function Package() {
                   </p>
                 </div>
                 <div className="bg-red-800 w-4/6 flex flex-col my-4 justify-center items-center p-5">
-                  <AiOutlineMail className="text-6xl cursor-pointer" onClick={()=>{navigate('../contactUs')}}/>
+                  <AiOutlineMail className="text-6xl cursor-pointer" onClick={() => { navigate('../contactUs') }} />
                   <p> Need Help?</p>
                 </div>
               </div>
@@ -409,6 +507,32 @@ function Package() {
           </div>
         </div>
       )}
+      {showReviewPopUp && (
+              <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50">
+                <div className="bg-white p-4 w-1/2 h-1/2 rounded-lg flex flex-col justify-center">
+                  <div className="flex flex-col">
+                    <input
+                      type="text"
+                      placeholder="Enter your name"
+                      className="border border-gray-300 rounded-md p-2 mb-2"
+                      onChange={(e) => handleNameChange(e)}
+                      value={name}
+                    />
+                    <textarea
+                      placeholder="Enter your review"
+                      className="border border-gray-300 rounded-md p-2 mb-2"
+                      onChange={(e) => handleReviewChange(e)}
+                      value={review}
+                    ></textarea>
+                    <button className="bg-blue-500 text-white rounded-md p-2" onClick={()=>handleSubmitReview()}>Submit</button>
+                  </div>
+                  <button
+                    className="text-red-500 font-bold"
+                    onClick={()=>handleCancelReview()}>Close
+                  </button>
+                </div>
+              </div>
+            )}
     </div>
   )
 

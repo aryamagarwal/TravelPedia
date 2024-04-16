@@ -23,17 +23,17 @@ public class ReviewController {
         Long id=es.getExperienceByTitle(Title).getExperienceId();
         return rs.getByExperienceId(id);
     }
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/add")
     public ReviewModel addReview(@RequestParam("experienceId") Long experienceId  , @RequestParam ("username") String username , @RequestParam("review") String review) {
-        ExperienceModel ex=es.getExperience(experienceId);
+        ExperienceModel ex=es.getExperience(experienceId );
         ReviewModel r=new ReviewModel();
         r.setExperience(ex);
         r.setUsername(username);
         r.setReview(review);
         return rs.addReview(r);
     }
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @DeleteMapping("/delete/{reviewId}")
     public void deleteReview(@PathVariable("reviewId") Long reviewId) {
         rs.deleteReview(reviewId);
