@@ -206,15 +206,13 @@
       "description": "“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. Witness the grandeur of The Taj in Agra. Delve deep into Rajasthan’s most palatial Palace Hotels that make you feel no less than a King or a Queen."
     }
   ],
-  "menus": [
+  "location" : "hello" , 
+  "experience": [
     {
-      "title": "The Essence",
-      "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
-      "id": "503b"
-    },
-    {
-      "title": "Itenirary",
-      "details": [
+      "title" : "The Maharaja Experience",
+      "description": "Welcome",
+      "location" : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652225.8017124156!2d73.8783471!3d26.62840795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396a3efaf7e30e37%3A0xb52b9b4506c088e5!2sRajasthan!5e0!3m2!1sen!2sin!4v1713244183951!5m2!1sen!2sin" ,
+       "itenirary" :  [
         {
           "dayNo": "1",
           "dayDetails": "Arrival at Delhi",
@@ -251,15 +249,7 @@
           "dayMoreDetails": "Barli to Delhi and check in to the hotel"
         }
       ],
-      "id": "441b"
-    },
-    {
-      "title": "Budget",
-      "id": "0fea"
-    },
-    {
-      "title": "Review",
-      "details": [
+      "review" : [
         {
           "name": "John Doe",
           "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
@@ -270,8 +260,7 @@
           "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
           "date": "2021-10-13"
         }
-      ],
-      "id": "a1af"
+      ]
     }
   ]
 }

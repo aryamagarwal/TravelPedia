@@ -12,7 +12,7 @@ import java.util.List;
 public class ExperienceController {
     @Autowired
     ExperienceService es;
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/all")
     public List<ExperienceModel> getAllExperiences()
     {
@@ -24,18 +24,18 @@ public class ExperienceController {
         return es.createExperience(experience);
     }
     @GetMapping("/get/{title}")
-    public ExperienceModel getExperiencebyTitle(@RequestParam("title") String title)
+    public ExperienceModel getExperienceByTitle(@RequestParam("title") String title)
     {
         title=title.replace("-"," ");
         return es.getExperienceByTitle(title);
     }
     @PutMapping("/update/{id}")
-    public ExperienceModel updateExperience(@RequestParam("id") String id, @RequestBody ExperienceModel experience)
+    public ExperienceModel updateExperience(@RequestParam("id") Long id, @RequestBody ExperienceModel experience)
     {
         return es.updateExperience(id,experience);
     }
     @DeleteMapping("/delete/{id}")
-    public void deleteExperience(@RequestParam("id") String id){
+    public void deleteExperience(@RequestParam("id") Long id){
         es.deleteExperience(id);
     }
 }

@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ExperienceModel {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private String experienceId;
+    private long experienceId;
     @Column(unique = true, nullable = false)
     private String title;
     @Column(nullable = false)

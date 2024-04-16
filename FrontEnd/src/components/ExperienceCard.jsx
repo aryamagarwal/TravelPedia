@@ -8,12 +8,12 @@ const ExperienceCard = (props) => {
     return (
         <div className="flex flex-row shadow-md rounded-md w-auto p-3 items-center m-9 bg-red-200">
             <div className="h-60 flex items-center" >
-                <img className="w-full h-full" src={props.details.img} alt="img" />
+                <img className="w-full h-full" src={props.details.imageUrl} alt="img" />
             </div>
             <div className="details flex flex-row gap-8 p-3">
                 <div className="flex flex-col border-r-2 border-white border-solid">
                     <div className="font-bold text-2xl mx-2 ">
-                        {props.details.name}
+                        {props.details.title}
                     </div>
                     <div >
                         {props.details.description}
@@ -30,7 +30,7 @@ const ExperienceCard = (props) => {
                 </div>
                 <div className=" w-full text-center ">
                 <button className="text-center p-2" onClick={()=>{
-                    const str=props.details.name.split(' ').join('-');
+                    const str=props.details.title.split(' ').join('-');
                     navigate(`/package/${str}`);
 
                 }}><FaRegArrowAltCircleRight className=' hover:text-red-600 text-red-800 text-3xl'/></button>

@@ -17,7 +17,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public ExperienceModel getExperience(String id) {
+    public ExperienceModel getExperience(Long id) {
         return er.findByExperienceId(id);
     }
 
@@ -37,7 +37,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public ExperienceModel updateExperience(String id, ExperienceModel experience) {
+    public ExperienceModel updateExperience(Long id, ExperienceModel experience) {
         ExperienceModel old=er.findByExperienceId(id);
         old.setTitle(experience.getTitle());
         old.setDescription(experience.getDescription());
@@ -50,7 +50,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public void deleteExperience(String id) {
+    public void deleteExperience(Long id) {
         er.deleteById(id);
     }
 }

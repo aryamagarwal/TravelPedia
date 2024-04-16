@@ -3,61 +3,71 @@ import Block from "../components/block";
 import trial from "../assets/slide1.jpg";
 import ExperienceCard from "../components/ExperienceCard";
 import bgVideo from "../assets/video/video_bg.mp4";
-
+import useFetch from "../components/useFetch";
 const Experiences = () => {
-  const detail = [
-    {
-      name: "The Maharaja Experience",
-      description:
-        "“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. ",
-      region: "Rajasthan",
-      img: trial,
-      days: "5",
-      amount: "1800",
-    },
-    {
-      name: "xyz",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
-      region: "South India",
-      img: trial,
-      days: "5",
-      amount: "1800",
-    },
-    {
-      name: "xyz",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
-      region: "UP",
-      img: trial,
-      days: "5",
-      amount: "1800",
-    },
-    {
-      name: "xyz",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
-      region: "Himalya",
-      img: trial,
-      days: "5",
-      amount: "1800",
-    },
-    {
-      name: "xyz",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
-      region: "Kerala",
-      img: trial,
-      days: "5",
-      amount: "1800",
-    },
-  ];
+  // const detail = [
+  //   {
+  //     name: "The Maharaja Experience",
+  //     description:
+  //       "“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. ",
+  //     region: "Rajasthan",
+  //     img: trial,
+  //     days: "5",
+  //     amount: "1800",
+  //   },
+  //   {
+  //     name: "xyz",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
+  //     region: "South India",
+  //     img: trial,
+  //     days: "5",
+  //     amount: "1800",
+  //   },
+  //   {
+  //     name: "xyz",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
+  //     region: "UP",
+  //     img: trial,
+  //     days: "5",
+  //     amount: "1800",
+  //   },
+  //   {
+  //     name: "xyz",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
+  //     region: "Himalya",
+  //     img: trial,
+  //     days: "5",
+  //     amount: "1800",
+  //   },
+  //   {
+  //     name: "xyz",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, aut aliquam voluptatem excepturi, ipsa similique debitis modi quae dicta, hic iure placeat saepe. Distinctio doloribus temporibus impedit sunt deserunt soluta.",
+  //     region: "Kerala",
+  //     img: trial,
+  //     days: "5",
+  //     amount: "1800",
+  //   },
+  // ];
+  const {
+    data: detail,
+    isPending,
+    Error,
+  } = useFetch("http://localhost:8085/experiences/all");
+  const [items , setItems]=useState([]);
+  useEffect(()=>{
+    let list = detail!=null ? detail.map((ex) => {
+      return ex.region;
+    }) : [];
+    console.log(list);
+    setItems([...new Set(list)]);
+    console.log(items);
+  } , [detail]) 
 
-  let items = detail.map((ex) => {
-    return ex.region;
-  });
-  items = [...new Set(items)];
-  // console.log(items);
+ 
   const [statusList, setStatusList] = useState([]);
 
   const handleOnChange = (item) => {
@@ -177,7 +187,7 @@ const Experiences = () => {
             Destinations
           </div>
           <div className="list flex w-full flex-col">
-            {items.map((item, i) => (
+            {detail && items.map((item, i) => (
               <div
                 key={i}
                 className="flex flex-row gap-2 bg-red-800 text-white p-3 text-xl border-white border-solid border-2 w-full"
@@ -185,7 +195,7 @@ const Experiences = () => {
                 <input
                   className="accent-red-200"
                   type="checkbox"
-                  onChange={(e) => handleOnChange(item)}
+                  onChange={() => handleOnChange(item)}
                   checked={statusList.includes(item)}
                 />
                 <label key={i}>{item}</label>
@@ -311,7 +321,7 @@ const Experiences = () => {
           />
         </div>
         <div className="my-5 w-full flex flex-col">
-          {detail.map((item, i) =>
+          {detail && detail.map((item, i) =>
             (statusList.length === 0 || statusList.includes(item.region)) &&
             (parseInt(item.amount) <= amount || amount === 0) &&
             (parseInt(item.days) == dayCount || dayCount === 0) ? (
