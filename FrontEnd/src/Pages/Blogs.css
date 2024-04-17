@@ -1,0 +1,260 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #9c4343; /* Reddish background color */
+}
+
+.app-container {
+  width: 90%;
+  margin: auto;
+}
+
+.text3,
+.para,
+.date,
+.image,
+a {
+  font-family: cursive; /* Fancy font */
+  font-size: 20px; /* Adjust font size as needed */
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: red;
+}
+
+.navigation {
+  margin-top: 25px;
+  font-family: var(--font1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+}
+
+.nav-left span {
+  font-size: 35px;
+  padding-top: 10px;
+}
+
+.nav-left ul {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Change margin from left to right */
+  font-size: 22px;
+  padding-bottom: 23px;
+  justify-content: right;
+}
+
+.nav-left ul li {
+  list-style: none;
+  margin: 0 14px;
+  font-family: var(--font2);
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-left ul li a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.nav-left ul li a:hover {
+  color: red;
+  font-weight: bolder;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  margin-top: 32px;
+  padding: 9px;
+  position: relative;
+}
+
+.content::after {
+  content: "";
+  background-image: url("./img/blogimage1.jpg");
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  opacity: 0.15;
+  border-radius: 12px;
+}
+
+.content-left {
+  font-family: var(--font1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 49px;
+  z-index: 1;
+}
+
+.content-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-right img {
+  width: 300px; /* Adjust the width as needed */
+  height: 300px; /* Adjust the height as needed */
+  border: 2px solid black;
+  border-radius: 12px; /* Apply border radius for rounded shape */
+}
+
+.home-articles {
+  padding: 18px;
+  background-color: rgba(248, 239, 239, 0.5); /* Reddish background color */
+  margin-top: 23px;
+  position: relative;
+}
+
+.year-box {
+  position: absolute;
+  right: 0px;
+  top: 100px;
+  width: 234px;
+  height: 255px;
+  font-size: 18px;
+}
+
+.year-box div {
+  margin: 12px 0px;
+}
+
+.home-article {
+  display: flex;
+  margin: 25px;
+}
+
+.home-article img {
+  width: 300px; /* Adjust the width as needed */
+  height: 300px; /* Adjust the height as needed */
+  border: 2px solid black;
+  border-radius: 12px; /* Apply border radius for rounded shape */
+}
+
+.home-article-content {
+  align-self: center;
+  padding: 25px;
+}
+
+.home-article-content a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  padding: 0px;
+}
+
+#logo {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+  height: 60px;
+}
+
+.read-more-button {
+  display: block;
+  margin-top: 20px; /* Add a margin-top to create space */
+  margin-left: 130px; /* Maintain the same margin-left */
+  padding: 10px 20px;
+  background-color: brown; /* Change the color as needed */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.read-more-button:hover {
+  background-color: #150604; /* Darker shade of the primary color on hover */
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .content-left {
+    flex: 1;
+    margin-right: 20px; /* Add some space between content-left and content-right */
+  }
+
+  .content-right {
+    flex: 1;
+  }
+
+  .content-right img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .home-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .home-article {
+    flex-basis: calc(
+      33.3333% - 20px
+    ); /* Adjust based on the number of columns you want */
+    margin-bottom: 20px; /* Add some space between each card */
+  }
+
+  .read-more-button {
+    display: inline-block;
+  }
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 767px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .content-left,
+  .content-right {
+    width: 100%;
+    margin: 0;
+  }
+
+  .home-article {
+    flex-basis: calc(
+      50% - 20px
+    ); /* Adjust based on the number of columns you want */
+  }
+
+  .read-more-button {
+    margin-left: 0; /* Remove left margin for smaller screens */
+  }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+  .home-article {
+    flex-basis: 100%;
+  }
+}
