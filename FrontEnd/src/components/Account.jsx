@@ -26,41 +26,52 @@ const Account = () => {
     data: users,
     isPending,
     Error,
-  } = useFetch("http://localhost:8000/userData");
+  } = useFetch("http://localhost:8085/users");
 
   //   {users && users.map()}\
-
+  const [id2, setId2] = useState();
   const [email, setEmail] = useState();
   const [password, setPass] = useState();
-  const [name, setName] = useState();
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [userName, setuserName] = useState();
-  const [review, setReview] = useState("");
+  // const [name, setName] = useState();
+  const [firstname, setFirstName] = useState();
+  const [lastname, setLastName] = useState();
+  const [username, setuserName] = useState();
+  // const [review, setReview] = useState("");
   const [base, setBase] = useState(false);
 
-  const [firstname, lastname] = id.split(" ");
-  const usern = firstname.toLowerCase();
+  const [firstName, lastName] = id.split(" ");
+  const usern = firstName.toLowerCase();
 
   useEffect(() => {
     if (users) {
-      const user = users.find((user_db) => user_db.id === id);
+      const user = users.find(
+        (user_db) => user_db.firstname + " " + user_db.lastname === id,
+        // console.log("found"),
+        // console.log(user.firstname + " " + user.lastname === id),
+      );
+
       if (user) {
         setEmail(user.email);
+        console.log("user", user.email);
         setPass(user.password);
-        setName(user.id);
-        setFirstName(firstname);
-        setLastName(lastname);
-        setuserName(usern);
-        setReview(user.review);
+        console.log("user", user.password);
+        // setuserName(user.firstname + " " + user.lastname);
+        setFirstName(user.firstname);
+        console.log("user", user.firstname);
+        setLastName(user.lastname);
+        console.log("user", user.lastname);
+        setuserName(user.username);
+        console.log("user", user.username);
+        // setReview(user.review);
+        setId2(user.id);
       }
     }
   }, [users, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { userName, firstName, lastName, email, password, review };
-    fetch("http://localhost:8000/userData/" + id, {
+    const data = { username, firstname, lastname, email, password };
+    fetch("http://localhost:8085/users/update/" + id2, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -77,10 +88,12 @@ const Account = () => {
     console.log("button pressed logout");
     navigate(`/LogIn`);
   };
-  console.log(name);
+  console.log(firstname);
+  console.log(lastname);
+  console.log(username);
   console.log(email);
   console.log(password);
-  console.log(review);
+  // console.log(review);
 
   return (
     <>
@@ -133,8 +146,36 @@ const Account = () => {
                         type="text"
                         placeholder="Username"
                         required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={username}
+                        onChange={(e) => setuserName(e.target.value)}
+                      />
+                      <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
+                    </div>
+
+                    <div className="inputBox flex relative items-center my-3 h-12 w-full">
+                      <div className="pl-8 ">FirstName:</div>
+
+                      <input
+                        className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
+                        type="text"
+                        placeholder="FirstName"
+                        required
+                        value={firstname}
+                        onChange={(e) => setFirstName(e.target.value)}
+                      />
+                      <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
+                    </div>
+
+                    <div className="inputBox flex relative items-center my-3 h-12 w-full">
+                      <div className="pl-8 ">LastName:</div>
+
+                      <input
+                        className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
+                        type="text"
+                        placeholder="LastName"
+                        required
+                        value={lastname}
+                        onChange={(e) => setLastName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
@@ -164,7 +205,7 @@ const Account = () => {
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
-                    <div className="inputBox flex relative items-center my-3 mt-12 h-80 w-full">
+                    {/* <div className="inputBox flex relative items-center my-3 mt-12 h-80 w-full">
                       <div className="pl-8 h-80">Review:</div>
 
                       <textarea
@@ -173,7 +214,7 @@ const Account = () => {
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
                       ></textarea>
-                    </div>
+                    </div> */}
                     <center>
                       <div className="w-40 mt-4 mb-4">
                         <button
@@ -191,7 +232,7 @@ const Account = () => {
                     </center>
                   </form>
                 </div>
-                <div className="h-80 w-80 ml-40 mr-40 mt-40 flex flex-col">
+                <div className="h-80 w-80 ml-40 mr-40 mt-32 mb-40 flex flex-col">
                   <center>
                     {/* <div className="bg-red-800 text-white text-lg w-44 rounded-lg mt-8 mb-8">
                       Profile Picture
