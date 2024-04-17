@@ -2,11 +2,15 @@ import React from 'react'
 import { FaMoneyBill , FaRegArrowAltCircleRight } from "react-icons/fa";
 import { LuCalendarClock } from "react-icons/lu";
 import {useNavigate} from 'react-router-dom'
-
+import { MdDelete } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
 const ExperienceCard = (props) => {
     const navigate = useNavigate();
+    console.log(props);
     return (
-        <div className="flex flex-row shadow-md rounded-md w-auto p-3 items-center m-9 bg-red-200">
+        
+        <div className="flex flex-col w-full shadow-md rounded-md p-3 items-center m-9 bg-red-200">
+            <div className="flex flex-row rounded-md w-full ">
             <div className="h-60 flex items-center" >
                 <img className="w-full h-full" src={props.details.imageUrl} alt="img" />
             </div>
@@ -37,7 +41,11 @@ const ExperienceCard = (props) => {
             </div>
                 </div>
             </div>
-            
+            </div>
+            <span >
+           <button onClick={()=>{props.handleUpdateExperience(props.details)}}><FaRegEdit className='text-red-800 text-lg'/></button>
+           <button onClick={()=>{props.handleDeleteExperience(props.details.experienceId)}}><MdDelete className='text-red-800 text-lg mx-5'/></button>
+           </span>
         </div>
     )
 }

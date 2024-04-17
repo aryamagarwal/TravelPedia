@@ -38,4 +38,13 @@ public class ReviewServiceImpl implements ReviewService{
         r.setReview(review);
         return rr.save(r);
     }
+
+    @Override
+    public void deleteReviewByExperienceId(Long experienceId) {
+        List<ReviewModel> reviews=rr.findByExperienceExperienceId(experienceId);
+        for(ReviewModel r:reviews)
+        {
+            rr.delete(r);
+        }
+    }
 }

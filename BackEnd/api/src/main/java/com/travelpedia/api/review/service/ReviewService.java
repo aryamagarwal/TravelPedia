@@ -13,4 +13,5 @@ public interface ReviewService {
     public List<ReviewModel> getByExperienceId(Long id);
     public void deleteReview(Long reviewId);
     public ReviewModel updateReview(Long reviewId, String username, String review);
+    public void deleteReviewByExperienceId(Long experienceId);
 }

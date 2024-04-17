@@ -4,24 +4,158 @@ import trial from "../assets/slide1.jpg";
 import ExperienceCard from "../components/ExperienceCard";
 import bgVideo from "../assets/video/video_bg.mp4";
 import useFetch from "../components/useFetch.jsx";
+const fetchExperiences = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch("http://localhost:8085/experiences/all");
+      const data = await response.json();
+      resolve(data);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 const Experiences = () => {
-  const {
-    data: detail,
-    isPending,
-    Error,
-  } = useFetch("http://localhost:8085/experiences/all");
-  const [items , setItems]=useState([]);
-  useEffect(()=>{
-    console.log(detail!=null ? detail : null);
-    let list = detail!=null ? detail.map((ex) => {
+  const [addTitle , setAddTitle] = useState("");
+  const [addDescription , setAddDescription] = useState("");
+  const [addLocation , setAddLocation] = useState("");  
+  const [addImage , setAddImage] = useState("");
+  const [addRegion , setAddRegion] = useState("");
+  const [addAmount , setAddAmount] = useState();
+  const [addDays , setAddDays] = useState();
+  const [detail , setDetail] = useState(null);
+  const [items, setItems] = useState([]);
+  const [updateExperience , setUpdateExperience] = useState(false);
+  const [currentExperienceId , setCurrentExperienceId] = useState(null);
+  const resetData = () => {
+    setAddTitle("");
+    setAddDescription("");
+    setAddLocation("");
+    setAddImage("");
+    setAddRegion("");
+    setAddAmount();
+    setAddDays();
+    setShowAddExperience(false);
+    setUpdateExperience(false);
+  }
+  const handleUpdateExperience=(details)=>{
+    setCurrentExperienceId(details.experienceId);
+    setShowAddExperience(true);
+    setUpdateExperience(!updateExperience);
+    setAddTitle(details.title);
+    setAddDescription(details.description);
+    setAddLocation(details.location);
+    setAddImage(details.imageUrl);
+    setAddRegion(details.region);
+    setAddAmount(details.amount);
+    setAddDays(details.days);
+  }
+  const postUpdatedExperience = async () => {
+    if(confirm("Are you sure you want to update this experience?") === false) return;
+    try {
+      const response = await fetch("http://localhost:8085/experiences/update/"+currentExperienceId, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: addTitle,
+          description: addDescription,
+          location: addLocation,
+          imageUrl: addImage,
+          region: addRegion,
+          amount: addAmount,
+          days: addDays,
+        }),
+      });
+      if (response.ok) {
+        console.log("Experience updated successfully");
+        fetchExperiences().then((experiences) => {
+          setDetail(experiences);
+        });
+        resetData();
+      } else {
+        alert("Failed to update experience");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+  useEffect(() => {
+    fetchExperiences().then((experiences) => {
+      setDetail(experiences);
+    });
+  
+  } , [ ] )
+  useEffect(() => {
+    console.log(detail != null ? detail : null);
+    let list = detail != null ? detail.map((ex) => {
       return ex.region;
     }) : [];
     console.log(list);
     setItems([...new Set(list)]);
     console.log(items);
-  } , [detail]) 
+  }, [detail])
+  const handleAddExperience = async () => {
+    if(confirm("Are you sure you want to add this experience?") === false) return;
+    try {
+      const response = await fetch("http://localhost:8085/experiences/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: addTitle,
+          description: addDescription,
+          location: addLocation,
+          imageUrl: addImage,
+          region: addRegion,
+          amount: addAmount,
+          days: addDays,
+        }),
+      });
+      if (response.ok) {
+        console.log("New experience added successfully");
+        fetchExperiences().then((experiences) => {
+          setDetail(experiences);
+        });
+        // Reset the input fields
+        setShowAddExperience(false);
+        setAddTitle("");
+        setAddDescription("");
+        setAddLocation("");
+        setAddImage("");
+        setAddRegion("");
+        setAddAmount(0);
+        setAddDays(0);
+      } else {
+        alert("Failed to add new experience");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  const handleDeleteExperience = async (id) => {
+    if(confirm("Are you sure you want to delete this experience?") === false) return;
+    try {
+      const response = await fetch(`http://localhost:8085/experiences/delete/${id}`, {
+        method: "DELETE",
+      }); 
+      if (response.ok) {
+        console.log("Experience deleted successfully");
+        // Fetch experiences again
+        fetchExperiences().then((experiences) => {
+          setDetail(experiences);
+        });
+      } else {
+        alert("Failed to delete experience");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  const [showAddExperience, setShowAddExperience] = useState(false);
 
- 
   const [statusList, setStatusList] = useState([]);
 
   const handleOnChange = (item) => {
@@ -274,16 +408,94 @@ const Experiences = () => {
             onChange={handleEndDateChange}
           />
         </div>
-        <div className="my-5 w-full flex flex-col">
+        <div className="my-5 w-full flex flex-col items-center">
+          <button className="border-solid w-1/2 m-3 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
+
           {detail && detail.map((item, i) =>
             (statusList.length === 0 || statusList.includes(item.region)) &&
-            (parseInt(item.amount) <= amount || amount === 0) &&
-            (parseInt(item.days) == dayCount || dayCount === 0) ? (
-              <ExperienceCard key={i} details={item} />
+              (parseInt(item.amount) <= amount || amount === 0) &&
+              (parseInt(item.days) == dayCount || dayCount === 0) ? (
+              <ExperienceCard key={i} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
             ) : null,
           )}
         </div>
       </div>
+      {showAddExperience ? (
+        <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="w-1/3 bg-white p-5">
+            <div className="font-bold text-2xl text-center text-red-800">
+              {updateExperience ?" Update Experience" : "Add Experience" }
+            </div>
+            <div className="flex flex-col gap-5">
+              <input
+                type="text"
+                placeholder="Enter Title"
+                onChange={(e) => setAddTitle(e.target.value)}
+                value = {addTitle}
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              <input
+                type="text"
+                placeholder="Description"
+                onChange = {(e) => setAddDescription(e.target.value)}
+                value = {addDescription}
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              <input
+                type="text"
+                placeholder="Location URL"
+                onChange = {(e) => setAddLocation(e.target.value)}
+                value = {addLocation}
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                onChange = {(e) => setAddImage(e.target.value)}
+                value = {addImage}
+
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              <input
+                type="text"
+                placeholder="Region"
+                onChange = {(e) => setAddRegion(e.target.value)}
+                value = {addRegion}
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              <input
+                type="number"
+                placeholder="Amount"
+                onChange = {(e) => setAddAmount(e.target.value)}
+                value = {addAmount}
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              <input
+                type="number"
+                placeholder="Days"
+                onChange = {(e) => setAddDays(e.target.value)}
+                value = {addDays}
+                className="border-solid border-red-800 border-2 p-3"
+              />
+              {updateExperience? <button
+                className="border-solid border-red-800 border-2 p-3 text-red-800"
+                onClick={() => postUpdatedExperience()}
+              >
+                Update
+              </button> : 
+              <button
+                className="border-solid border-red-800 border-2 p-3 text-red-800"
+                onClick={() => handleAddExperience()}
+              >
+                Add
+              </button> }
+              <button className=" p-3 text-red-800" onClick={() => {resetData()}}>Close</button>
+            </div>
+
+          </div>
+        </div>
+      ) : null}
+
     </div>
   );
 };

@@ -2,6 +2,7 @@ package com.travelpedia.api.experiences.controller;
 
 import com.travelpedia.api.experiences.model.ExperienceModel;
 import com.travelpedia.api.experiences.service.ExperienceService;
+import com.travelpedia.api.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,15 +10,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/experiences")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ExperienceController {
     @Autowired
     ExperienceService es;
+    @Autowired
+    ReviewService er;
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/all")
     public List<ExperienceModel> getAllExperiences()
     {
         return es.getAllExperiences();
     }
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/create")
     public ExperienceModel createExperience(@RequestBody ExperienceModel experience)
     {
@@ -37,6 +42,7 @@ public class ExperienceController {
     }
     @DeleteMapping("/delete/{id}")
     public void deleteExperience(@PathVariable("id") Long id){
+        er.deleteReviewByExperienceId(id);
         es.deleteExperience(id);
     }
 }

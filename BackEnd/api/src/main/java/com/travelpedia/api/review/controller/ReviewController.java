@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reviews")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ReviewController {
 
     @Autowired
@@ -39,7 +40,10 @@ public class ReviewController {
     public void deleteReview(@PathVariable("reviewId") Long reviewId) {
         rs.deleteReview(reviewId);
     }
-
+    @DeleteMapping("/delete/{experienceId}")
+    public void deleteReviewByExperienceId(@PathVariable("experienceId") Long experienceId) {
+        rs.deleteReviewByExperienceId(experienceId);
+    }
     @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("/update/{reviewId}")
     public ReviewModel updateReview(@PathVariable("reviewId") Long reviewId, @RequestParam("username") String username, @RequestParam ("review") String review) {
