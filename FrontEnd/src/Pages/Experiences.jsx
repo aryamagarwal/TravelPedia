@@ -16,17 +16,17 @@ const fetchExperiences = () => {
   });
 };
 const Experiences = () => {
-  const [addTitle , setAddTitle] = useState("");
-  const [addDescription , setAddDescription] = useState("");
-  const [addLocation , setAddLocation] = useState("");  
-  const [addImage , setAddImage] = useState("");
-  const [addRegion , setAddRegion] = useState("");
-  const [addAmount , setAddAmount] = useState();
-  const [addDays , setAddDays] = useState();
-  const [detail , setDetail] = useState(null);
+  const [addTitle, setAddTitle] = useState("");
+  const [addDescription, setAddDescription] = useState("");
+  const [addLocation, setAddLocation] = useState("");
+  const [addImage, setAddImage] = useState("");
+  const [addRegion, setAddRegion] = useState("");
+  const [addAmount, setAddAmount] = useState();
+  const [addDays, setAddDays] = useState();
+  const [detail, setDetail] = useState(null);
   const [items, setItems] = useState([]);
-  const [updateExperience , setUpdateExperience] = useState(false);
-  const [currentExperienceId , setCurrentExperienceId] = useState(null);
+  const [updateExperience, setUpdateExperience] = useState(false);
+  const [currentExperienceId, setCurrentExperienceId] = useState(null);
   const resetData = () => {
     setAddTitle("");
     setAddDescription("");
@@ -38,7 +38,7 @@ const Experiences = () => {
     setShowAddExperience(false);
     setUpdateExperience(false);
   }
-  const handleUpdateExperience=(details)=>{
+  const handleUpdateExperience = (details) => {
     setCurrentExperienceId(details.experienceId);
     setShowAddExperience(true);
     setUpdateExperience(!updateExperience);
@@ -51,9 +51,9 @@ const Experiences = () => {
     setAddDays(details.days);
   }
   const postUpdatedExperience = async () => {
-    if(confirm("Are you sure you want to update this experience?") === false) return;
+    if (confirm("Are you sure you want to update this experience?") === false) return;
     try {
-      const response = await fetch("http://localhost:8085/experiences/update/"+currentExperienceId, {
+      const response = await fetch("http://localhost:8085/experiences/update/" + currentExperienceId, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -85,8 +85,8 @@ const Experiences = () => {
     fetchExperiences().then((experiences) => {
       setDetail(experiences);
     });
-  
-  } , [ ] )
+
+  }, [])
   useEffect(() => {
     console.log(detail != null ? detail : null);
     let list = detail != null ? detail.map((ex) => {
@@ -97,7 +97,7 @@ const Experiences = () => {
     console.log(items);
   }, [detail])
   const handleAddExperience = async () => {
-    if(confirm("Are you sure you want to add this experience?") === false) return;
+    if (confirm("Are you sure you want to add this experience?") === false) return;
     try {
       const response = await fetch("http://localhost:8085/experiences/create", {
         method: "POST",
@@ -136,11 +136,11 @@ const Experiences = () => {
     }
   };
   const handleDeleteExperience = async (id) => {
-    if(confirm("Are you sure you want to delete this experience?") === false) return;
+    if (confirm("Are you sure you want to delete this experience?") === false) return;
     try {
       const response = await fetch(`http://localhost:8085/experiences/delete/${id}`, {
         method: "DELETE",
-      }); 
+      });
       if (response.ok) {
         console.log("Experience deleted successfully");
         // Fetch experiences again
@@ -424,72 +424,72 @@ const Experiences = () => {
         <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           <div className="w-1/3 bg-white p-5">
             <div className="font-bold text-2xl text-center text-red-800">
-              {updateExperience ?" Update Experience" : "Add Experience" }
+              {updateExperience ? " Update Experience" : "Add Experience"}
             </div>
             <div className="flex flex-col gap-5">
               <input
                 type="text"
                 placeholder="Enter Title"
                 onChange={(e) => setAddTitle(e.target.value)}
-                value = {addTitle}
+                value={addTitle}
                 className="border-solid border-red-800 border-2 p-3"
               />
               <input
                 type="text"
                 placeholder="Description"
-                onChange = {(e) => setAddDescription(e.target.value)}
-                value = {addDescription}
+                onChange={(e) => setAddDescription(e.target.value)}
+                value={addDescription}
                 className="border-solid border-red-800 border-2 p-3"
               />
               <input
                 type="text"
                 placeholder="Location URL"
-                onChange = {(e) => setAddLocation(e.target.value)}
-                value = {addLocation}
+                onChange={(e) => setAddLocation(e.target.value)}
+                value={addLocation}
                 className="border-solid border-red-800 border-2 p-3"
               />
               <input
                 type="text"
                 placeholder="Image URL"
-                onChange = {(e) => setAddImage(e.target.value)}
-                value = {addImage}
+                onChange={(e) => setAddImage(e.target.value)}
+                value={addImage}
 
                 className="border-solid border-red-800 border-2 p-3"
               />
               <input
                 type="text"
                 placeholder="Region"
-                onChange = {(e) => setAddRegion(e.target.value)}
-                value = {addRegion}
+                onChange={(e) => setAddRegion(e.target.value)}
+                value={addRegion}
                 className="border-solid border-red-800 border-2 p-3"
               />
               <input
                 type="number"
                 placeholder="Amount"
-                onChange = {(e) => setAddAmount(e.target.value)}
-                value = {addAmount}
+                onChange={(e) => setAddAmount(e.target.value)}
+                value={addAmount}
                 className="border-solid border-red-800 border-2 p-3"
               />
               <input
                 type="number"
                 placeholder="Days"
-                onChange = {(e) => setAddDays(e.target.value)}
-                value = {addDays}
+                onChange={(e) => setAddDays(e.target.value)}
+                value={addDays}
                 className="border-solid border-red-800 border-2 p-3"
               />
-              {updateExperience? <button
+              {updateExperience ? <button
                 className="border-solid border-red-800 border-2 p-3 text-red-800"
                 onClick={() => postUpdatedExperience()}
               >
                 Update
-              </button> : 
-              <button
-                className="border-solid border-red-800 border-2 p-3 text-red-800"
-                onClick={() => handleAddExperience()}
-              >
-                Add
-              </button> }
-              <button className=" p-3 text-red-800" onClick={() => {resetData()}}>Close</button>
+              </button> :
+                <button
+                  className="border-solid border-red-800 border-2 p-3 text-red-800"
+                  onClick={() => handleAddExperience()}
+                >
+                  Add
+                </button>}
+              <button className=" p-3 text-red-800" onClick={() => { resetData() }}>Close</button>
             </div>
 
           </div>

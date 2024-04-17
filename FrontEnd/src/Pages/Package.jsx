@@ -169,20 +169,43 @@ function Package() {
     }
   }
   
-
-  // const {
-  //   data: pack,
-  //   isPending,
-  //   Error,
-  // } = useFetch("http://localhost:8000/package");
-
-  // const image = "../assets/" + id + ".png";
-
-  // useEffect(() => {
-  //   if (pack) {
-  //   }
-  // }, [pack]);
-//  const properties = "h-auto w-full justify-center bg-red-200 gap-5";
+  const itenirary =  [
+    {
+      "dayNo": "1",
+      "dayDetails": "Arrival at Delhi",
+      "dayMoreDetails": "Arrival at Delhi and check in to the hotel"
+    },
+    {
+      "dayNo": "2",
+      "dayDetails": "Delhi to Agra",
+      "dayMoreDetails": "Delhi to Agra and check in to the hotel"
+    },
+    {
+      "dayNo": "3",
+      "dayDetails": "Agra to Jaipur",
+      "dayMoreDetails": "Agra to Jaipur and check in to the hotel"
+    },
+    {
+      "dayNo": "4",
+      "dayDetails": "Jaipur to Udaipur",
+      "dayMoreDetails": "Jaipur to Udaipur and check in to the hotel"
+    },
+    {
+      "dayNo": "5",
+      "dayDetails": "Udaipur to Dungarpur",
+      "dayMoreDetails": "Udaipur to Dungarpur and check in to the hotel"
+    },
+    {
+      "dayNo": "6",
+      "dayDetails": "Dungarpur to Barli",
+      "dayMoreDetails": "Dungarpur to Barli and check in to the hotel"
+    },
+    {
+      "dayNo": "7",
+      "dayDetails": "Barli to Delhi",
+      "dayMoreDetails": "Barli to Delhi and check in to the hotel"
+    }
+  ]
 
   return (
     <div>
@@ -193,8 +216,7 @@ function Package() {
           style={{
             backgroundImage:
               "url('https://www.indianexperience.com/assets/uploads/Jodhpur-fort.jpg')",
-          }}
-        >
+          }}>
           <div>
             <div>
               <div className="pt-96  text-4xl text-white font-extrabold tracking-wide">
@@ -346,8 +368,8 @@ function Package() {
                     )}
                     Details
                   </button>
-                  {/* <ul>
-                    {detail.itenirary.map((day, index) => (
+                  <ul>
+                    {itenirary.map((day, index) => (
                       <li key={index}>
                         <div className="flex flex-row gap-3 h-full items-center">
                           <div
@@ -368,7 +390,7 @@ function Package() {
                         </div>
                       </li>
                     ))}
-                  </ul> */}
+                  </ul>
                 </div>
               ) : null}
               {selectedMenu === menu[2] ? (

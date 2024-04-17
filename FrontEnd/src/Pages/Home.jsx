@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SlideShow from '../components/SlideShow'
 import logo from '../assets/logo.png'
 import slides from '../assets/db/Slides'
@@ -9,25 +9,12 @@ import Block from '../components/block'
 import UserReview from '../components/UserReview'
 import { Link } from 'react-router-dom'
 const Home = () => {
-    const location=[
-        {
-           img: location1,
-           name: "location 1",
-           amount: "amount 1",
-        },
-        {
-            img: location2,
-            name: "location 2",
-            amount: "amount 2",
-        },
-        {
-            img: location1,
-            name: "location 1",
-            amount: "amount 1",
-         },
-         
-
-    ];
+  const [experiences , setExperiences] = useState(null);
+  useEffect(()=>{
+    fetch('http://localhost:8085/experiences/all')
+    .then(res=>res.json())
+    .then(data=>{setExperiences(data); console.log(data)})
+  } , [])
   return (
     <div>
       <header className="flex">
@@ -44,7 +31,7 @@ const Home = () => {
             </div>
         </div>
 
-     <CardPallete details={location}/>
+     {experiences!==null ? <CardPallete details={experiences}/> : null }
      </div>
      <Block />
      <UserReview />
