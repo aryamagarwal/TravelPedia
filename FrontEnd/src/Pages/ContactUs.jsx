@@ -16,7 +16,15 @@ function ContactUs() {
   const [whatsapp, setWhatsapp] = useState('')
   const [country, setCountry] = useState('')
   const [query, setQuery] = useState('')
-
+   const reset = ()=>{
+    setName('')
+    setEmail('')
+    setCity('')
+    setMobile('')
+    setWhatsapp('')
+    setCountry('')
+    setQuery('')
+   }
   const handleOnSubmit = () => {
     fetch('http://localhost:8085/contactus/create', {
       method: 'POST',
@@ -37,6 +45,7 @@ function ContactUs() {
       .then(data => {
         console.log('Success:', data);
         alert('Form submitted successfully')
+        reset();
       })
       .catch((error) => {
         console.error('Error:', error);
