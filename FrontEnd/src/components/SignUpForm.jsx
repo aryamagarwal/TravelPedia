@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Block from "./block";
 import useFetch from "./useFetch.jsx";
+import { useNavigate } from "react-router-dom";
+import { IsLoggedInContext } from "../App.jsx";
+
 const SignUpForm = () => {
+  const navigate = useNavigate();
+  const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
+
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -29,7 +36,7 @@ const SignUpForm = () => {
     setPassword(e.target.value);
     const pr = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
     setMessage(
-      password.match(pr)
+      e.target.value.match(pr)
         ? ""
         : "Password should contain 7-15 characters with atleast 1 lowercase, 1 uppercase, one numeric digit and one special character.",
     );
@@ -63,10 +70,10 @@ const SignUpForm = () => {
     const emailRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     setEmail(e.target.value);
-    setMessage3(emailRegex.test(email) ? "" : "Invalid email format");
+    setMessage3(emailRegex.test(e.target.value) ? "" : "Invalid email format");
     const existingUser = users.find((user) => user.email === e.target.value);
     if (existingUser) {
-      setMessage3("email already registered");
+      setMessage3("Email already registered");
       console.log("email already registered");
     } else {
       setMessage3("");
@@ -92,7 +99,9 @@ const SignUpForm = () => {
     } else {
       setMessage5("Enter correct details");
     }
-    navigate(`/user/dashboard/${firstname}+" "+${lastname}`);
+    setIsLoggedIn(true);
+    setUser(data);
+    navigate(`/user/dashboard/${firstname} ${lastname}`);
   };
 
   return (
@@ -153,7 +162,7 @@ const SignUpForm = () => {
               />
               <MdEmail className="absolute right-5 top-1/2 -translate-y-2/4" />
             </div>
-            <h5 className="text-red-800 bg-white ">{message3}</h5>
+            <h5 className="text-red-800 ml-4 bg-white ">{message3}</h5>
             <div className="inputBox flex relative items-center my-3 h-12 w-full">
               <input
                 className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 focus:border-red-400"
