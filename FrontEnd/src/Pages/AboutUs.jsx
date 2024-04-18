@@ -1,10 +1,19 @@
-import React, { useDebugValue } from 'react'
-import './AboutUs.css'
+
+import React from 'react'
+import Matter from '../components/matter.jsx';
+import FootPrint from "../components/footprint.jsx";
+import bg from '../assets/bg.avif'
 function AboutUs() {
   return (
-   <div>
-    "This page is under construction
-   </div>
+    <>
+    <img src={bg}></img>
+    <Matter />
+    <br></br>
+    <FootPrint />
+    
+    </>
+    
+
   )
 }
 
