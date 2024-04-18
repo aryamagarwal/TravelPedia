@@ -3,9 +3,9 @@ package com.travelpedia.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.UserModel.UserModel;
-import com.example.demo.UserRepository.UserRepository;
-import com.example.demo.UserService.UserService;
+//import com.example.demo.UserModel.UserModel;
+//import com.example.demo.UserRepository.UserRepository;
+//import com.example.demo.UserService.UserService;
 
 @Service
 public class UsersServiceImpl implements UserService {
