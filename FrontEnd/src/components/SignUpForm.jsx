@@ -86,7 +86,7 @@ const SignUpForm = () => {
     const data = { username, firstname, lastname, email, password };
     if (
       password === cpass &&
-      message3 === "" &&
+      message3 === ""  &&
       message4 === "" &&
       message2 == ""
     ) {
@@ -96,13 +96,14 @@ const SignUpForm = () => {
         body: JSON.stringify(data),
       }).then(() => {
         console.log("Added the new user");
+        setIsLoggedIn(true);
+        setUser(data);
+        navigate(`/user/dashboard/${firstname} ${lastname}`);
       });
     } else {
       setMessage5("Enter correct details");
     }
-    setIsLoggedIn(true);
-    setUser(data);
-    navigate(`/user/dashboard/${firstname} ${lastname}`);
+   
     // navigate(`/user/dashboard/${id}`)
   };
 
