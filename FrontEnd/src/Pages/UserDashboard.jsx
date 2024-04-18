@@ -61,6 +61,7 @@ const UserDashboard = () => {
 
   const logout = (e) => {
     data.user = id;
+    alert("The action will log you out!");
     navigate(`/LogIn`);
     setIsLoggedIn(false);
     setUser([]);

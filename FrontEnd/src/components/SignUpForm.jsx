@@ -13,6 +13,7 @@ const SignUpForm = () => {
   const [message3, setMessage3] = useState("");
   const [message4, setMessage4] = useState("");
   const [message5, setMessage5] = useState("");
+  const [message6, setMessage6] = useState("");
   const [cpass, setCpass] = useState("");
   const [username, setuserName] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -49,10 +50,12 @@ const SignUpForm = () => {
 
     const existingUser = users.find((user) => user.username === e.target.value);
     if (existingUser) {
+      setMessage6("");
       setMessage4("Username already taken");
       console.log("Username already taken");
     } else {
       setMessage4("");
+      setMessage6("Username is available");
     }
   };
 
@@ -63,8 +66,8 @@ const SignUpForm = () => {
     setMessage3(emailRegex.test(email) ? "" : "Invalid email format");
     const existingUser = users.find((user) => user.email === e.target.value);
     if (existingUser) {
-      setMessage3("email already rejistered");
-      console.log("email already rejistered");
+      setMessage3("email already registered");
+      console.log("email already registered");
     } else {
       setMessage3("");
     }
@@ -89,7 +92,7 @@ const SignUpForm = () => {
     } else {
       setMessage5("Enter correct details");
     }
-    // navigate(`/user/dashboard/${id}`)
+    navigate(`/user/dashboard/${firstname}+" "+${lastname}`);
   };
 
   return (
@@ -113,6 +116,9 @@ const SignUpForm = () => {
             </div>
             {message4 && (
               <h5 className="text-red-800 bg-white ml-3 ">{message4}</h5>
+            )}
+            {message6 && (
+              <h5 className="text-green-400 bg-white ml-3 ">{message6}</h5>
             )}
             <div className="inputBox flex relative items-center my-3 h-12 w-full ">
               <input
