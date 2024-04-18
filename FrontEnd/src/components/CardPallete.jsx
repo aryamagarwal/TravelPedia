@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from './Card'
+import ExperienceCard2 from './ExperienceCard2'
 const CardPallete = (props) => {
     
   return (
@@ -7,7 +7,7 @@ const CardPallete = (props) => {
       {
         props.details.map((location , i)=>
         (
-        <Card key={i} details={location}/>
+        <ExperienceCard2 key={i} details={location}/>
         )
         )
       }

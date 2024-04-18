@@ -1,35 +1,125 @@
 {
-  "cityList":{"cities":["BANARAS","AYODHYA","LUCKNOW","KANPUR","KOLKATA","MUMBAI","BENGALURU","SURAT","JAIPUR","KOCHI","VADODARA","UDAIPUR"]},
+  "cityList": {
+    "cities": [
+      "BANARAS",
+      "AYODHYA",
+      "LUCKNOW",
+      "KANPUR",
+      "KOLKATA",
+      "MUMBAI",
+      "BENGALURU",
+      "SURAT",
+      "JAIPUR",
+      "KOCHI",
+      "VADODARA",
+      "UDAIPUR"
+    ]
+  },
   "destinations": [
     {
       "dest": "BANARAS",
       "days": "10 Days",
       "bud": "8000",
-      "id": "4520"
+      "id": "4520",
+      "user": "Aryam Agarwal"
     },
     {
       "dest": "AYODHYA",
       "days": "7 DAYS",
       "bud": "10000",
-      "id": "b028"
+      "id": "b028",
+      "user": "Priyanshu Agarwal"
     },
     {
       "dest": "LUCKNOW",
       "days": "7 DAYS",
       "bud": "8000",
-      "id": "4482"
+      "id": "4482",
+      "user": "Priyanshu Agarwal"
     },
     {
       "id": "5de9",
       "dest": "KANPUR",
       "days": "6 days",
-      "bud": "7000"
+      "bud": "7000",
+      "user": "Priyanshu Agarwal"
     },
     {
       "id": "4955",
       "dest": "SURAT",
       "days": "5 days",
-      "bud": "8000"
+      "bud": "8000",
+      "user": "Aryam Agarwal"
+    },
+    {
+      "id": "33eb",
+      "dest": "VADODARA",
+      "days": "7 Days",
+      "bud": "5000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "6696",
+      "dest": "AYODHYA",
+      "days": "8 Days",
+      "bud": "5000",
+      "user": "Aryam Agarwal"
+    },
+    {
+      "id": "c92a",
+      "dest": "BANARAS",
+      "days": "5 Days",
+      "bud": "6000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "e131",
+      "dest": "MUMBAI",
+      "days": "8 Days",
+      "bud": "9000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "eedf",
+      "dest": "KOCHI",
+      "days": "7 Days",
+      "bud": "7000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "346b",
+      "dest": "UDAIPUR",
+      "days": "5 Days",
+      "bud": "8000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "e385",
+      "dest": "SURAT",
+      "days": "10 Days",
+      "bud": "9000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "f124",
+      "dest": "JAIPUR",
+      "days": "5 Days",
+      "bud": "8000",
+      "user": "Priyanshu Agarwal"
+    },
+    {
+      "id": "9be6",
+      "dest": "LUCKNOW",
+      "days": "7 Dyas",
+      "bud": "9000",
+      "user": "Aryam Agarwal"
+    },
+    {
+      "id": "278e",
+      "dest": "BANARAS",
+      "days": " 8 days",
+      "bud": "10000",
+      "user": "Priyanshu Agarwal"
     }
   ],
   "TOP_Destinations": [
@@ -69,6 +159,108 @@
       "days": "5 days",
       "bud": "5000"
     }
-
+  ],
+  "userData": [
+    {
+      "username": "aryam",
+      "firstName": "Aryam",
+      "LastName": "Agarwal",
+      "email": "lcs2023045@iiitl.ac.in",
+      "password": "Aa1234@",
+      "review": "Travelpedia made planning my vacation a breeze! From flight bookings to hotel reservations, everything was seamless and hassle-free.",
+      "id": "Aryam Agarwal"
+    },
+    {
+      "userName": "priyanshu",
+      "firstName": "Priyanshu",
+      "lastName": "Agarwal",
+      "email": "lit2023022@iiitl.ac.in",
+      "password": "Pa1234@",
+      "review": "Using Travelpedia was like having a personal travel agent at my fingertips. I found amazing deals and had all the information I needed to make informed decisions.",
+      "id": "Priyanshu Agarwal"
+    },
+    {
+      "username": "rewant",
+      "firstName": "Rewant",
+      "LastName": "Kurapati",
+      "email": "lit2023023@iiitl.ac.in",
+      "password": "Rk1234@",
+      "review": "Great Site! Loved it",
+      "id": "Rewant Kurapati"
+    },
+    {
+      "username": "akshat",
+      "firstName": "Akshat",
+      "LastName": "Sing",
+      "email": "lcs2023041@iiitl.ac.in",
+      "password": "As1234@",
+      "review": "Great Site! Loved it",
+      "id": "Akshat Singh"
+    }
+  ],
+  "package": [
+    {
+      "img": "Hawa_Mahal_Rajasthan",
+      "id": "The Maharaja Experience",
+      "head1": "A Romantic Rendezvous!!",
+      "description": "“THE MAHARAJA EXPERIENCE”, is a splendid Golden tour, through which Indian Experience offers you a romantic escape into the lap of luxury, to let you create memories for life. An Indulgence to explore the exotic ends of the world and break away from the ordinary. Witness the grandeur of The Taj in Agra. Delve deep into Rajasthan’s most palatial Palace Hotels that make you feel no less than a King or a Queen."
+    }
+  ],
+  "location" : "hello" , 
+  "experience": [
+    {
+      "title" : "The Maharaja Experience",
+      "description": "Welcome",
+      "location" : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652225.8017124156!2d73.8783471!3d26.62840795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396a3efaf7e30e37%3A0xb52b9b4506c088e5!2sRajasthan!5e0!3m2!1sen!2sin!4v1713244183951!5m2!1sen!2sin" ,
+       "itenirary" :  [
+        {
+          "dayNo": "1",
+          "dayDetails": "Arrival at Delhi",
+          "dayMoreDetails": "Arrival at Delhi and check in to the hotel"
+        },
+        {
+          "dayNo": "2",
+          "dayDetails": "Delhi to Agra",
+          "dayMoreDetails": "Delhi to Agra and check in to the hotel"
+        },
+        {
+          "dayNo": "3",
+          "dayDetails": "Agra to Jaipur",
+          "dayMoreDetails": "Agra to Jaipur and check in to the hotel"
+        },
+        {
+          "dayNo": "4",
+          "dayDetails": "Jaipur to Udaipur",
+          "dayMoreDetails": "Jaipur to Udaipur and check in to the hotel"
+        },
+        {
+          "dayNo": "5",
+          "dayDetails": "Udaipur to Dungarpur",
+          "dayMoreDetails": "Udaipur to Dungarpur and check in to the hotel"
+        },
+        {
+          "dayNo": "6",
+          "dayDetails": "Dungarpur to Barli",
+          "dayMoreDetails": "Dungarpur to Barli and check in to the hotel"
+        },
+        {
+          "dayNo": "7",
+          "dayDetails": "Barli to Delhi",
+          "dayMoreDetails": "Barli to Delhi and check in to the hotel"
+        }
+      ],
+      "review" : [
+        {
+          "username": "John Doe",
+          "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+          "date": "2021-10-13"
+        },
+        {
+          "username": "Jane Doe",
+          "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates adipisci recusandae a error alias soluta, nisi voluptas facilis nobis optio, odio quaerat repudiandae nulla ut neque provident non nostrum earum?",
+          "date": "2021-10-13"
+        }
+      ]
+    }
   ]
 }
