@@ -1,5 +1,4 @@
-// import React from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import "./Card.css";
 
 const Card = ({ imgSrc, title, author, date, text, prop }) => {
@@ -30,13 +29,5 @@ const Card = ({ imgSrc, title, author, date, text, prop }) => {
   );
 };
 
-Card.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  prop: PropTypes.any.isRequired,
-};
 
 export default Card;

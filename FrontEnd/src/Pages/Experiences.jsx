@@ -4,6 +4,7 @@ import trial from "../assets/slide1.jpg";
 import ExperienceCard from "../components/ExperienceCard";
 import bgVideo from "../assets/video/video_bg.mp4";
 import useFetch from "../components/useFetch.jsx";
+import { IoIosFunnel } from "react-icons/io";
 const fetchExperiences = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -84,6 +85,7 @@ const Experiences = () => {
   useEffect(() => {
     fetchExperiences().then((experiences) => {
       setDetail(experiences);
+      console.log(detail);
     });
 
   }, [])
@@ -248,6 +250,13 @@ const Experiences = () => {
     const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
     days !== dayCount && days >= 0 ? setDayCount(days) : null;
   }, [endDate]);
+  
+  const sortItem = ()=>{
+    console.log(detail)
+    const vary=detail.sort((a , b)=> a.amount-b.amount)
+    console.log(vary)
+  }
+
 
   return (
     <div>
@@ -409,8 +418,11 @@ const Experiences = () => {
           />
         </div>
         <div className="my-5 w-full flex flex-col items-center">
-          <button className="border-solid w-1/2 m-3 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
-
+          <button className="border-solid w-1/2 m-3 border-red</div>-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
+          <div className="absolute right-0 m-8 text-center">
+           <button onClick={()=>{console.log("clicked") ; sortItem()}} ><IoIosFunnel className="text-red-800 text-4xl"/></button>
+           <p className="text-red-900">Sort Price Lowest to Highest</p>
+           </div>
           {detail && detail.map((item, i) =>
             (statusList.length === 0 || statusList.includes(item.region)) &&
               (parseInt(item.amount) <= amount || amount === 0) &&
