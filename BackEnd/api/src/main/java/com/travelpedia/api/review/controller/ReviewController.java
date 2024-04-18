@@ -24,6 +24,11 @@ public class ReviewController {
         Long id=es.getExperienceByTitle(Title).getExperienceId();
         return rs.getByExperienceId(id);
     }
+
+    @GetMapping("/all")
+    public List<ReviewModel> getAllReviews() {
+        return rs.getAllReviews();
+    }
     @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/add")
     public ReviewModel addReview(@RequestParam("experienceId") Long experienceId  , @RequestParam ("username") String username , @RequestParam("review") String review) {

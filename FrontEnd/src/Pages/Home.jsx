@@ -30,7 +30,7 @@ const Home = () => {
             <Link to={"/experiences"}><button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-3xl p-3 pl-5 pr-5">View All</button></Link>
             </div>
         </div>
-
+      
      {experiences!==null ? <CardPallete details={experiences}/> : null }
      </div>
      <Block />

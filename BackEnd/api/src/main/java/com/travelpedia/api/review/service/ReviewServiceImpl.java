@@ -47,4 +47,11 @@ public class ReviewServiceImpl implements ReviewService{
             rr.delete(r);
         }
     }
+
+    @Override
+    public List<ReviewModel> getAllReviews() {
+        return rr.findAll();
+    }
+
+
 }

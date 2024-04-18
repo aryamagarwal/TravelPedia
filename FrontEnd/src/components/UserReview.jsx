@@ -1,26 +1,21 @@
 import React from 'react'
 import ReviewCard from './ReviewCard'
-import avatar from '../assets/avatar.jpg'
-const details = [
-    {
-    img: avatar,
-        name: "user1",
-        review: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nihil cumque delectus nobis provident atque! Qui nesciunt odit sint in culpa nobis, id nam perferendis! Iure asperiores doloribus officia!"
-    },
-    {
-        img: avatar,
-            name: "user2",
-            review: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nihil cumque delectus nobis provident atque! Qui nesciunt odit sint in culpa nobis, id nam perferendis! Iure asperiores doloribus officia!"
-    },
 
-]
+import { useEffect, useState } from 'react'
 const UserReview = () => {
+  const [reviews , setReviews] = useState(null);
+  useEffect(()=>{
+    console.log("enter");
+    fetch('http://localhost:8085/reviews/all')
+    .then(res=>res.json())
+    .then(data=>{setReviews(data); console.log(data)})
+  } , [])
   return (
     <div>
       <h1 className="text-5xl text-center font-bold translate-y-10">
         Customer Reviews
       </h1>
-      <ReviewCard details={details} duration={3000}/>
+      {reviews!==null ? <ReviewCard details={reviews} duration={3000}/> : null}
     </div>
   )
 }
