@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import avatar from '../assets/avatar.jpg'
 import { IoIosArrowBack , IoIosArrowForward} from "react-icons/io";
-
-
-
 const ReviewCard = (props) => {
     const [count , updateCount] = useState(0);
+    console.log(props.details)
     const l=props.details.length;
     const next=()=>{
         const n=(count+1)%l;
@@ -27,10 +26,10 @@ const ReviewCard = (props) => {
             
             <div className="flex flex-col shadow-md rounded-md w-60 bg-white p-3 h-auto items-center m-9">
                 <div className="image h-40 w-full rounded-lg bg-red-400 items-center flex justify-center" >
-                    <img className="w-20 h-20 rounded-full" src={props.details[count].img} alt="img" />
+                    <img className="w-20 h-20 rounded-full" src={avatar} alt="img" />
                 </div>
                 <div className="User font-bold  w-full">
-                {props.details[count].name}
+                {props.details[count].username}
                 </div>
             </div>
             <div className='bg-white w-1/2 rounded-lg p-10 '

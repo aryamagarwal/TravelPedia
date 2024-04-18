@@ -267,7 +267,7 @@ const Experiences = () => {
           Book the Best Experiences in India
         </div>
       </div>
-
+      
       <Block />
       <div className="flex flex-row items-start">
         <div className="flex flex-col my-7 p-7 w-1/3 text-center justify-center top-8 sticky items-center">
@@ -295,7 +295,7 @@ const Experiences = () => {
             <input
               type="range"
               min="0"
-              max="5000"
+              max="150000"
               step="100"
               className="accent-red-800"
               onChange={(e) => setAmount(e.target.value)}
