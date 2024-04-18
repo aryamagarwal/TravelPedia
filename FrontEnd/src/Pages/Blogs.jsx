@@ -55,7 +55,6 @@ const Blog = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         fetchBlogs().then((blogs) => {
           setArticles(blogs.data)
          });
@@ -113,11 +112,7 @@ const Blog = () => {
         {articles.map((article, index) => (
           <div key={index}>
             <Card
-              imgSrc={article.image}
-              title={article.title}
-              author={article.author}
-              date={article.date}
-              text={article.body}
+              details={article}
             />
             <button className="read-more-button">Read More</button>
           </div>
@@ -128,7 +123,7 @@ const Blog = () => {
         <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           <div className="w-1/3 bg-white p-5">
             <div className="font-bold text-2xl text-center text-red-800">
-              Add Experience
+              Add a Blog
             </div>
             <div className="flex flex-col gap-5">
               <input
@@ -183,10 +178,7 @@ const Blog = () => {
             </div>
           </div>
         </div>
-      ) : (
-        // <div>hello</div>
-        console.log("Not showing")
-      )}
+      ): null }
     </div>
   );
 };
