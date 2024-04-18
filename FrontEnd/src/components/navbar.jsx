@@ -1,42 +1,52 @@
-import React from 'react'
-import logo from '../assets/logo.png'
+import React from "react";
+import logo from "../assets/logo.png";
 import { CgProfile } from "react-icons/cg";
-import { Link } from 'react-router-dom';
-import {IsLoggedInContext} from '../App.jsx'
+import { Link } from "react-router-dom";
+import { IsLoggedInContext } from "../App.jsx";
 const Navbar = () => {
-    const items = [
-       "Home", "About Us", "Experiences", "Trips", "Blogs" , "Contact Us"
-    ]
-    const {isLoggedIn , user} = React.useContext(IsLoggedInContext);
-    const url = isLoggedIn ? `/user/dashboard/${user.firstName} ${user.LastName}` : "/LogIn";
-    return (
-        <div className='flex justify-between sticky top-0 z-10 bg-red-800 items-center h-auto flex-row p-1 pl-5 pr-5 text-white'>
+  const items = [
+    "Home",
+    "About Us",
+    "Experiences",
+    "Trips",
+    "Blogs",
+    "Contact Us",
+  ];
 
-            <div className="logo">
-               <Link to={"/"}><img className="h-14 w-14" src={logo} alt="logo" /></Link> 
-            </div>
-            <ul className=" list-none flex gap-10 ">
-                {items.map((item , i) => (
-                  <Link to={`/${item.split(' ').join("")}`} key={i}><li key={i} className='hover:bg-red-900 p-2 rounded-md'>{item}</li></Link>
-                ))
-                }
-            </ul>
-            <div className="logIn flex gap-3 items-center">
-                <Link to={url}>
-                    <CgProfile
-                    style={{
-                        color: "white",
-                        height: "30px",
-                        width: "30px",
-                    }}
-                    className="hover:bg-red-900"
-                />
-                </Link>
+  const { isLoggedIn, user } = React.useContext(IsLoggedInContext);
+  const url = isLoggedIn
+    ? `/user/dashboard/${user.firstname} ${user.lastname}`
+    : "/LogIn";
+  return (
+    <div className="flex justify-between sticky top-0 z-10 bg-red-800 items-center h-auto flex-row p-1 pl-5 pr-5 text-white">
+      <div className="logo">
+        <Link to={"/"}>
+          <img className="h-14 w-14" src={logo} alt="logo" />
+        </Link>
+      </div>
+      <ul className=" list-none flex gap-10 ">
+        {items.map((item, i) => (
+          <Link to={`/${item.split(" ").join("")}`} key={i}>
+            <li key={i} className="hover:bg-red-900 p-2 rounded-md">
+              {item}
+            </li>
+          </Link>
+        ))}
+      </ul>
+      <div className="logIn flex gap-3 items-center">
+        <Link to={url}>
+          <CgProfile
+            style={{
+              color: "white",
+              height: "30px",
+              width: "30px",
+            }}
+            className="hover:bg-red-900"
+          />
+        </Link>
+      </div>
+    </div>
+  );
+};
 
-
-            </div>
-        </div>
-    )
-}
-
-export default Navbar
+export default Navbar;
