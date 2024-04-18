@@ -252,10 +252,11 @@ const Experiences = () => {
   }, [endDate]);
   
   const sortItem = ()=>{
-    console.log(detail)
-    const vary=detail.sort((a , b)=> a.amount-b.amount)
-    console.log(vary)
+    setDetail(detail.sort((a , b)=> a.amount-b.amount))
+    console.log(detail);  
+
   }
+
 
 
   return (

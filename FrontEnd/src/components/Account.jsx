@@ -83,6 +83,9 @@ const Account = () => {
   };
 
   const logout = (e) => {
+    if (confirm("The action will log you out!") === false) {
+      return;
+    }
     setIsLoggedIn(false);
     setUser([]);
     console.log("button pressed logout");

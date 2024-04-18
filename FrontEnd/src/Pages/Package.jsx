@@ -4,6 +4,7 @@ import useFetch from "../components/useFetch.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
+
 // import img from "../assets/video/video_bg.mp4";
 import img from "../assets/The-Maharaja-Experience.png";
 import { FaPencilAlt } from "react-icons/fa";
@@ -76,7 +77,7 @@ function Package() {
   const [updateReviewId, setUpdateReviewId] = useState(0);
   const [name, setName] = useState(isLoggedIn ? user.username : "");
   const [review, setReview] = useState("");
-
+  const navigatte=useNavigate();
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -312,7 +313,7 @@ function Package() {
                   <div className="w-full mt-4"></div>
                 </div>
               </div>
-              <button className="bg-yellow-500 mt-12 w-11/12 font-bold text-2xl pb-3 pt-3 mb-5 rounded-lg ">
+              <button className="bg-yellow-500 mt-12 w-11/12 font-bold text-2xl pb-3 pt-3 mb-5 rounded-lg " onClick={()=>{navigate('/checkout')}}>
                 BOOK NOW
               </button>
             </div>
