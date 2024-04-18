@@ -11,8 +11,8 @@ const Card = ({ imgSrc, title, author, date, text, prop }) => {
   console.log("prop:", prop);
 
   return (
-    <div className="card">
-      <div className="card-img">
+    <div className="card m-4">
+      <div className="card-img ">
         <img src={imgSrc} alt="article" />
       </div>
       <div className="card-content">
