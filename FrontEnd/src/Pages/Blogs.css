@@ -13,19 +13,19 @@
 .para,
 .date,
 .image,
-a {
+/* a {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 20px;
-}
+} */
 
-a {
+/* a {
   text-decoration: none;
   color: black;
-}
+} */
 
-a:hover {
+/* a:hover {
   color: red;
-}
+} */
 
 .navigation {
   margin-top: 25px;

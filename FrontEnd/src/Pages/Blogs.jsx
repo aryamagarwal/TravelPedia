@@ -61,13 +61,13 @@ const Blog = () => {
       </div>
       <div className="m-auto content max-width-1 my-2">
         <div className="content-left">
-          <h1>The Heaven for Bloggers</h1>
-          <p className="para">
+          <h1 className="font-bold text-3xl">The Heaven for Bloggers</h1>
+          <p className="para font-mono text-lg">
             iBlog is a website which lets you submit an article which upon
             approval will be up on our website and you can get a good amount of
             reach from here!
           </p>
-          <p className="para">
+          <p className="para font-mono text-lg">
             My Halloween decorations are staying in the box this year. To be
             honest, they didn&apos;t make it out of the box last year either. My
             Halloween spirit has officially been bludgeoned to death by
