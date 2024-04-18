@@ -1,15 +1,7 @@
-/* Global styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #9c4343; /* Reddish background color */
 }
 
 .app-container {
@@ -22,8 +14,8 @@ body {
 .date,
 .image,
 a {
-  font-family: cursive; /* Fancy font */
-  font-size: 20px; /* Adjust font size as needed */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 20px;
 }
 
 a {
@@ -55,7 +47,7 @@ a:hover {
 .nav-left ul {
   display: flex;
   align-items: center;
-  margin-left: auto; /* Change margin from left to right */
+  margin-left: auto;
   font-size: 22px;
   padding-bottom: 23px;
   justify-content: right;
@@ -112,15 +104,15 @@ a:hover {
 }
 
 .content-right img {
-  width: 300px; /* Adjust the width as needed */
-  height: 300px; /* Adjust the height as needed */
+  width: 300px;
+  height: 300px;
   border: 2px solid black;
-  border-radius: 12px; /* Apply border radius for rounded shape */
+  border-radius: 12px;
 }
 
 .home-articles {
   padding: 18px;
-  background-color: rgba(248, 239, 239, 0.5); /* Reddish background color */
+  background-color: rgba(248, 239, 239, 0.5);
   margin-top: 23px;
   position: relative;
 }
@@ -144,10 +136,10 @@ a:hover {
 }
 
 .home-article img {
-  width: 300px; /* Adjust the width as needed */
-  height: 300px; /* Adjust the height as needed */
+  width: 300px;
+  height: 300px;
   border: 2px solid black;
-  border-radius: 12px; /* Apply border radius for rounded shape */
+  border-radius: 12px;
 }
 
 .home-article-content {
@@ -173,10 +165,10 @@ ul {
 
 .read-more-button {
   display: block;
-  margin-top: 20px; /* Add a margin-top to create space */
-  margin-left: 130px; /* Maintain the same margin-left */
+  margin-top: 20px;
+  margin-left: 130px;
   padding: 10px 20px;
-  background-color: brown; /* Change the color as needed */
+  background-color: brown;
   color: white;
   border: none;
   border-radius: 5px;
@@ -185,10 +177,9 @@ ul {
 }
 
 .read-more-button:hover {
-  background-color: #150604; /* Darker shade of the primary color on hover */
+  background-color: #150604;
 }
 
-/* Responsive styles */
 @media (min-width: 768px) {
   .content {
     display: flex;
@@ -198,7 +189,7 @@ ul {
 
   .content-left {
     flex: 1;
-    margin-right: 20px; /* Add some space between content-left and content-right */
+    margin-right: 20px;
   }
 
   .content-right {
@@ -218,10 +209,8 @@ ul {
   }
 
   .home-article {
-    flex-basis: calc(
-      33.3333% - 20px
-    ); /* Adjust based on the number of columns you want */
-    margin-bottom: 20px; /* Add some space between each card */
+    flex-basis: calc(33.3333% - 20px);
+    margin-bottom: 20px;
   }
 
   .read-more-button {
@@ -229,7 +218,6 @@ ul {
   }
 }
 
-/* Adjustments for smaller screens */
 @media (max-width: 767px) {
   .content {
     flex-direction: column;
@@ -242,17 +230,14 @@ ul {
   }
 
   .home-article {
-    flex-basis: calc(
-      50% - 20px
-    ); /* Adjust based on the number of columns you want */
+    flex-basis: calc(50% - 20px);
   }
 
   .read-more-button {
-    margin-left: 0; /* Remove left margin for smaller screens */
+    margin-left: 0;
   }
 }
 
-/* Adjustments for very small screens */
 @media (max-width: 480px) {
   .home-article {
     flex-basis: 100%;

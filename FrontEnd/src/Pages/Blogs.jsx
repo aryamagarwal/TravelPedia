@@ -1,12 +1,12 @@
 //import React from "react";
-import Card from "./Card.jsx"; // Ensure the file extension matches the actual file
+import Card from "./Card.jsx";
 import img1 from "./img/blogimage1.jpg";
 import img2 from "./img/blogimage2.jpg";
 import img3 from "./img/blogimage3.jpg";
 import img4 from "./img/blogimage4.jpg";
 import img5 from "./img/blogimage5.jpg";
 import img6 from "./img/blogimage6.jpg";
-import "./Blogs.css"; // Check if the CSS file path is correct
+import "./Blogs.css";
 
 const Blog = () => {
   const articles = [
@@ -55,7 +55,7 @@ const Blog = () => {
   ];
 
   return (
-    <div className="app-container">
+    <div className="app-container bg-red-300">
       <div className="max-width-1 m-auto">
         <hr />
       </div>
