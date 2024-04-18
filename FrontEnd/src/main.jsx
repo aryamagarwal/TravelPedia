@@ -20,6 +20,7 @@ import Package from "./Pages/Package.jsx";
 import Trips from "./Pages/Trips.jsx";
 import AboutUs from "./Pages/AboutUs.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
+import Checkout from "./Pages/CheckOut.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "trips",
         element: <Trips />,
+      },
+      {
+        path: "checkout",
+        element: <Checkout />,
       }
       
     ],
