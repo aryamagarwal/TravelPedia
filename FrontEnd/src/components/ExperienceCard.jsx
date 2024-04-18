@@ -11,7 +11,7 @@ const ExperienceCard = (props) => {
         
         <div className="flex flex-col w-full shadow-md rounded-md p-3 items-center m-9 bg-red-200">
             <div className="flex flex-row rounded-md w-full ">
-            <div className="h-60 flex items-center" >
+            <div className="h-60 w-1/3 flex items-center" >
                 <img className="w-full h-full" src={props.details.imageUrl} alt="img" />
             </div>
             <div className="details flex flex-row gap-8 p-3">
