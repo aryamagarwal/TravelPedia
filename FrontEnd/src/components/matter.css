@@ -1,0 +1,22 @@
+#box{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    padding-top: 30px;
+    padding-bottom:30px;
+}
+#left{
+    margin-left: 80px;
+    padding:40px;
+}
+#right{
+    padding:40px;
+}
+#one{
+    font-size: 28px;
+}
+#sec{
+    font-size: 52px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight:bold;
+}

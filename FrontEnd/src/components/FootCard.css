@@ -1,0 +1,19 @@
+#boxe{
+    box-shadow: 5px 5px 10px 0 black;
+    background-color: white;
+    border-radius: 20px;
+    height: 150px;
+    width:220px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+#boxe:hover{
+   transform: scale(1.1);
+}
+#one1{
+    font-size: 29px;
+}
