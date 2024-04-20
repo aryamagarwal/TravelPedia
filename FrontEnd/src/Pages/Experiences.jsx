@@ -5,10 +5,10 @@ import ExperienceCard from "../components/ExperienceCard";
 import bgVideo from "../assets/video/video_bg.mp4";
 import useFetch from "../components/useFetch.jsx";
 import { IoIosFunnel } from "react-icons/io";
-const fetchExperiences = () => {
+const fetchExperiences = (url , body) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8085/experiences/all");
+      const response = await fetch(url )
       const data = await response.json();
       resolve(data);
     } catch (error) {
@@ -28,6 +28,8 @@ const Experiences = () => {
   const [items, setItems] = useState([]);
   const [updateExperience, setUpdateExperience] = useState(false);
   const [currentExperienceId, setCurrentExperienceId] = useState(null);
+  const [filter, setFilter] = useState("");
+  const [sortOrder , setSortOrder] = useState("");
   const resetData = () => {
     setAddTitle("");
     setAddDescription("");
@@ -71,7 +73,7 @@ const Experiences = () => {
       });
       if (response.ok) {
         console.log("Experience updated successfully");
-        fetchExperiences().then((experiences) => {
+        fetchExperiences("http://localhost:8085/experiences/filtered" + filter).then((experiences) => {
           setDetail(experiences);
         });
         resetData();
@@ -83,21 +85,18 @@ const Experiences = () => {
     }
   }
   useEffect(() => {
-    fetchExperiences().then((experiences) => {
-      setDetail(experiences);
-      console.log(detail);
+    fetchExperiences("http://localhost:8085/experiences/regions").then((regions) => {
+      regions.map((item) => { console.log(item) });
+      setItems(regions);
+      console.log(items);
+
     });
 
+
   }, [])
-  useEffect(() => {
-    console.log(detail != null ? detail : null);
-    let list = detail != null ? detail.map((ex) => {
-      return ex.region;
-    }) : [];
-    console.log(list);
-    setItems([...new Set(list)]);
-    console.log(items);
-  }, [detail])
+
+
+
   const handleAddExperience = async () => {
     if (confirm("Are you sure you want to add this experience?") === false) return;
     try {
@@ -118,7 +117,7 @@ const Experiences = () => {
       });
       if (response.ok) {
         console.log("New experience added successfully");
-        fetchExperiences().then((experiences) => {
+        fetchExperiences("http://localhost:8085/experiences/filtered" + filter).then((experiences) => {
           setDetail(experiences);
         });
         // Reset the input fields
@@ -146,7 +145,7 @@ const Experiences = () => {
       if (response.ok) {
         console.log("Experience deleted successfully");
         // Fetch experiences again
-        fetchExperiences().then((experiences) => {
+        fetchExperiences("http://localhost:8085/experiences/filtered" + filter).then((experiences) => {
           setDetail(experiences);
         });
       } else {
@@ -250,13 +249,33 @@ const Experiences = () => {
     const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
     days !== dayCount && days >= 0 ? setDayCount(days) : null;
   }, [endDate]);
-  
-  const sortItem = ()=>{
-    setDetail(detail.sort((a , b)=> a.amount-b.amount))
-    console.log(detail);  
+
+  const sortItem = () => {
+   
+    setSortOrder("amount,ASC");
 
   }
-
+  useEffect(() => {
+    let s = "";
+    if (statusList.length > 0)
+      s += "?regions=" + statusList.join(",");
+    else
+      s += "?regions=" + items.join(",");
+    if (amount > 0)
+      s += "&amount=" + amount;
+    else
+      s += "&amount=1000000";
+    if (dayCount > 0)
+      s += "&days=" + dayCount;
+    else
+      s += "&days=15";
+    s+="&Sort="+sortOrder;
+    setFilter(s);
+    fetchExperiences("http://localhost:8085/experiences/filtered" + s).then((experiences) => {
+      setDetail(experiences);
+      console.log(experiences)
+    });
+  }, [statusList, amount, dayCount, items , sortOrder])
 
 
   return (
@@ -277,7 +296,7 @@ const Experiences = () => {
           Book the Best Experiences in India
         </div>
       </div>
-      
+
       <Block />
       <div className="flex flex-row items-start">
         <div className="flex flex-col my-7 p-7 w-1/3 text-center justify-center top-8 sticky items-center">
@@ -285,7 +304,7 @@ const Experiences = () => {
             Destinations
           </div>
           <div className="list flex w-full flex-col">
-            {detail && items.map((item, i) => (
+            {items.length > 0 && items.map((item, i) => (
               <div
                 key={i}
                 className="flex flex-row gap-2 bg-red-800 text-white p-3 text-xl border-white border-solid border-2 w-full"
@@ -421,15 +440,13 @@ const Experiences = () => {
         <div className="my-5 w-full flex flex-col items-center">
           <button className="border-solid w-1/2 m-3 border-red</div>-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
           <div className="absolute right-0 m-8 text-center">
-           <button onClick={()=>{console.log("clicked") ; sortItem()}} ><IoIosFunnel className="text-red-800 text-4xl"/></button>
-           <p className="text-red-900">Sort Price Lowest to Highest</p>
-           </div>
+            <button onClick={() => { console.log("clicked"); sortItem() }} ><IoIosFunnel className="text-red-800 text-4xl" /></button>
+            <p className="text-red-900">Sort Price Lowest to Highest</p>
+          </div>
           {detail && detail.map((item, i) =>
-            (statusList.length === 0 || statusList.includes(item.region)) &&
-              (parseInt(item.amount) <= amount || amount === 0) &&
-              (parseInt(item.days) == dayCount || dayCount === 0) ? (
-              <ExperienceCard key={i} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
-            ) : null,
+
+            <ExperienceCard key={i} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
+
           )}
         </div>
       </div>

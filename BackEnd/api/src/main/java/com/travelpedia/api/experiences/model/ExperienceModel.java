@@ -12,6 +12,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "experiences")
+//@NamedQuery(name = "ExperienceModel.findAllFiltered" ,
+//query = "SELECT e from ExperienceModel e WHERE e.region IN (:regions) AND e.amount <= :amount AND e.days <= :days")
 public class ExperienceModel {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
