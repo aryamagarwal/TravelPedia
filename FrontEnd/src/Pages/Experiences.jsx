@@ -5,6 +5,7 @@ import ExperienceCard from "../components/ExperienceCard";
 import bgVideo from "../assets/video/video_bg.mp4";
 import useFetch from "../components/useFetch.jsx";
 import { IoIosFunnel } from "react-icons/io";
+import Pagination from "../components/Pagination.jsx";
 const fetchExperiences = (url , body) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -30,6 +31,9 @@ const Experiences = () => {
   const [currentExperienceId, setCurrentExperienceId] = useState(null);
   const [filter, setFilter] = useState("");
   const [sortOrder , setSortOrder] = useState("");
+  const [pageCount , setPageCount] = useState(0);
+  const [currentPage , setCurrentPage]  = useState(0);
+  const [totalExperiences, setTotalExperiences] = useState(0);
   const resetData = () => {
     setAddTitle("");
     setAddDescription("");
@@ -73,8 +77,8 @@ const Experiences = () => {
       });
       if (response.ok) {
         console.log("Experience updated successfully");
-        fetchExperiences("http://localhost:8085/experiences/filtered" + filter).then((experiences) => {
-          setDetail(experiences);
+        fetchExperiences("http://localhost:8085/experiences/regions").then((destinations) => {
+          setItems(destinations);
         });
         resetData();
       } else {
@@ -117,18 +121,10 @@ const Experiences = () => {
       });
       if (response.ok) {
         console.log("New experience added successfully");
-        fetchExperiences("http://localhost:8085/experiences/filtered" + filter).then((experiences) => {
-          setDetail(experiences);
+        fetchExperiences("http://localhost:8085/experiences/regions").then((destinations) => {
+          setItems(destinations);
         });
-        // Reset the input fields
-        setShowAddExperience(false);
-        setAddTitle("");
-        setAddDescription("");
-        setAddLocation("");
-        setAddImage("");
-        setAddRegion("");
-        setAddAmount(0);
-        setAddDays(0);
+        resetData();
       } else {
         alert("Failed to add new experience");
       }
@@ -144,9 +140,8 @@ const Experiences = () => {
       });
       if (response.ok) {
         console.log("Experience deleted successfully");
-        // Fetch experiences again
-        fetchExperiences("http://localhost:8085/experiences/filtered" + filter).then((experiences) => {
-          setDetail(experiences);
+        fetchExperiences("http://localhost:8085/experiences/regions").then((destinations) => {
+          setItems(destinations);
         });
       } else {
         alert("Failed to delete experience");
@@ -270,12 +265,15 @@ const Experiences = () => {
     else
       s += "&days=15";
     s+="&Sort="+sortOrder;
+    s+="&pageNo="+currentPage;
     setFilter(s);
     fetchExperiences("http://localhost:8085/experiences/filtered" + s).then((experiences) => {
-      setDetail(experiences);
+      setDetail(experiences.content);
       console.log(experiences)
+      setPageCount(experiences.totalPages);
+      setTotalExperiences(experiences.totalElements);
     });
-  }, [statusList, amount, dayCount, items , sortOrder])
+  }, [statusList, amount, dayCount, items , sortOrder, currentPage])
 
 
   return (
@@ -443,11 +441,13 @@ const Experiences = () => {
             <button onClick={() => { console.log("clicked"); sortItem() }} ><IoIosFunnel className="text-red-800 text-4xl" /></button>
             <p className="text-red-900">Sort Price Lowest to Highest</p>
           </div>
+          {/* <h3 className="align-left">Total '{totalExperiences}' Experiences</h3> */}
           {detail && detail.map((item, i) =>
 
             <ExperienceCard key={i} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
 
           )}
+          <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
       </div>
       {showAddExperience ? (

@@ -1,6 +1,7 @@
 package com.travelpedia.api.experiences.service;
 
 import com.travelpedia.api.experiences.model.ExperienceModel;
+import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,6 +17,6 @@ public interface ExperienceService {
     public List<ExperienceModel> getAllExperiences();
     public ExperienceModel updateExperience(Long id, ExperienceModel experience);
     public void deleteExperience(Long id);
-    public List<ExperienceModel> getFilteredExperiences( List<String> sortOrder , List<String> regions , Integer amount, Integer days);
+    public Page<ExperienceModel> getFilteredExperiences(Integer pageNo , Integer pageSize , List<String> sortOrder , List<String> regions , Integer amount, Integer days);
     public List<String> getRegions();
 }

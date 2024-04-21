@@ -3,6 +3,7 @@ import com.travelpedia.api.experiences.model.ExperienceModel;
 import com.travelpedia.api.experiences.service.ExperienceService;
 import com.travelpedia.api.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -58,8 +59,7 @@ public class ExperienceController {
     }
 
     @GetMapping("/filtered")
-    public List<ExperienceModel> getFilteredExperiences(@RequestParam("Sort") List<String> sort , @RequestParam("regions") List<String> regions , @RequestParam("amount") Integer amount, @RequestParam("days") Integer days){
-
-        return es.getFilteredExperiences(sort , regions , amount, days);
+    public Page<ExperienceModel> getFilteredExperiences(@RequestParam(value = "pageNo" , defaultValue = "0") Integer pageNo , @RequestParam(value = "pageSize" , defaultValue = "2") Integer pageSize , @RequestParam("Sort") List<String> sort , @RequestParam("regions") List<String> regions , @RequestParam("amount") Integer amount, @RequestParam("days") Integer days){
+        return es.getFilteredExperiences(pageNo , pageSize , sort , regions , amount, days);
     }
 }
