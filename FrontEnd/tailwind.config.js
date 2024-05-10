@@ -7,6 +7,7 @@ export default {
     extend: {
       backgroundImage: {
         'loginBg': "url('/src/assets/loginBg.jpg')",
+        
       },
       height: theme => ({
         "screen70": "70vh",
@@ -22,6 +23,14 @@ export default {
         "screen/4": "calc(100vw / 4)",
         "screen/5": "calc(100vw / 5)",
       }),
+      fontFamily: {
+        'sans': ['ui-sans-serif', 'system-ui'],
+        'serif': ['ui-serif', 'Georgia'],
+        'mono': ['ui-monospace', 'SFMono-Regular'],
+        'body': ['Poppins'],
+        'display': ['Poppins'],
+        'gideon': ['Gideon Roman'],
+      },
   },
   plugins: [],
 }

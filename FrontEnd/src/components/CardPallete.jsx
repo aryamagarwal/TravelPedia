@@ -3,7 +3,7 @@ import ExperienceCard2 from './ExperienceCard2'
 const CardPallete = (props) => {
     
   return (
-    <div className="flex flex-wrap w-full h-auto">
+    <div className="flex flex-wrap w-full h-1/2">
       {
         props.details.map((location , i)=>
         (

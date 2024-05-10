@@ -18,30 +18,30 @@ const Navbar = () => {
     ? `/user/dashboard/${user.firstname} ${user.lastname}`
     : "/LogIn";
   return (
-    <div className="flex justify-between sticky top-0 z-10 bg-red-800 items-center h-auto flex-row p-1 pl-5 pr-5 text-white">
-      <div className="logo">
+    <div className="flex justify-between fixed top-0 z-10 w-full navBg items-center h-auto flex-row  pl-5 ">
+      <div className="logo h-full ">
         <Link to={"/"}>
-          <img className="h-14 w-14" src={logo} alt="logo" />
+          <img className="h-full w-1/6" src={logo} alt="logo" />
         </Link>
       </div>
-      <ul className=" list-none flex gap-10 ">
+      <div className="logIn flex gap-3 h-full float-right border-solid border-b-4 items-center py-11 p-6 border-red-500">
+      <ul className=" list-none flex gap-10 text-2xl mx-3 text-white">
         {items.map((item, i) => (
           <Link to={`/${item.split(" ").join("")}`} key={i}>
-            <li key={i} className="hover:bg-red-900 p-2 rounded-md">
+            <li key={i} className="hover:text-red-400 hover:font-medium p-2 rounded-md">
               {item}
             </li>
           </Link>
         ))}
       </ul>
-      <div className="logIn flex gap-3 items-center">
+      
         <Link to={url}>
           <CgProfile
             style={{
-              color: "white",
               height: "30px",
               width: "30px",
             }}
-            className="hover:bg-red-900"
+            className="text-white hover:text-red-800"
           />
         </Link>
       </div>

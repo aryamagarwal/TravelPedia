@@ -21,8 +21,8 @@ function CheckoutPage() {
   return (
     <div className="checkout-page">
       <div className="contact-details">
-        <h2>Contact Details</h2>
-        <p>We'll use this information to send you confirmation and updates about your booking.</p>
+        <h21>Contact Details</h21>
+        <p2>We'll use this information to send you confirmation and updates about your booking.</p2>
         <div className="contact-details-wrapper">
         
           <form>

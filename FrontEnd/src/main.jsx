@@ -50,6 +50,12 @@ const router = createBrowserRouter([
       {
         path: "Blogs",
         element: <Blogs />,
+        children:[
+          {
+            path: "Blog/:id",
+            element: <Blogs />
+          }
+        ]
       },
       {
         path: "LogIn",

@@ -6,6 +6,7 @@ import {
     FaInstagram,
     FaTwitterSquare,
 } from 'react-icons/fa';
+import footerbg from '../assets/footerbg.jpg';
 const SocialIcon = ({ icon: Icon }) => (
     <Icon className="social-icon hover:bg-red-900" size={30} />
 );
@@ -21,7 +22,12 @@ const Footer = () => {
         { type: 'section', title: 'Useful Information', items: ['About', 'Travel Guidelines', 'Blogs'] },
     ];
     return (
-        <div className='bg-red-800 mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300'>
+        <div className='bg-red-800 mx-auto p-40 grid h-screen lg:grid-cols-3 gap-8 text-gray-300'
+        style={{
+            background: `linear-gradient(rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0.8) 0%) , url(${footerbg})`,
+             backgroundSize: 'cover',
+             backgroundRepeat: 'no-repeat',
+        }}>
             {/* Left section with brand and social icons */}
             <div>
                 <h1 className='w-full text-3xl lg:text-4xl xl:text-5xl font-bold text-white'>TRAVELPEDIA</h1>

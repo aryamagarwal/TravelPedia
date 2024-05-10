@@ -1,14 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Gideon+Roman&display=swap');
 
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 body{
   min-height: full;
 }
 .clip-path-rhombus{
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.navBg{
+  background-image: linear-gradient(to bottom , rgb(0, 0, 0), rgba(0, 0, 0, 0));
+}
+.cardImg
+{
+  transform: scale(1.5);
+  /* overflow-clip-margin: content-box; */
+  
+  
+}
+
+.cardImg:hover{
+  transform: scale(1.8);
+  transition: 0.5s ease-in-out;
+  
 }

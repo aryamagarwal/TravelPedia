@@ -69,7 +69,7 @@ const Blog = () => {
     });
   }, []);
   return (
-    <div className="app-container bg-red-300">
+    <div className="app-container bg-white ">
       <div className="max-width-1 m-auto">
         <hr />
       </div>
@@ -107,7 +107,7 @@ const Blog = () => {
             Add Blogs
           </button>
         </div>
-      <div className="home-articles max-width-1 m-auto font2">
+      <div className="home-articles max-width-1 m-auto ">
         <h2>Featured Articles</h2>
         {articles.map((article, index) => (
           <div key={index}>
@@ -120,7 +120,7 @@ const Blog = () => {
        
       </div>
       {showAddBlog ? (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center ">
           <div className="w-1/3 bg-white p-5">
             <div className="font-bold text-2xl text-center text-red-800">
               Add a Blog

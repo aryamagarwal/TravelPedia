@@ -21,4 +21,6 @@ public interface ExperienceRepository extends JpaRepository<ExperienceModel, Lon
 //    Iterable<ExperienceModel> findAllSortedByAmount();
     @Query(value = "SELECT e from ExperienceModel e WHERE e.region IN ?1 AND e.amount<=?2 AND e.days<=?3" )
     Page<ExperienceModel> findAllFiltered(List<String> regions, Integer amount, Integer days , Pageable pageable);
+    @Query(value = "SELECT e from ExperienceModel e WHERE (lower(e.region) like lower(concat('%',?1,'%')))")
+    List<ExperienceModel> searchExperiences(String region);
 }

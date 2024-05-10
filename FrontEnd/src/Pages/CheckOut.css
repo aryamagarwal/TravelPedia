@@ -19,13 +19,13 @@
     flex: 0.7; /* Set contact details to take up 70% of the space */
   }
   
-  h2 {
+  h21 {
     margin-bottom: 1rem;
     font-size: 1.2rem;
     font-weight: bold; /* Make headings bold */
   }
   
-  p {
+  p2{
     margin-bottom: 0.5rem;
     font-size: 0.8rem;
   }
@@ -46,8 +46,8 @@
   input[type="email"],
   input[type="tel"] {
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  
+   
   }
   
   .name-inputs {

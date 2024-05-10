@@ -4,11 +4,12 @@ import com.travelpedia.api.experiences.service.ExperienceService;
 import com.travelpedia.api.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/experiences")
@@ -28,11 +29,24 @@ public class ExperienceController {
     public List<ExperienceModel> getSortedExperiences(@RequestParam("sortParameter") String sortParameter){
         return es.getExperienceSorted(sortParameter);
     }
-
+    @PostMapping("/file-upload")
+    public String uploadFile(@RequestParam("file")  MultipartFile file , @RequestParam("title") String title){
+        return es.uploadFile(file , title);
+    }
+    @GetMapping("/experienceImage/{fileName}")
+    public ResponseEntity<?> downloadFile(@PathVariable("fileName") String fileName){
+      byte [ ] file = es.downloadFile(fileName);
+        return ResponseEntity.ok().contentType(MediaType.valueOf("image/jpeg")).body(file);
+    }
+    @DeleteMapping("/deleteImage/{fileName}")
+    public void deleteFile(@PathVariable("fileName") String fileName){
+        es.deleteFile(fileName);
+    }
     @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/create")
     public ExperienceModel createExperience(@RequestBody ExperienceModel experience)
     {
+//        String s = es.uploadFile(file);
         return es.createExperience(experience);
     }
     @GetMapping("/get/{title}")
@@ -51,6 +65,11 @@ public class ExperienceController {
     public void deleteExperience(@PathVariable("id") Long id){
         er.deleteReviewByExperienceId(id);
         es.deleteExperience(id);
+    }
+    @GetMapping("/search/{region}")
+    public List<ExperienceModel> searchExperiences(@PathVariable("region") String region)
+    {
+        return es.searchExperiences(region);
     }
     @GetMapping("/regions")
     public List<String> getRegions()

@@ -3,17 +3,21 @@ import { useState } from 'react';
 import './SlideShow.css';
 const SlideShow = (props) => {
     const [currentIndex , updateIndex] = useState(0);
-    useEffect(()=>{
-      const timer=setInterval(()=>
-      {
-        const newIndex=(currentIndex + 1)%props.slides.length;
-        updateIndex(newIndex);
-      } , props.duration);
-       
-      return ()=> clearInterval(timer);
-    } , [currentIndex]);
+    const timer = React.useRef(null);
+     useEffect(()=>{
+         timer.current = setInterval(()=>{
+         updateIndex((currentIndex+1)%props.slides.length)
+        
+        },props.duration)
+
+        return ()=>{
+            clearInterval(timer.current)}
+        } , [currentIndex] )
+
+        
+   
   return (
-    <div className="h-screen70 w-full flex justify-center overflow-hidden bg-yellow-500 bg-cover bg-center bg-no-repeat" >
+    <div className="h-screen w-full flex justify-center overflow-hidden t" >
       <img src={props.slides[currentIndex]} alt="slide" className="slide " />
     </div>
   )

@@ -344,7 +344,7 @@ function Package() {
             }
           >
             
-            <div className="flex flex-col w-full text-red-900 text-2xl m-5 mr-0">
+            <div className="flex flex-col w-full text-red-900 text-2xl m-5 mr-0 whitespace-pre-line">
               {selectedMenu === menu[0] ? detail.description : null}
               {selectedMenu === menu[1] ? (
                 <div>

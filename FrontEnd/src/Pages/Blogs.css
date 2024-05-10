@@ -1,3 +1,7 @@
+body{
+  background-color: white;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +11,7 @@
 .app-container {
   width: 90%;
   margin: auto;
+  margin-top: 150px;
 }
 
 .text3,
@@ -66,7 +71,7 @@ a:hover {
 }
 
 .nav-left ul li a:hover {
-  color: red;
+  color: rgb(41, 184, 81);
   font-weight: bolder;
 }
 
