@@ -28,7 +28,7 @@ const Navbar = () => {
       <ul className=" list-none flex gap-10 text-2xl mx-3 text-white">
         {items.map((item, i) => (
           <Link to={`/${item.split(" ").join("")}`} key={i}>
-            <li key={i} className="hover:text-red-400 hover:font-medium p-2 rounded-md">
+            <li key={i} className="hover:text-red-800 p-2 rounded-md">
               {item}
             </li>
           </Link>

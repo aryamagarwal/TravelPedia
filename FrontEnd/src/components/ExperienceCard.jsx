@@ -7,6 +7,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { IsLoggedInContext } from '../App';
+import { FaRupeeSign } from "react-icons/fa";
 const ExperienceCard = (props) => {
     const { user, isLoggedIn } = useContext(IsLoggedInContext);
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const ExperienceCard = (props) => {
     
     return (
 
-        <div className="flex flex-col w-full shadow-md rounded-md p-3  items-center m-9 "
+        <div className="flex flex-col w-full shadow-md rounded-md p-1  items-center m-9 "
         // style={{
         //     background: `linear-gradient(rgba(225, 225, 225, 0.8 ) 100%, rgba(225, 225, 225, 0.8 ) 0%)`,
 
@@ -62,8 +63,10 @@ const ExperienceCard = (props) => {
                     }
                     else
                     {
+                    if(confirm("Please Login to like the experience")===true){
                     navigate('/login')
                     window.scrollTo(0, 0);
+                    }
                     };
                     }}>
                         {!liked? <FaRegHeart /> : <FaHeart />}
@@ -73,7 +76,7 @@ const ExperienceCard = (props) => {
                     <div className="flex flex-col w-2/3 border-r-2 border-white border-solid">
                         <div className=" mx-2 ">
                             <h1 className='text-2xl text-red-800 font-bold'>{props.details.title}</h1>
-                            <h5 >{reviews} Reviews</h5>
+                            <h5 className='font-bold'>{reviews} Reviews</h5>
                         </div>
                         <div className='p-3 my-5' >
                             <h4>{props.details.description.substring(0, 200) + "..."}</h4>
@@ -82,14 +85,18 @@ const ExperienceCard = (props) => {
                     <div className=' flex flex-col w-1/3 items-center p-0 gap-3 text-lg'>
                         <div className=" w-full flex flex-row items-center gap-2 justify-between ">
                             <FaMoneyBill className='text-green-800 text-2xl' />
-                            <span className='text-2xl text-yellow-700 font-bold'> Rs. {props.details.amount}</span><span className='text-gray-600'>/person</span>
+                        <span><FaRupeeSign className='text-yellow-700'/></span>    <span className='text-2xl text-yellow-700 font-bold whitespace-nowrap'> {(parseInt(props.details.amount)).toLocaleString('en-IN')}</span><span className='text-gray-600'>/person</span>
                         </div>
                         <div className=" w-full flex flex-row items-center gap-5  ">
                             <LuCalendarClock className='text-amber-950 text-2xl' />
                             <span className='text-xl'>{props.details.days} days</span>
                         </div>
-                        <div className=" w-full text-center ">
-                            <button className="text-center p-2 bg-red-800 text-white rounded-md hover:bg-red-600" onClick={() => {
+                        <div className='w-full'>
+                            <h1 className='text-xl text-gray-500 '>Total Price:</h1>
+                        <div className='flex items-center'><FaRupeeSign className='text-3xl'/>{props.details.amount && <h1 className='text-3xl font-bold'> {(parseInt(props.totalPeople * props.details.amount)).toLocaleString('en-IN')}</h1> }</div>
+                        </div>
+                        <div className=" w-full text-center mt-7">
+                            <button className="text-center p-2 bg-red-800 shadow-red-800 shadow-md text-white rounded-md hover:bg-red-600" onClick={() => {
                                 const str = props.details.title.split(' ').join('-');
                                 navigate(`/package/${str}`);
 
@@ -99,8 +106,8 @@ const ExperienceCard = (props) => {
                 </div>
             </div>
             <span >
-                <button onClick={() => { props.handleUpdateExperience(props.details) }}><FaRegEdit className='text-red-800 text-lg' /></button>
-                <button onClick={() => { props.handleDeleteExperience(props.details.experienceId, props.details.title) }}><MdDelete className='text-red-800 text-lg mx-5' /></button>
+                <button onClick={() => { props.handleUpdateExperience(props.details) }}><FaRegEdit className='text-red-800 text-2xl' /></button>
+                <button onClick={() => { props.handleDeleteExperience(props.details.experienceId, props.details.title) }}><MdDelete className='text-red-800 text-2xl mx-5' /></button>
             </span>
         </div>
     )

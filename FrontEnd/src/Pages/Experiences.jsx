@@ -7,13 +7,15 @@ import useFetch from "../components/useFetch.jsx";
 import { IoIosFunnel } from "react-icons/io";
 import Pagination from "../components/Pagination.jsx";
 import expbg from "../assets/expbg.webp"
-import Searchbar from "../components/Searchbar.jsx";
+// import Searchbar from "../components/Searchbar.jsx";
 import { IoIosClose } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { RiArrowDropUpFill } from "react-icons/ri";
 import { IsLoggedInContext } from "../App.jsx";
 import { useContext } from "react";
-import AlertBox from "../components/AlertBox.jsx";
+// import AlertBox from "../components/AlertBox.jsx";
+import { MdDelete } from "react-icons/md";
+import { IoIosRemoveCircle } from "react-icons/io";
 const fetchExperiences = (url) => {
 
   return new Promise(async (resolve, reject) => {
@@ -45,6 +47,8 @@ const Experiences = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalExperiences, setTotalExperiences] = useState(0);
   const [dispSortBox, setDispSortBox] = useState(false);
+  const [clearFilters, setClearFilters] = React.useState(false)
+  const [totalPeople , setTotalPeople] = React.useState(1);
   // const [showAlert , setShowAlert] = useState(false);
   // const [alertMessage , setAlertMessage] = useState("");
   // const [alertResponse , setAlertResponse] = useState(false);
@@ -315,6 +319,16 @@ const Experiences = () => {
     setDispSortBox(!dispSortBox);
   }
   useEffect(() => {
+    if(clearFilters){
+        setAmount(0);
+        setDayCount(0);
+        setStartDate(currentDate);
+        setEndDate(currentDate);
+        setStatusList([]);
+        setClearFilters(false)
+    }
+ }, [clearFilters])
+  useEffect(() => {
     // setCurrentPage(0);
     let s = "";
     if (statusList.length > 0)
@@ -331,7 +345,7 @@ const Experiences = () => {
       s += "&days=15";
     s += "&Sort=" + sortOrder;
     s += "&pageNo=" + currentPage;
-    s += "&pageSize=3"
+    s += "&pageSize=5"
     setFilter(s);
     fetchExperiences("http://localhost:8085/experiences/filtered" + s).then((experiences) => {
       setDetail(experiences.content);
@@ -339,6 +353,14 @@ const Experiences = () => {
       setTotalExperiences(experiences.totalElements);
     });
   }, [statusList, amount, dayCount, items, sortOrder, currentPage])
+
+  useEffect(()=>{
+    let count=0;
+    rooms.map((rooms)=>{
+      count +=  parseInt(rooms.adults) + parseInt(rooms.children);
+    })
+    setTotalPeople(count);
+  } , [rooms])
 
   // const  isLiked = async (eid) => {
   //   if (isLoggedIn) {
@@ -383,13 +405,16 @@ const Experiences = () => {
       //   backgroundSize: 'cover',
       // }}
       >
-        <div className="flex flex-col my-7 p-7 w-1/4 text-center rounded-lg justify-center top-8 sticky items-center shadow-lg border-solid border-gray-300 border-2"
+        <div className="flex flex-col my-7 p-7 w-1/4  rounded-lg  top-8 shadow-lg shadow-gray-400"
         // style={{
         //   background: `linear-gradient(rgba(225, 225, 225, 1) 40%, rgba(225,225,225,0.8) 60% )`,
         // }}
         >
-          <div className="text-center  text-red-800 font-bold text-2xl ">
-            <h1 className="mr-4">Destinations</h1>
+          <button className=" w-full border-solid border-red-800 text-red-800 text-xl border-2 p-1 rounded-full hover:text-white hover:bg-red-800  "onClick={() => {
+                            setClearFilters(true)
+                        }}>Clear Filters</button>
+          <div className=" text-red-800 font-bold my-5">
+            <h1 className="text-2xl">Destinations</h1>
             {/* <div>
            <Searchbar setResults={setResults} />
           <input
@@ -408,7 +433,7 @@ const Experiences = () => {
             {items.length > 0 && items.map((item, i) => (
               <div
                 key={i}
-                className="flex flex-row gap-2 bg-red-800 text-white p-1 text-xl border-white border-solid border-2 w-full"
+                className="flex flex-row gap-2  text-black p-1 text-3xl  w-full my-1"
               >
                 <input
                   className="accent-red-200"
@@ -416,12 +441,12 @@ const Experiences = () => {
                   onChange={() => handleOnChange(item)}
                   checked={statusList.includes(item)}
                 />
-                <label key={i}>{item}</label>
+                <label key={i} className="text-2xl">{item}</label>
               </div>
             ))}
           </div>
-
-          <div className="text-center font-bold text-red-800 text-2xl">
+          {/* <hr className="h-2 bg-gray-300 w-full rounded-full my-5"/> */}
+          <div className="text-left font-bold text-red-800 text-2xl my-5">
             Budget
           </div>
           <input
@@ -432,29 +457,43 @@ const Experiences = () => {
             className="accent-red-800 w-full"
             onChange={(e) => setAmount(e.target.value)}
           />
-          <div className="text-red-800 ">{amount}</div>
-
-          <div className="text-center font-bold text-red-800 text-2xl">
+          <div className="text-red-800 text-right text-2xl"><span>Rs. {(parseInt(amount)).toLocaleString('en-IN')}</span><span className="text-lg text-gray-500"> /person</span></div>
+          <div className="text-left font-bold text-red-800 text-2xl mt-5">
             Rooms&Guests
           </div>
           {rooms.map((room, index) => (
             <div
               key={index}
-              className="flex flex-row gap-4 text-center bg-red-800 text-white p-1 text-md border-white border-solid border-2 w-full align-middle"
+              className="flex flex-col gap-4 justify-center items-center text-center my-5 drop-shadow-xl bg-white text-black p-2 text-md w-full align-middle"
             >
-              <div>Room {index + 1}</div>
+              <div className=" w-full flex justify-between">
+                <h1 className="text-xl font-bold text-gray-800">Room {index + 1}</h1>
+                {index !== 0 ? (
+                <button onClick={() => handleRemoveRoom(index)}><IoIosRemoveCircle className="text-red-800 text-3xl"/></button>
+              ) : (
+                <button
+                  className="text-red-400 text-3xl"
+                  disabled
+                  onClick={() => handleRemoveRoom(index)}
+                >
+                  <IoIosRemoveCircle />
+                </button>
+              )}
+                </div>
+              <hr />
+              <div className="flex w-full justify-between">
               <div className="flex flex-col text-center">
-                <div>Adults</div>
-                <div className="flex flex-row gap-4 text-red-800 bg-white items-center">
+                <div className="font-bold text-gray-600"><h1>Adults</h1></div>
+                <div className="flex flex-row gap-4 py-2 px-1 text-black bg-white items-center  shadow-black shadow-sm">
                   <button
-                    className=" font-bold p-1 rounded-md"
+                    className=" font-bold p-1 rounded-md text-3xl"
                     onClick={(e) => handleCountDecrement(index, "adults")}
                   >
                     -
                   </button>
-                  {room.adults}
+                  <h1 className="text-2xl">{room.adults}</h1>
                   <button
-                    className=" font-bold p-1 rounded-md"
+                    className=" font-bold p-1 rounded-md text-3xl"
                     onClick={() => handleCountIncrement(index, "adults")}
                   >
                     +
@@ -462,83 +501,77 @@ const Experiences = () => {
                 </div>
               </div>
               <div className="flex flex-col">
-                <div>Children</div>
-                <div className="flex flex-row gap-4 text-red-800 bg-white items-center">
+              <div className="font-bold text-gray-600"><h1>Children</h1></div>
+                <div className="flex flex-row gap-4 py-2 px-1 text-black bg-white items-center  shadow-black shadow-sm">
                   <button
-                    className=" font-bold p-1 rounded-md"
+                    className=" font-bold p-1 rounded-md text-3xl"
                     onClick={(e) => handleCountDecrement(index, "children")}
                   >
                     -
                   </button>
-                  {room.children}
+                  <h1 className="text-2xl">{room.children}</h1>
                   <button
-                    className=" font-bold p-1 rounded-md"
+                    className=" font-bold p-1 rounded-md text-3xl"
                     onClick={() => handleCountIncrement(index, "children")}
                   >
                     +
                   </button>
                 </div>
               </div>
-              {index !== 0 ? (
-                <button onClick={() => handleRemoveRoom(index)}>Remove</button>
-              ) : (
-                <button
-                  className="text-grey-100"
-                  disabled
-                  onClick={() => handleRemoveRoom(index)}
-                >
-                  Remove
-                </button>
-              )}
+              </div>
+              
             </div>
           ))}
           {rooms.length <= 4 ? (
             <button
-              className="border-solid border-red-800 border-2 p-1 text-red-800"
+              className=" p-2 text-red-800 rounded-3xl hover:bg-red-800 hover:text-white border-solid border-red-800 border-2"
               onClick={handleAddRoom}
             >
               Add Room
             </button>
           ) : null}
-          <div className="text-center font-bold text-red-800 text-2xl">
-            Holiday Duration (Days)
+          {/* <hr className="h-2 bg-gray-300 w-full rounded-full my-5"/> */}
+          <div className="text-left font-bold text-red-800 text-2xl my-8">
+            Holiday Duration
           </div>
-          <div className="flex flex-row  text-white font-bold text-md items-center justify-center gap-10 border-solid border-red-800 border-2 p-1 w-1/2 bg-red-800">
+          <div className="flex flex-row  text-black shadow-black w-full shadow-sm font-bold text-2xl items-center justify-center gap-10   p-1 ">
             <button
-              className=" font-bold p-1 rounded-md text-xl"
+              className=" font-bold p-1 rounded-md text-3xl"
               onClick={handleDayCountDecrement}
             >
               -
             </button>
-            {dayCount}
+            <h1 className="whitespace-nowrap text-2xl">{dayCount+" Days"} </h1>
             <button
-              className=" font-bold p-1 rounded-md text-xl"
+              className=" font-bold p-1 rounded-md text-3xl"
               onClick={handleDayCountIncrement}
             >
               +
             </button>
           </div>
-          <div className="text-center font-bold text-red-800 text-2xl">
-            Start Date
-          </div>
-          <input
+          <div className="w-full text-center flex items-center justify-between font-bold text-red-800 text-2xl mt-8">
+           <h1 className="whitespace-nowrap w-60"> Start Date</h1>
+           <input
             type="date"
             value={startDate}
             min={currentDate}
-            className="text-md font-bold border-solid bg-red-800 border-red-800 border-2 p-2 w-auto accent-red-800 text-white"
+            className="text-md font-bold w-full bg-white p-2 accent-red-800 text-black text-xl"
             onChange={handleStartDateChange}
           />
-          <div className="text-center font-bold text-red-800 text-2xl">
-            End Date
           </div>
+          
+          <div className=" w-full text-center flex items-center justify-between font-bold text-red-800 text-2xl mt-8">
+          <h1 className="whitespace-nowrap w-60"> End Date</h1>
           <input
             type="date"
             value={endDate}
             min={startDate}
             max={maxEndDate}
-            className="text-md font-bold bg-red-800 border-solid border-red-800 border-2 p-2 w-auto accent-red-800 text-white"
+            className="text-md font-bold bg-white  p-2 w-full accent-red-800 text-black text-xl"
             onChange={handleEndDateChange}
           />
+          </div>
+          
         </div>
 
         <div className="my-5 w-full flex flex-col items-center relative">
@@ -563,7 +596,7 @@ const Experiences = () => {
           {/* <h3 className="align-left">Total '{totalExperiences}' Experiences</h3> */}
           {detail && detail.map((item, i) =>
           // liked={isLiked(item.experienceId) ? true : false}
-            <ExperienceCard key={item.experienceId}  details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
+            <ExperienceCard key={item.experienceId}  totalPeople={totalPeople} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
           )}
           <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
