@@ -18,6 +18,7 @@ import { MdDelete } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
 import Loading from "../components/Loading.jsx";
 import FilterMenu from "../components/FilterMenu.jsx";
+import { toast } from "react-toastify";
 const fetchExperiences = (url) => {
 
   return new Promise(async (resolve, reject) => {
@@ -68,9 +69,9 @@ const Experiences = () => {
     setAddDays();
     setShowAddExperience(false);
     setUpdateExperience(false);
-    setShowAlert(false);
-    setAlertMessage("");
-    setAlertResponse(false);
+    // setShowAlert(false);
+    // setAlertMessage("");
+    // setAlertResponse(false);
   }
   const handleUpdateExperience = (details) => {
     setCurrentExperienceId(details.experienceId);
@@ -84,9 +85,9 @@ const Experiences = () => {
     fetch(baseUrl + "experiences/experienceImage/" + details.title)
       .then((response) => response.blob())
       .then((blob) => {
-        console.log(blob);
+        // console.log(blob);
         var file = new File([blob], details.title, { type: "image/*", lastModified: Date.now() });
-        console.log(file);
+        // console.log(file);
         setAddImage(file);
         setShowAddExperience(true);
         setUpdateExperience(!updateExperience);
@@ -125,21 +126,25 @@ const Experiences = () => {
               // },
               body: formdata
             })
-            if (message.ok)
-              console.log("message" + message);
+            if (message.ok) {
+              // console.log("message" + message);
+            }
           }
           catch (error) {
+            toast.error("Failed to update experience");
             console.log("error" + error);
           }
-          console.log("Experience updated successfully");
+          toast.success("Experience updated successfully");
           fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
             setItems(destinations);
           });
           resetData();
-        } else {
-          alert("Failed to update experience");
+        }
+        else {
+          toast.error("Failed to update experience")
         }
       } catch (error) {
+        toast.error("Failed to update experience");
         console.log("Error:", error);
       }
     }
@@ -187,11 +192,14 @@ const Experiences = () => {
             // },
             body: formdata
           })
-          if (message.ok)
-            console.log("message" + message);
+          if (message.ok) {
+             toast.success("New experience added successfully");
+          }
+          // console.log("message" + message);
         }
         catch (error) {
           console.log("error" + error);
+          toast.error("Failed to add new experience");
         }
         console.log("New experience added successfully");
         fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
@@ -200,9 +208,11 @@ const Experiences = () => {
         resetData();
       } else {
         alert("Failed to add new experience");
+        toast.error("Failed to add new experience")
       }
     } catch (error) {
       console.log("Error:" + error);
+      toast.error("Failed to add new experience")
     }
   };
   const handleDeleteExperience = async (id, title) => {
@@ -215,15 +225,17 @@ const Experiences = () => {
         const res = await fetch('http://localhost:8085/experiences/deleteImage/' + title, {
           method: "DELETE",
         });
-        console.log("Experience deleted successfully");
+        // console.log("Experience deleted successfully");
+        toast.success("Experience deleted successfully");
         fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
           setItems(destinations);
         });
       } else {
-        alert("Failed to delete experience");
+        toast.error("Failed to delete experience")
       }
     } catch (error) {
       console.log("Error:", error);
+      toast.error("Failed to delete experience")
     }
   };
   const [showAddExperience, setShowAddExperience] = useState(false);
@@ -415,19 +427,19 @@ const Experiences = () => {
       //   backgroundSize: 'cover',
       // }}
       >
-      <FilterMenu items={items} amount={amount} setAmount={setAmount} rooms={rooms} handleAddRoom={handleAddRoom} handleDayCountDecrement={handleDayCountDecrement} handleDayCountIncrement={handleDayCountIncrement} dayCount={dayCount}
-      startDate={startDate} currentDate={currentDate} handleStartDateChange={handleStartDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} maxEndDate={maxEndDate} statusList={statusList}
-      handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={false}/>
-        
+        <FilterMenu items={items} amount={amount} setAmount={setAmount} rooms={rooms} handleAddRoom={handleAddRoom} handleDayCountDecrement={handleDayCountDecrement} handleDayCountIncrement={handleDayCountIncrement} dayCount={dayCount}
+          startDate={startDate} currentDate={currentDate} handleStartDateChange={handleStartDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} maxEndDate={maxEndDate} statusList={statusList}
+          handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={false} />
+
         <div className="my-5 w-full flex flex-col items-center relative">
           <button className="border-solid w-1/2 mb-3 md:mb-10 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
           <div className="w-full justify-between flex items-center">
             <div className="block xl:hidden left-0 top-1">
               <button onClick={() => { setFilterMenu(true) }} className="border-solid border-black border-2 p-4 rounded-xl font-bold">Filters</button>
             </div>
-            {filterMenu===true && <FilterMenu items={items} amount={amount} setAmount={setAmount} rooms={rooms} handleAddRoom={handleAddRoom} handleDayCountDecrement={handleDayCountDecrement} handleDayCountIncrement={handleDayCountIncrement} dayCount={dayCount}
+            {filterMenu === true && <FilterMenu items={items} amount={amount} setAmount={setAmount} rooms={rooms} handleAddRoom={handleAddRoom} handleDayCountDecrement={handleDayCountDecrement} handleDayCountIncrement={handleDayCountIncrement} dayCount={dayCount}
               startDate={startDate} currentDate={currentDate} handleStartDateChange={handleStartDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} maxEndDate={maxEndDate} statusList={statusList}
-              handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={true} setFilterMenu={setFilterMenu}/>}
+              handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={true} setFilterMenu={setFilterMenu} />}
             <div className="relative whitespace-nowrap w-fit lg:w-90 text-center z-30">
               {/* <button onClick={() => { sortItem() }} ><IoIosFunnel className={sortOrder === "" ? "text-red-300 hover:text-red-500 text-4xl" : "text-red-800 hover:text-red-500 text-4xl"} /></button> */}
               {/* <p className="text-red-900">Sort Price Lowest to Highest</p> */}
@@ -458,14 +470,14 @@ const Experiences = () => {
             // liked={isLiked(item.experienceId) ? true : false}
             <ExperienceCard key={item.experienceId} totalPeople={totalPeople} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
           )}
-          {!loading && pageCount===0 && <h1 className="text-4xl text-black">No Experiences Found</h1>}
-         {!loading && pageCount!==0  && <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} /> }
+          {!loading && pageCount === 0 && <h1 className="text-4xl text-black">No Experiences Found</h1>}
+          {!loading && pageCount !== 0 && <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
         </div>
       </div>
 
       {showAddExperience ? (
         <div className="fixed top-0 left-0 z-40 w-full h-screen bg-black bg-opacity-50 flex justify-center items-center ">
-          <form className="lg:w-2/3 w-full bg-white p-5 h-screen overflow-scroll relative ">
+          <form onSubmit={(e) => { e.preventDefault() }} className="lg:w-2/3 w-full bg-white p-5 h-screen overflow-scroll relative ">
             <button onClick={() => resetData()}><IoIosClose className="text-red-800 text-6xl absolute right-5 top-5" /></button>
             <div className="font-bold text-2xl text-center text-red-800">
               {updateExperience ? " Update Experience" : "Add Experience"}
@@ -516,7 +528,7 @@ const Experiences = () => {
                 onChange={(e) => { setAddImage(e.target.files[0]) }}
                 className="border-solid border-red-800 border-2 p-3"
               />
-              {addImage !== "" && addImage.size > 0 && <img src={URL.createObjectURL(addImage)} alt="preview Image" />}
+              {addImage && addImage !== "" && addImage.size > 0 && <img src={URL.createObjectURL(addImage)} alt="preview Image" />}
 
               <label htmlFor="">Region</label>
               <input
