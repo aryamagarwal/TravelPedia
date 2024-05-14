@@ -93,7 +93,7 @@ function Package() {
   const navigate = useNavigate();
   const { id } = useParams();
   const title = id.split("-").join(" ");
-  const menu = ["The Essence", "Itinerary", "Budget", "Review", "Info"];
+  const menu = ["The Essence", "Itinerary", "Budget", "Reviews"];
   const [selectedMenu, setSelectedMenu] = React.useState(menu[0]);
   const [itinerayDetails, setItineraryDetails] = React.useState(false);
   const [detail, setDetail] = useState(null);
@@ -234,8 +234,8 @@ function Package() {
           </div>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
-          <div className="flex flex-row relative w-2/3 justify-center h-auto gap-10 -top-14">
-            <div className="bg-red-800  text-white rounded-lg p-5">
+          <div className="flex flex-row relative w-4/5 justify-center  h-auto gap-10 -top-14">
+            <div className="bg-red-800 w-4/6 text-white rounded-lg p-5">
               <div className="text-2xl font-bold w-full m-4 text-center ">
                 A Romantic Rendezvous!!
               </div>
@@ -291,14 +291,14 @@ function Package() {
                 </div>
               </div>
             </div>
-            <div className="bg-red-800 flex flex-col items-center  text-white rounded-lg ">
+            <div className="bg-red-800 w-2/6 flex flex-col items-center  text-white rounded-lg ">
               <div className="tracking-widest mt-8 text-center font-bold text-2xl">
                 YOUR SPECIALIST
               </div>
-              <div className="flex justify-start">
+              <div className="flex-col justify-start">
                 <div className="h-48 w-28 ml-8 ">
                   <img
-                    className="pt-12 w-28 h-48 rounded-lg"
+                    className="pt-12 w-full h-auto rounded-lg"
                     src={img_specialist}
                     alt="img"
                   />
@@ -306,10 +306,10 @@ function Package() {
 
                 <div className="mr-12 mt-12 ml-4">
                   <div className="mt-8 text-xl font-semibold ">
-                    Akshat Singh
+                    Name: Akshat Singh
                   </div>
-                  <div className="mt-2 text-lg">0091-8587902207</div>
-                  <div className="mt-2 text-lg">PRICE:2000 per trip</div>
+                  <div className="mt-2 text-lg">Mobile: 91-8587902207</div>
+                  <div className="mt-2 text-lg">Price: Rs. 2000 /trip</div>
                   <div className="w-full mt-4"></div>
                 </div>
               </div>
@@ -321,14 +321,14 @@ function Package() {
         </div>
       </div>
 
-      <div className="w-full bg-red-800 h-auto flex flex-row mt-3  ">
+      <div className="w-full  h-auto flex flex-row mt-3 text-md  ">
         {menu.map((item, index) => (
           <button
             key={index}
             className={
               selectedMenu === item
-                ? "text-white p-4 hover:bg-red-600 bg-red-600 font-bold"
-                : "text-white p-4 hover:bg-red-700 font-bold"
+                ? "p-4   shadow-xl  shadow-gray-700  font-bold text-lg border-b-8 border-red-800 border-solid"
+                : "p-4 hover:border-red-800 hover:border-b-4 hover:border-solid shadow-lg shadow-grey-100 text-black font-bold"
             }
             onClick={() => { setSelectedMenu(item) }}
           >
@@ -337,14 +337,14 @@ function Package() {
         ))}
       </div>
       {detail && (
-        <div className="h-auto w-full justify-center bg-red-200 ">
+        <div className="h-auto w-full justify-center  ">
           <div
             className={
               "flex flex-row"
             }
           >
             
-            <div className="flex flex-col w-full text-red-900 text-2xl m-5 mr-0 whitespace-pre-line">
+            <div className="flex flex-col w-full text-black text-xl m-5 mr-0 whitespace-pre-line">
               {selectedMenu === menu[0] ? detail.description : null}
               {selectedMenu === menu[1] ? (
                 <div>
@@ -570,7 +570,8 @@ function Package() {
       )}
       {showReviewPopUp && (
               <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50">
-                <div className="bg-white p-4 w-1/2 h-1/2 rounded-lg flex flex-col justify-center">
+                <div className="bg-white p-4 w-1/2 min-h-1/2 h-auto rounded-lg flex  flex-col justify-center">
+                  <h1 className="text-2xl font-bold text-center">{updateReview ? "Update Review" : "Add a Review"}</h1>
                   <div className="flex flex-col">
                     <input
                       type="text"

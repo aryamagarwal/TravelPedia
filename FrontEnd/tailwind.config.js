@@ -31,6 +31,9 @@ export default {
         'display': ['Poppins'],
         'gideon': ['Gideon Roman'],
       },
+      zIndex: {
+        '60': '60',
+      }
   },
   plugins: [],
 }
