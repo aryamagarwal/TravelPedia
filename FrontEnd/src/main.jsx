@@ -21,6 +21,8 @@ import Trips from "./Pages/Trips.jsx";
 import AboutUs from "./Pages/AboutUs.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
 import Checkout from "./Pages/CheckOut.jsx";
+import VerifyForm from "./components/VerifyForm.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "SignUp",
         element: <SignUpForm />,
+      },
+      {
+        path: "verifyAccount",
+        element: <VerifyForm />
       },
       {
         path: "ForgotPassword",

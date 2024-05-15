@@ -1,10 +1,16 @@
 package com.travelpedia.api.likedExperiences.service;
 
-import com.travelpedia.api.UserModel.UserModel;
+
+//import com.travelpedia.api.UserModel.UserModel;
+//import com.travelpedia.api.JwtModel.User;
+
 import com.travelpedia.api.UserRepository.UserRepository;
 import com.travelpedia.api.experiences.repository.ExperienceRepository;
 import com.travelpedia.api.likedExperiences.model.LikedExperiencesModel;
 import com.travelpedia.api.likedExperiences.repository.LikedExperiencesRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +21,32 @@ public class LikedExperienceServiceImpl implements LikedExperienceService{
     @Autowired
     ExperienceRepository er;
     @Autowired
-    UserRepository um;
+    com.travelpedia.api.JwtRepository.UserRepository um;
     @Override
     public void likeExperience(Long experienceId, Long userId) {
         LikedExperiencesModel lem=new LikedExperiencesModel();
         lem.setExperience(er.findByExperienceId(experienceId));
-        lem.setUser(um.findByUserId(userId));
+        lem.setUser(um.findById(userId));
+        
         ler.save(lem);
     }
 
     @Override
     public void unlikeExperience(Long experienceId, Long userId) {
-        LikedExperiencesModel lem = ler.findByExperience_ExperienceIdAndUser_Id(experienceId, userId.intValue());
+        LikedExperiencesModel lem = ler.findByExperience_ExperienceIdAndUser_Id(experienceId, userId.longValue());
         ler.deleteById(lem.getId());
     }
 
     @Override
     public boolean isLiked(Long experienceId, Long userId) {
-        return ler.findByExperience_ExperienceIdAndUser_Id(experienceId, userId.intValue()) != null;
+        return ler.findByExperience_ExperienceIdAndUser_Id(experienceId, userId.longValue()) != null;
     }
 
 
 
     @Override
     public void deleteLikedExperienceByUser(Long userId) {
-        ler.deleteByUser_Id(userId.intValue());
+        ler.deleteByUser_Id(userId.longValue());
     }
 
     @Override

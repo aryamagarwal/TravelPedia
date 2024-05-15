@@ -1,6 +1,4 @@
 import Navbar from "./components/navbar"
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./components/footer"
 import { Outlet } from "react-router-dom"
 import React from "react";
@@ -18,8 +16,6 @@ function App() {
       <Outlet/>
       <Footer />
       </IsLoggedInContext.Provider>
-      <ToastContainer />
-      
     </>
   );
 

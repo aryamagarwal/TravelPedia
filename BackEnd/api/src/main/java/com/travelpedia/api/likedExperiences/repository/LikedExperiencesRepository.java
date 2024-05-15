@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface LikedExperiencesRepository extends JpaRepository<LikedExperiencesModel,Long> {
-    LikedExperiencesModel findByExperience_ExperienceIdAndUser_Id(long experience_experienceId, int user_id);
-    void deleteByUser_Id(int i);
+    LikedExperiencesModel findByExperience_ExperienceIdAndUser_Id(Long experience_experienceId, Long user_id);
+    void deleteByUser_Id(Long i);
     void deleteByExperience_ExperienceId(Long experienceId);
 }

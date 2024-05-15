@@ -14,59 +14,51 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { IsLoggedInContext } from "../App.jsx";
+import { authApi } from "../api/authApi";
+import { handleResponseError } from "../api/util";
 
 const Account = () => {
   const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
+  const getUserDetails = () => {
+    let userDetails = {};
+    try {
+      const resp = authApi.getMyDetails();
+      userDetails.userName = resp.data.userName;
+      userDetails.email = resp.data.email;
+      userDetails.firstName = resp.data.firstName;
+      userDetails.lastName = resp.data.lastName;
+    }
+    catch (error) {
+      handleResponseError(error);
+      setIsError(true);
+    }
+    return userDetails;
+  };
+  const [needData, setNeedData] = useState(true);
+  const [userDetails, setUserDetails] = useState(getUserDetails());
   const navigate = useNavigate();
   const { id } = useParams();
-  // console.log(id);
-  console.log();
 
-  const {
-    data: users,
-    isPending,
-    Error,
-  } = useFetch("http://localhost:8085/users");
-
+  // useEffect(()=>{
+  //   getUserDetails();
+  //   setNeedData(false);
+  // })[needData==true];
+  
   //   {users && users.map()}\
   const [id2, setId2] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPass] = useState();
+  // const [email, setEmail] = useState(data.userDetails.email);
+  // const [password, setPass] = useState();
+  
+  const [newPassword, setNewPass] = useState();
   // const [name, setName] = useState();
-  const [firstname, setFirstName] = useState();
-  const [lastname, setLastName] = useState();
-  const [username, setuserName] = useState();
+  const [firstname, setFirstName] = useState(data.userDetails.firstName);
+  const [lastname, setLastName] = useState(data.userDetails.lastName);
+  // const [username, setuserName] = useState(data.userDetails.userName);
   // const [review, setReview] = useState("");
   const [base, setBase] = useState(false);
 
   const [firstName, lastName] = id.split(" ");
   const usern = firstName.toLowerCase();
-
-  useEffect(() => {
-    if (users) {
-      const user = users.find(
-        (user_db) => user_db.firstname + " " + user_db.lastname === id,
-        // console.log("found"),
-        // console.log(user.firstname + " " + user.lastname === id),
-      );
-
-      if (user) {
-        setEmail(user.email);
-        console.log("user", user.email);
-        setPass(user.password);
-        console.log("user", user.password);
-        // setuserName(user.firstname + " " + user.lastname);
-        setFirstName(user.firstname);
-        console.log("user", user.firstname);
-        setLastName(user.lastname);
-        console.log("user", user.lastname);
-        setuserName(user.username);
-        console.log("user", user.username);
-        // setReview(user.review);
-        setId2(user.id);
-      }
-    }
-  }, [users, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -147,10 +139,11 @@ const Account = () => {
                       <input
                         className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
                         type="text"
+                        disabled
                         placeholder="Username"
                         required
-                        value={username}
-                        onChange={(e) => setuserName(e.target.value)}
+                        value={userDetails.userName}
+                        // onChange={(e) => setuserName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
@@ -163,7 +156,7 @@ const Account = () => {
                         type="text"
                         placeholder="FirstName"
                         required
-                        value={firstname}
+                        value={userDetails.firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
@@ -176,24 +169,10 @@ const Account = () => {
                         className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
                         type="text"
                         placeholder="LastName"
-                        required
-                        value={lastname}
+                        value={userDetails.lastName}
                         onChange={(e) => setLastName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
-                    </div>
-                    <div className="inputBox flex relative items-center my-3 mt-12 h-12 w-full">
-                      <div className="pl-8">Password:</div>
-
-                      <input
-                        className="bg-transparent w-full p-5 h-full ml-8 text-xl rounded-3xl outline-none border-2 focus:border-red-400"
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={password}
-                        onChange={(e) => setPass(e.target.value)}
-                      />
-                      <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
                     <div className="inputBox flex relative items-center my-3 mt-12 h-12 w-full ">
                       <div className="pl-8">Email:</div>
@@ -204,7 +183,8 @@ const Account = () => {
                         placeholder="Email"
                         required
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        disabled
+                        // onChange={(e) => setEmail(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
                     </div>
