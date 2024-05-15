@@ -11,4 +11,3 @@
 ``npx json-server --watch src/assets/db/db.json --port 8000``
 
 *Whenever you pull, make sure you run ``npm install`` to install the dependencies added to the project.
-"h"
