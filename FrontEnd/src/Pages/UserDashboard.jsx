@@ -10,6 +10,7 @@ import { IconBase } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { IsLoggedInContext } from "../App.jsx";
+import { authApi } from "../api/authApi";
 
 const UserDashboard = () => {
   const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
@@ -58,9 +59,11 @@ const UserDashboard = () => {
     });
     // navigate(`/user/dashboard/${id}`)
   };
-
+  
   const logout = (e) => {
-    data.user = id;
+    // data.user = id;
+    authApi.logout();
+    // localStorage.removeItem("accessToken");
     if (confirm("The action will log you out!") === false) {
       return;
     }
@@ -94,10 +97,10 @@ const UserDashboard = () => {
             <div className="ml-12 mt-12 mr-8 w-52 h-80  bg-gray-50 shadow:sm rounded-3xl">
               <div className="flex flex-col justify-between">
                 <div className="pl-8 mt-8 w-full hover:bg-red-800">
-                  <button onClick={logout}>LogOut</button>
+                  <button onClick={account}>Account</button>
                 </div>
                 <div className="pl-8 mt-8 w-full hover:bg-red-800">
-                  <button onClick={account}>Account</button>
+                  <button onClick={logout}>LogOut</button>
                 </div>
                 <div className="pl-8 mt-8 w-full hover:bg-slate-100"></div>
               </div>

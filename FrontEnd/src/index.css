@@ -24,22 +24,7 @@ body{
   
   
 }
-.loader {
-  border: 10px solid #f3f3f3;
-  border-top: 10px solid black;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
 .cardImg:hover{
   transform: scale(1.8);
   transition: 0.5s ease-in-out;

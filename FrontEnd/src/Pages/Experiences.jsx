@@ -16,9 +16,6 @@ import { useContext } from "react";
 // import AlertBox from "../components/AlertBox.jsx";
 import { MdDelete } from "react-icons/md";
 import { IoIosRemoveCircle } from "react-icons/io";
-import Loading from "../components/Loading.jsx";
-import FilterMenu from "../components/FilterMenu.jsx";
-import { toast } from "react-toastify";
 const fetchExperiences = (url) => {
 
   return new Promise(async (resolve, reject) => {
@@ -32,7 +29,6 @@ const fetchExperiences = (url) => {
   });
 };
 const Experiences = () => {
-  const baseUrl = "http://localhost:8085/";
   const { user, isLoggedIn } = useContext(IsLoggedInContext);
   const [addTitle, setAddTitle] = useState("");
   const [addDescription, setAddDescription] = useState("");
@@ -52,9 +48,7 @@ const Experiences = () => {
   const [totalExperiences, setTotalExperiences] = useState(0);
   const [dispSortBox, setDispSortBox] = useState(false);
   const [clearFilters, setClearFilters] = React.useState(false)
-  const [totalPeople, setTotalPeople] = React.useState(1);
-  const [loading, setLoading] = React.useState(false);
-  const [filterMenu, setFilterMenu] = React.useState(false);
+  const [totalPeople , setTotalPeople] = React.useState(1);
   // const [showAlert , setShowAlert] = useState(false);
   // const [alertMessage , setAlertMessage] = useState("");
   // const [alertResponse , setAlertResponse] = useState(false);
@@ -69,9 +63,9 @@ const Experiences = () => {
     setAddDays();
     setShowAddExperience(false);
     setUpdateExperience(false);
-    // setShowAlert(false);
-    // setAlertMessage("");
-    // setAlertResponse(false);
+    setShowAlert(false);
+    setAlertMessage("");
+    setAlertResponse(false);
   }
   const handleUpdateExperience = (details) => {
     setCurrentExperienceId(details.experienceId);
@@ -82,12 +76,12 @@ const Experiences = () => {
     setAddRegion(details.region);
     setAddAmount(details.amount);
     setAddDays(details.days);
-    fetch(baseUrl + "experiences/experienceImage/" + details.title)
+    fetch("http://localhost:8085/experiences/experienceImage/" + details.title)
       .then((response) => response.blob())
       .then((blob) => {
-        // console.log(blob);
+        console.log(blob);
         var file = new File([blob], details.title, { type: "image/*", lastModified: Date.now() });
-        // console.log(file);
+        console.log(file);
         setAddImage(file);
         setShowAddExperience(true);
         setUpdateExperience(!updateExperience);
@@ -98,60 +92,56 @@ const Experiences = () => {
     // setShowAlert(true);
     // setAlertMessage("Are you sure you want to update this experience?");
     // if(alertResponse === false) return;
-    else {
-      try {
-        const response = await fetch(baseUrl + "experiences/update/" + currentExperienceId, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: addTitle,
-            description: addDescription,
-            location: addLocation,
-            region: addRegion,
-            amount: addAmount,
-            days: addDays,
-          }),
+    else{
+    try {
+      const response = await fetch("http://localhost:8085/experiences/update/" + currentExperienceId, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: addTitle,
+          description: addDescription,
+          location: addLocation,
+          region: addRegion,
+          amount: addAmount,
+          days: addDays,
+        }),
+      });
+      if (response.ok) {
+        try {
+          const formdata = new FormData();
+          formdata.append("file", addImage);
+          formdata.append("title", addTitle);
+          const message = await fetch("http://localhost:8085/experiences/file-upload", {
+            method: "POST",
+            // headers: {
+            //   "Content-Type" : "multipart/form-data"
+            // },
+            body: formdata
+          })
+          if (message.ok)
+            console.log("message" + message);
+        }
+        catch (error) {
+          console.log("error" + error);
+        }
+        console.log("Experience updated successfully");
+        fetchExperiences("http://localhost:8085/experiences/regions").then((destinations) => {
+          setItems(destinations);
         });
-        if (response.ok) {
-          try {
-            const formdata = new FormData();
-            formdata.append("file", addImage);
-            formdata.append("title", addTitle);
-            const message = await fetch(baseUrl + "experiences/file-upload", {
-              method: "POST",
-              // headers: {
-              //   "Content-Type" : "multipart/form-data"
-              // },
-              body: formdata
-            })
-            if (message.ok) {
-              // console.log("message" + message);
-            }
-          }
-          catch (error) {
-            toast.error("Failed to update experience");
-            console.log("error" + error);
-          }
-          toast.success("Experience updated successfully");
-          fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
-            setItems(destinations);
-          });
-          resetData();
-        }
-        else {
-          toast.error("Failed to update experience")
-        }
-      } catch (error) {
-        toast.error("Failed to update experience");
-        console.log("Error:", error);
+        resetData();
+      } else {
+        alert("Failed to update experience");
       }
+    } catch (error) {
+      console.log("Error:", error);
     }
+  }
   }
   useEffect(() => {
 
-    fetchExperiences(baseUrl + "experiences/regions").then((regions) => {
+    fetchExperiences("http://localhost:8085/experiences/regions").then((regions) => {
       setItems(regions);
     });
 
@@ -165,8 +155,8 @@ const Experiences = () => {
     // setShowAlert(true);
     // setAlertMessage("Are you sure you want to add this experience?");
     // if(alertResponse === false) return;
-    try {
-      const response = await fetch(baseUrl + "experiences/create", {
+   try {
+      const response = await fetch("http://localhost:8085/experiences/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -185,34 +175,29 @@ const Experiences = () => {
           const formdata = new FormData();
           formdata.append("file", addImage);
           formdata.append("title", addTitle);
-          const message = await fetch(baseUrl + "experiences/file-upload", {
+          const message = await fetch("http://localhost:8085/experiences/file-upload", {
             method: "POST",
             // headers: {
             //   "Content-Type" : "multipart/form-data"
             // },
             body: formdata
           })
-          if (message.ok) {
-             toast.success("New experience added successfully");
-          }
-          // console.log("message" + message);
+          if (message.ok)
+            console.log("message" + message);
         }
         catch (error) {
           console.log("error" + error);
-          toast.error("Failed to add new experience");
         }
         console.log("New experience added successfully");
-        fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
+        fetchExperiences("http://localhost:8085/experiences/regions").then((destinations) => {
           setItems(destinations);
         });
         resetData();
       } else {
         alert("Failed to add new experience");
-        toast.error("Failed to add new experience")
       }
     } catch (error) {
       console.log("Error:" + error);
-      toast.error("Failed to add new experience")
     }
   };
   const handleDeleteExperience = async (id, title) => {
@@ -225,17 +210,15 @@ const Experiences = () => {
         const res = await fetch('http://localhost:8085/experiences/deleteImage/' + title, {
           method: "DELETE",
         });
-        // console.log("Experience deleted successfully");
-        toast.success("Experience deleted successfully");
-        fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
+        console.log("Experience deleted successfully");
+        fetchExperiences("http://localhost:8085/experiences/regions").then((destinations) => {
           setItems(destinations);
         });
       } else {
-        toast.error("Failed to delete experience")
+        alert("Failed to delete experience");
       }
     } catch (error) {
       console.log("Error:", error);
-      toast.error("Failed to delete experience")
     }
   };
   const [showAddExperience, setShowAddExperience] = useState(false);
@@ -336,18 +319,17 @@ const Experiences = () => {
     setDispSortBox(!dispSortBox);
   }
   useEffect(() => {
-    if (clearFilters) {
-      setAmount(0);
-      setDayCount(0);
-      setStartDate(currentDate);
-      setEndDate(currentDate);
-      setStatusList([]);
-      setClearFilters(false)
+    if(clearFilters){
+        setAmount(0);
+        setDayCount(0);
+        setStartDate(currentDate);
+        setEndDate(currentDate);
+        setStatusList([]);
+        setClearFilters(false)
     }
-  }, [clearFilters])
+ }, [clearFilters])
   useEffect(() => {
     // setCurrentPage(0);
-    setLoading(true);
     let s = "";
     if (statusList.length > 0)
       s += "?regions=" + statusList.join(",");
@@ -365,21 +347,20 @@ const Experiences = () => {
     s += "&pageNo=" + currentPage;
     s += "&pageSize=5"
     setFilter(s);
-    fetchExperiences(baseUrl + "experiences/filtered" + s).then((experiences) => {
+    fetchExperiences("http://localhost:8085/experiences/filtered" + s).then((experiences) => {
       setDetail(experiences.content);
       setPageCount(experiences.totalPages);
       setTotalExperiences(experiences.totalElements);
-      setLoading(false);
     });
   }, [statusList, amount, dayCount, items, sortOrder, currentPage])
 
-  useEffect(() => {
-    let count = 0;
-    rooms.map((rooms) => {
-      count += parseInt(rooms.adults) + parseInt(rooms.children);
+  useEffect(()=>{
+    let count=0;
+    rooms.map((rooms)=>{
+      count +=  parseInt(rooms.adults) + parseInt(rooms.children);
     })
     setTotalPeople(count);
-  }, [rooms])
+  } , [rooms])
 
   // const  isLiked = async (eid) => {
   //   if (isLoggedIn) {
@@ -397,7 +378,7 @@ const Experiences = () => {
   // }
   return (
     <div>
-      <div className="header w-full relative overflow-hidden text-center h-screen/3 md:h-screen/2 xl:h-screen  text-white font-bold">
+      <div className="header w-full  overflow-hidden text-center h-screen  text-white font-bold">
         <video
           className="w-full"
           autoPlay
@@ -405,79 +386,224 @@ const Experiences = () => {
           muted
           style={{
             background: "linear-gradient(rgba(0,0,0,1), rgba(0,0,0,1))",
-            height: "100%",
-            width: "100%",
-            objectFit: "cover",
           }}
         >
           <source src={bgVideo} type="video/mp4" />
         </video>
-        <div className="absolute xl:h-screen w-full top-1/2 -translate-y-1/2 p-3 flex items-center justify-center  text-white"
+        <div className="absolute h-screen w-full top-0 p-3 flex items-center justify-center  text-white"
           style={{
             background: "radial-gradient(rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.2) 60%)",
-
           }}
         >
-          <h1 className="text-center text-3xl xl:text-6xl">Book the Best Experiences in India</h1>
+          <h1 className="text-6xl">Book the Best Experiences in India</h1>
         </div>
       </div>
+
       <div className="flex gap-10 p-10 flex-row items-start"
       // style={{
       //   background: `linear-gradient(rgba(225, 225, 225, 1) 40%, rgba(0, 0, 0, 0.8) 60% ) , URL(${expbg})`,
       //   backgroundSize: 'cover',
       // }}
       >
-        <FilterMenu items={items} amount={amount} setAmount={setAmount} rooms={rooms} handleAddRoom={handleAddRoom} handleDayCountDecrement={handleDayCountDecrement} handleDayCountIncrement={handleDayCountIncrement} dayCount={dayCount}
-          startDate={startDate} currentDate={currentDate} handleStartDateChange={handleStartDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} maxEndDate={maxEndDate} statusList={statusList}
-          handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={false} />
-
-        <div className="my-5 w-full flex flex-col items-center relative">
-          <button className="border-solid w-1/2 mb-3 md:mb-10 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
-          <div className="w-full justify-between flex items-center">
-            <div className="block xl:hidden left-0 top-1">
-              <button onClick={() => { setFilterMenu(true) }} className="border-solid border-black border-2 p-4 rounded-xl font-bold">Filters</button>
-            </div>
-            {filterMenu === true && <FilterMenu items={items} amount={amount} setAmount={setAmount} rooms={rooms} handleAddRoom={handleAddRoom} handleDayCountDecrement={handleDayCountDecrement} handleDayCountIncrement={handleDayCountIncrement} dayCount={dayCount}
-              startDate={startDate} currentDate={currentDate} handleStartDateChange={handleStartDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} maxEndDate={maxEndDate} statusList={statusList}
-              handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={true} setFilterMenu={setFilterMenu} />}
-            <div className="relative whitespace-nowrap w-fit lg:w-90 text-center z-30">
-              {/* <button onClick={() => { sortItem() }} ><IoIosFunnel className={sortOrder === "" ? "text-red-300 hover:text-red-500 text-4xl" : "text-red-800 hover:text-red-500 text-4xl"} /></button> */}
-              {/* <p className="text-red-900">Sort Price Lowest to Highest</p> */}
-
-              <div className="border-2 border-gray-800 border-solid p-1 lg:p-3 rounded-2xl m-5  items-center flex flex-col lg:flex-row ">
-                <span className="text-sm lg:text-lg font-bold mr-3 whitespace-nowrap">Sorted By: </span>
-                <div className="flex items-center w-auto">
-                  <span className="value text-xs">{sortOrder === "" ? "Not Sorted" : sortOrder.split(",").join(" ").replace("ASC", "Low to High").replace("DESC", "High to Low").replace("amount", "Price-").replace("days Low to High", "Duration-Short to Long").replace("days High to Low", "Duration-Long to Short")}</span>
-                  <span><button onClick={() => {
-                    handleDropdown()
-                  }} className="text-xl lg:text-4xl">{!dispSortBox ? <RiArrowDropDownLine /> : <RiArrowDropUpFill />}</button></span>
+        <div className="flex flex-col my-7 p-7 w-1/4  rounded-lg  top-8 shadow-lg shadow-gray-400"
+        // style={{
+        //   background: `linear-gradient(rgba(225, 225, 225, 1) 40%, rgba(225,225,225,0.8) 60% )`,
+        // }}
+        >
+          <button className=" w-full border-solid border-red-800 text-red-800 text-xl border-2 p-1 rounded-full hover:text-white hover:bg-red-800  "onClick={() => {
+                            setClearFilters(true)
+                        }}>Clear Filters</button>
+          <div className=" text-red-800 font-bold my-5">
+            <h1 className="text-2xl">Destinations</h1>
+            {/* <div>
+           <Searchbar setResults={setResults} />
+          <input
+            type="text"
+            placeholder="Add Destinations"
+            className="border-solid border-red-800 border-2 p-2 text-red-800"
+          />
+          <select className="border-solid border-red-800 border-2 p-2 text-red-800">
+            <option value="">Select an item</option>
+            {items.map((item, index) => (
+              <option key={index} value={item}>{item}</option>
+            ))}
+          </select> */}
+          </div>
+          <div className="list flex w-full flex-col">
+            {items.length > 0 && items.map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-row gap-2  text-black p-1 text-3xl  w-full my-1"
+              >
+                <input
+                  className="accent-red-200"
+                  type="checkbox"
+                  onChange={() => handleOnChange(item)}
+                  checked={statusList.includes(item)}
+                />
+                <label key={i} className="text-2xl">{item}</label>
+              </div>
+            ))}
+          </div>
+          {/* <hr className="h-2 bg-gray-300 w-full rounded-full my-5"/> */}
+          <div className="text-left font-bold text-red-800 text-2xl my-5">
+            Budget
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="150000"
+            step="100"
+            className="accent-red-800 w-full"
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <div className="text-red-800 text-right text-2xl"><span>Rs. {(parseInt(amount)).toLocaleString('en-IN')}</span><span className="text-lg text-gray-500"> /person</span></div>
+          <div className="text-left font-bold text-red-800 text-2xl mt-5">
+            Rooms&Guests
+          </div>
+          {rooms.map((room, index) => (
+            <div
+              key={index}
+              className="flex flex-col gap-4 justify-center items-center text-center my-5 drop-shadow-xl bg-white text-black p-2 text-md w-full align-middle"
+            >
+              <div className=" w-full flex justify-between">
+                <h1 className="text-xl font-bold text-gray-800">Room {index + 1}</h1>
+                {index !== 0 ? (
+                <button onClick={() => handleRemoveRoom(index)}><IoIosRemoveCircle className="text-red-800 text-3xl"/></button>
+              ) : (
+                <button
+                  className="text-red-400 text-3xl"
+                  disabled
+                  onClick={() => handleRemoveRoom(index)}
+                >
+                  <IoIosRemoveCircle />
+                </button>
+              )}
+                </div>
+              <hr />
+              <div className="flex w-full justify-between">
+              <div className="flex flex-col text-center">
+                <div className="font-bold text-gray-600"><h1>Adults</h1></div>
+                <div className="flex flex-row gap-4 py-2 px-1 text-black bg-white items-center  shadow-black shadow-sm">
+                  <button
+                    className=" font-bold p-1 rounded-md text-3xl"
+                    onClick={(e) => handleCountDecrement(index, "adults")}
+                  >
+                    -
+                  </button>
+                  <h1 className="text-2xl">{room.adults}</h1>
+                  <button
+                    className=" font-bold p-1 rounded-md text-3xl"
+                    onClick={() => handleCountIncrement(index, "adults")}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
-              <ul className=" absolute left-5 sortingDropdown bg-white text-left text-sm md:text-lg text-black shadow-lg hidden cursor-pointer">
-                <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder(""); handleDropdown() }}>Not Sorted</li>
-                <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("amount,ASC"); handleDropdown() }}>Price-Low to High</li>
-                <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("amount,DESC"); handleDropdown() }}>Price-High to Low</li>
-                <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("days,ASC"); handleDropdown() }}>Duration-Short to Long</li>
-                <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("days,DESC"); handleDropdown() }}>Duration-Long to Short</li>
-              </ul>
+              <div className="flex flex-col">
+              <div className="font-bold text-gray-600"><h1>Children</h1></div>
+                <div className="flex flex-row gap-4 py-2 px-1 text-black bg-white items-center  shadow-black shadow-sm">
+                  <button
+                    className=" font-bold p-1 rounded-md text-3xl"
+                    onClick={(e) => handleCountDecrement(index, "children")}
+                  >
+                    -
+                  </button>
+                  <h1 className="text-2xl">{room.children}</h1>
+                  <button
+                    className=" font-bold p-1 rounded-md text-3xl"
+                    onClick={() => handleCountIncrement(index, "children")}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              </div>
+              
             </div>
+          ))}
+          {rooms.length <= 4 ? (
+            <button
+              className=" p-2 text-red-800 rounded-3xl hover:bg-red-800 hover:text-white border-solid border-red-800 border-2"
+              onClick={handleAddRoom}
+            >
+              Add Room
+            </button>
+          ) : null}
+          {/* <hr className="h-2 bg-gray-300 w-full rounded-full my-5"/> */}
+          <div className="text-left font-bold text-red-800 text-2xl my-8">
+            Holiday Duration
           </div>
-          {loading && <Loading />}
+          <div className="flex flex-row  text-black shadow-black w-full shadow-sm font-bold text-2xl items-center justify-center gap-10   p-1 ">
+            <button
+              className=" font-bold p-1 rounded-md text-3xl"
+              onClick={handleDayCountDecrement}
+            >
+              -
+            </button>
+            <h1 className="whitespace-nowrap text-2xl">{dayCount+" Days"} </h1>
+            <button
+              className=" font-bold p-1 rounded-md text-3xl"
+              onClick={handleDayCountIncrement}
+            >
+              +
+            </button>
+          </div>
+          <div className="w-full text-center flex items-center justify-between font-bold text-red-800 text-2xl mt-8">
+           <h1 className="whitespace-nowrap w-60"> Start Date</h1>
+           <input
+            type="date"
+            value={startDate}
+            min={currentDate}
+            className="text-md font-bold w-full bg-white p-2 accent-red-800 text-black text-xl"
+            onChange={handleStartDateChange}
+          />
+          </div>
+          
+          <div className=" w-full text-center flex items-center justify-between font-bold text-red-800 text-2xl mt-8">
+          <h1 className="whitespace-nowrap w-60"> End Date</h1>
+          <input
+            type="date"
+            value={endDate}
+            min={startDate}
+            max={maxEndDate}
+            className="text-md font-bold bg-white  p-2 w-full accent-red-800 text-black text-xl"
+            onChange={handleEndDateChange}
+          />
+          </div>
+          
+        </div>
 
-
+        <div className="my-5 w-full flex flex-col items-center relative">
+          <button className="border-solid w-1/2 mb-10 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
+          <div className="absolute right-0 top-11  w-auto text-center">
+            {/* <button onClick={() => { sortItem() }} ><IoIosFunnel className={sortOrder === "" ? "text-red-300 hover:text-red-500 text-4xl" : "text-red-800 hover:text-red-500 text-4xl"} /></button> */}
+            {/* <p className="text-red-900">Sort Price Lowest to Highest</p> */}
+            <div className="border-2 border-gray-800 border-solid p-3 rounded-2xl m-5  items-center flex ">
+              <span className="text-lg font-bold mr-3">Sorted By: </span><span className="value mr-3">{sortOrder === "" ? "Not Sorted" : sortOrder.split(",").join(" ").replace("ASC", "Low to High").replace("DESC", "High to Low").replace("amount", "Price-").replace("days Low to High", "Duration-Short to Long").replace("days High to Low", "Duration-Long to Short")}</span>
+              <span><button onClick={() => {
+                handleDropdown();
+              }} className="text-4xl">{!dispSortBox ? <RiArrowDropDownLine /> : <RiArrowDropUpFill />}</button></span>
+            </div>
+            <ul className="sortingDropdown bg-white text-left text-lg text-black shadow-lg hidden cursor-pointer">
+              <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder(""); handleDropdown() }}>Not Sorted</li>
+              <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("amount,ASC"); handleDropdown() }}>Price-Low to High</li>
+              <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("amount,DESC"); handleDropdown() }}>Price-High to Low</li>
+              <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("days,ASC"); handleDropdown() }}>Duration-Short to Long</li>
+              <li className="hover:bg-gray-200 p-2" onClick={() => { setSortOrder("days,DESC"); handleDropdown() }}>Duration-Long to Short</li>
+            </ul>
+          </div>
           {/* <h3 className="align-left">Total '{totalExperiences}' Experiences</h3> */}
-          {!loading && detail && detail.map((item, i) =>
-            // liked={isLiked(item.experienceId) ? true : false}
-            <ExperienceCard key={item.experienceId} totalPeople={totalPeople} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
+          {detail && detail.map((item, i) =>
+          // liked={isLiked(item.experienceId) ? true : false}
+            <ExperienceCard key={item.experienceId}  totalPeople={totalPeople} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
           )}
-          {!loading && pageCount === 0 && <h1 className="text-4xl text-black">No Experiences Found</h1>}
-          {!loading && pageCount !== 0 && <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+          <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
       </div>
-
       {showAddExperience ? (
         <div className="fixed top-0 left-0 z-40 w-full h-screen bg-black bg-opacity-50 flex justify-center items-center ">
-          <form onSubmit={(e) => { e.preventDefault() }} className="lg:w-2/3 w-full bg-white p-5 h-screen overflow-scroll relative ">
+          <div className="w-2/3 bg-white p-5 h-screen overflow-scroll relative ">
             <button onClick={() => resetData()}><IoIosClose className="text-red-800 text-6xl absolute right-5 top-5" /></button>
             <div className="font-bold text-2xl text-center text-red-800">
               {updateExperience ? " Update Experience" : "Add Experience"}
@@ -486,7 +612,6 @@ const Experiences = () => {
             <div className="flex flex-col gap-5">
               <input
                 type="text"
-                required={true}
                 placeholder="Enter Title"
                 onChange={(e) => setAddTitle(e.target.value)}
                 value={addTitle}
@@ -496,7 +621,6 @@ const Experiences = () => {
               <textarea
                 ref={(el) => { el && el.setAttribute("style", "height:" + el.scrollHeight + "px"); }}
                 type="text"
-                required={true}
                 placeholder="Description"
                 onChange={(e) => setAddDescription(e.target.value)}
                 value={addDescription}
@@ -507,7 +631,6 @@ const Experiences = () => {
               <input
                 type="text"
                 placeholder="Location URL"
-                required={true}
                 onChange={(e) => setAddLocation(e.target.value)}
                 value={addLocation}
                 className="border-solid border-red-800 border-2 p-3"
@@ -528,13 +651,12 @@ const Experiences = () => {
                 onChange={(e) => { setAddImage(e.target.files[0]) }}
                 className="border-solid border-red-800 border-2 p-3"
               />
-              {addImage && addImage !== "" && addImage.size > 0 && <img src={URL.createObjectURL(addImage)} alt="preview Image" />}
+              {addImage !== "" && addImage.size > 0 && <img src={URL.createObjectURL(addImage)} alt="preview Image" />}
 
               <label htmlFor="">Region</label>
               <input
                 type="text"
                 placeholder="Region"
-                required={true}
                 onChange={(e) => setAddRegion(e.target.value)}
                 value={addRegion}
                 className="border-solid border-red-800 border-2 p-3"
@@ -543,7 +665,6 @@ const Experiences = () => {
               <input
                 type="number"
                 placeholder="Amount"
-                required={true}
                 onChange={(e) => setAddAmount(e.target.value)}
                 value={addAmount}
                 className="border-solid border-red-800 border-2 p-3"
@@ -552,7 +673,6 @@ const Experiences = () => {
               <input
                 type="number"
                 placeholder="Days"
-                required={true}
                 onChange={(e) => setAddDays(e.target.value)}
                 value={addDays}
                 className="border-solid border-red-800 border-2 p-3"
@@ -573,7 +693,7 @@ const Experiences = () => {
               <button className=" p-3 text-red-800" onClick={() => { resetData() }}>Close</button>
             </div>
 
-          </form>
+          </div>
         </div>
       ) : null}
       {/* {   showAlert && <AlertBox message={alertMessage} setAlertResponse={setAlertResponse} setShowAlert={setShowAlert} /> } */}

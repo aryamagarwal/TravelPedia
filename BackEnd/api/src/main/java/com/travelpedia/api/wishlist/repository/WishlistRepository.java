@@ -9,6 +9,6 @@ import java.util.List;
 public interface WishlistRepository extends JpaRepository<WishlistModel, Long>{
 
     @Query(value = "SELECT w.experience.experienceId FROM WishlistModel  w WHERE w.user.id = :userId")
-    List<Long> findLikedExperienceId(int userId);
+    List<Long> findLikedExperienceId(Long userId);
 
 }
