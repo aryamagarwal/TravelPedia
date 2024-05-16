@@ -1,5 +1,6 @@
 package com.travelpedia.api.experiences.controller;
 import com.travelpedia.api.experiences.model.ExperienceModel;
+
 import com.travelpedia.api.experiences.service.ExperienceService;
 import com.travelpedia.api.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/experiences")
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/permit/experiences")
+@CrossOrigin(maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:5173")
 public class ExperienceController {
     @Autowired
     ExperienceService es;

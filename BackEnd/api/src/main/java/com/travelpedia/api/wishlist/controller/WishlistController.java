@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/wishlist")
+@RequestMapping("/permit/wishlist")
 public class WishlistController {
 
          @Autowired
@@ -26,7 +26,7 @@ public class WishlistController {
          }
 
          @GetMapping("/find/{userId}")
-         public ResponseEntity<?> findExperienceId(@PathVariable int userId) {
+         public ResponseEntity<?> findExperienceId(@PathVariable Long userId) {
              return ResponseEntity.ok(ws.findExperienceId(userId));
          }
 }
