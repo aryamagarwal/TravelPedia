@@ -18,51 +18,105 @@ import { authApi } from "../api/authApi";
 import { handleResponseError } from "../api/util";
 
 const Account = () => {
+  // const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
+  // const [iserror, setIsError] = useState(false);
+  // // let userDetails = {};
+  // const [userDetails, setUserDetails] = useState();
+  // useEffect(() => {
+  //   const getUserDetails = async () => {
+  //     // let userDetails = {};
+  //     try {
+  //       const resp = await authApi.getMyDetails();
+  //       const data = resp.data;
+
+  //       if (data) {
+  //         userDetails.userName = data.userName;
+  //         userDetails.email = data.email;
+  //         userDetails.firstName = data.firstName;
+  //         userDetails.lastName = data.lastName;
+  //         console.log(userDetails.firstName);
+
+  //         console.log(resp);
+  //       }
+  //     } catch (error) {
+  //       handleResponseError(error);
+  //       setIsError(true);
+  //     }
+  //     return userDetails;
+  //   };
+  // });
+  // const [needData, setNeedData] = useState(true);
+
+  // const navigate = useNavigate();
+  // const { id } = useParams();
+
+  // // useEffect(() => {
+  // //   console.log(resp);
+  // // }, [resp]);
+
+  // //   {users && users.map()}\
+  // const [id2, setId2] = useState();
+
+  // // const [newPassword, setNewPass] = useState();
+  // // const [name, setName] = useState();
+  const [userDetails, setUserDetails] = useState({});
+  const [firstname, setFirstName] = useState(userDetails.firstName);
+  const [lastname, setLastName] = useState(userDetails.lastName);
+  const [email, setEmail] = useState(userDetails.email);
+  const [username, setuserName] = useState(userDetails.userName);
+  // const [review, setReview] = useState("");
+  // const [base, setBase] = useState(false);
+  // useEffect(() => {
+  //   console.log(userDetails.firstName);
+  //   console.log(lastname);
+  //   console.log(email);
+  //   console.log(username);
+  // }, [userDetails]);
   const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
-  const getUserDetails = () => {
-    let userDetails = {};
-    try {
-      const resp = authApi.getMyDetails();
-      userDetails.userName = resp.data.userName;
-      userDetails.email = resp.data.email;
-      userDetails.firstName = resp.data.firstName;
-      userDetails.lastName = resp.data.lastName;
-    }
-    catch (error) {
-      handleResponseError(error);
-      setIsError(true);
-    }
-    return userDetails;
-  };
+  const [iserror, setIsError] = useState(false);
+
   const [needData, setNeedData] = useState(true);
-  const [userDetails, setUserDetails] = useState(getUserDetails());
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // useEffect(()=>{
-  //   getUserDetails();
-  //   setNeedData(false);
-  // })[needData==true];
-  
-  //   {users && users.map()}\
-  const [id2, setId2] = useState();
-  // const [email, setEmail] = useState(data.userDetails.email);
-  // const [password, setPass] = useState();
-  
-  const [newPassword, setNewPass] = useState();
-  // const [name, setName] = useState();
-  const [firstname, setFirstName] = useState(data.userDetails.firstName);
-  const [lastname, setLastName] = useState(data.userDetails.lastName);
-  // const [username, setuserName] = useState(data.userDetails.userName);
-  // const [review, setReview] = useState("");
-  const [base, setBase] = useState(false);
+  useEffect(() => {
+    const getUserDetails = async () => {
+      try {
+        const resp = await authApi.getMyDetails();
+        const data = resp.data;
+        if (data) {
+          setUserDetails({
+            userName: data.userName,
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          });
+        }
+      } catch (error) {
+        handleResponseError(error);
+        setIsError(true);
+      }
+    };
 
-  const [firstName, lastName] = id.split(" ");
-  const usern = firstName.toLowerCase();
+    if (needData) {
+      getUserDetails();
+      setNeedData(false);
+    }
+  }, [needData]);
+
+  useEffect(() => {
+    console.log(userDetails.firstName);
+    console.log(userDetails.lastName);
+    console.log(userDetails.email);
+    console.log(userDetails.userName);
+  }, [userDetails]);
+
+  // const [firstName, lastName] = id.split(" ");
+  // const usern = firstName.toLowerCase();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { username, firstname, lastname, email, password };
+    const data = { firstname, lastname };
     fetch("http://localhost:8085/users/update/" + id2, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -83,12 +137,6 @@ const Account = () => {
     console.log("button pressed logout");
     navigate(`/LogIn`);
   };
-  console.log(firstname);
-  console.log(lastname);
-  console.log(username);
-  console.log(email);
-  console.log(password);
-  // console.log(review);
 
   return (
     <>
@@ -142,7 +190,7 @@ const Account = () => {
                         disabled
                         placeholder="Username"
                         required
-                        value={userDetails.userName}
+                        value={username}
                         // onChange={(e) => setuserName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
@@ -156,7 +204,7 @@ const Account = () => {
                         type="text"
                         placeholder="FirstName"
                         required
-                        value={userDetails.firstName}
+                        value={firstname}
                         onChange={(e) => setFirstName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
@@ -169,7 +217,7 @@ const Account = () => {
                         className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
                         type="text"
                         placeholder="LastName"
-                        value={userDetails.lastName}
+                        value={lastname}
                         onChange={(e) => setLastName(e.target.value)}
                       />
                       <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />

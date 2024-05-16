@@ -10,12 +10,14 @@ import Block from "./block.jsx";
 // import useFetch from "./useFetch.jsx";
 import { authApi } from "../api/authApi.jsx";
 import { handleResponseError, parseJwt } from "../api/util.jsx";
+import { FaRegEye } from "react-icons/fa";
 // import { useAuth } from "../context/AuthContext";
 
 const VerifyForm = () => {
   // const Auth = useAuth();
   // const { otpSent } = useParams();
   // console.log("url: val=", otpSent, "type:", typeof otpSent);
+  const [showPassword, setShowPassword] = useState("");
   const [userNameOrEmail, setUserNameOrEmail] = useState(null);
   const [otp, setOtp] = useState(null);
   const [toSend, setToSend] = useState(true);
@@ -130,11 +132,15 @@ const VerifyForm = () => {
         setUserNameOrEmail("");
         setOtp("");
         setToSend(false);
+        let myId = await authApi.getMyId();
+        myId = myId.data;
+        console.log("myId", myId);
         // toSend = false;
 
         setIsError(false);
         setIsLoggedIn(true);
         setUser({
+          id: myId,
           firstname: myName,
           lastname: "",
           userNameOrEmail: userNameOrEmail,
@@ -178,13 +184,17 @@ const VerifyForm = () => {
             <div className="inputBox flex relative items-center my-3 h-12 w-full">
               <input
                 className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 focus:border-red-400"
-                type="password"
+                // type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="OTP"
                 required
                 onChange={updateOtp}
                 // value={otp}
               />
-              <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
+              {/* <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" /> */}
+              <button onClick={() => setShowPassword((prev) => !prev)}>
+                <FaRegEye className="absolute right-5 top-1/2 -translate-y-2/4" />
+              </button>
             </div>
             <button
               disabled={!(userNameOrEmail && otp)}

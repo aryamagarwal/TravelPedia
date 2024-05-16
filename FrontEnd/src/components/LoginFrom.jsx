@@ -10,12 +10,14 @@ import Block from "./block";
 // import useFetch from "./useFetch.jsx";
 import { authApi } from "../api/authApi.jsx";
 import { handleResponseError, parseJwt } from "../api/util.jsx";
+import { FaRegEye } from "react-icons/fa";
 
 const LoginForm = () => {
   const [userNameOrEmail, setUserNameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
   const [invalidCredMsg, setInvalidCredMsg] = useState("");
+  const [showPassword, setShowPassword] = useState("");
 
   const updateUserNameOrEmail = (e) => {
     setUserNameOrEmail(e.target.value);
@@ -46,9 +48,16 @@ const LoginForm = () => {
         navigate("/verifyAccount");
       } else {
         console.log("Logging in");
+        console.log("hi");
         authApi.saveToken(accessToken);
         // const authenticatedUser = { data, accessToken };
         let myName = await authApi.getMyName();
+        console.log("hi");
+        let myId = await authApi.getMyId();
+        myId = myId.data;
+        console.log("myId", myId);
+        // myId = myId.data.id;
+        // console.log(myId);
         myName = myName.data;
         console.log(myName);
         setUserNameOrEmail("");
@@ -56,6 +65,7 @@ const LoginForm = () => {
         setIsError(false);
         setIsLoggedIn(true);
         setUser({
+          id: myId,
           firstname: myName,
           lastname: "",
           userNameOrEmail: userNameOrEmail,
@@ -96,13 +106,16 @@ const LoginForm = () => {
             <div className="inputBox flex relative items-center my-3 h-12 w-full">
               <input
                 className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 focus:border-red-400"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 required
                 onChange={updatePassword}
                 value={password}
               />
-              <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
+              {/* <RiLockPasswordFill className="absolute right-5 to?p-1/2 -translate-y-2/4" ?/> */}
+              <button onClick={() => setShowPassword((prev) => !prev)}>
+                <FaRegEye className="absolute right-5 top-1/2 -translate-y-2/4" />
+              </button>
             </div>
             <div className="rememberForgot flex justify-between my-3">
               <label>
