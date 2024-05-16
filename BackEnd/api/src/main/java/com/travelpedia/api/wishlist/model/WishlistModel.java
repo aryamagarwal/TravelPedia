@@ -20,7 +20,7 @@ public class WishlistModel {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
     private long wishlistId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "id", nullable = false)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "experience_id", nullable = false)
