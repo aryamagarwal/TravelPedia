@@ -1,6 +1,8 @@
 package com.travelpedia.api.likedExperiences.model;
 
-import com.travelpedia.api.UserModel.UserModel;
+import java.util.Optional;
+
+import com.travelpedia.api.AuthModel.User;
 import com.travelpedia.api.experiences.model.ExperienceModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,5 +25,5 @@ public class LikedExperiencesModel {
     ExperienceModel experience;
     @ManyToOne
     @JoinColumn(name = "user_id" , referencedColumnName = "id" , nullable = false )
-    UserModel user;
+    User user;
 }

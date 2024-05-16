@@ -1,12 +1,16 @@
 package com.travelpedia.api.wishlist.service;
 
-import com.travelpedia.api.UserModel.UserModel;
-import com.travelpedia.api.UserRepository.UserRepository;
+import com.travelpedia.api.AuthModel.User;
+import com.travelpedia.api.AuthRepository.UserRepository;
+//
+//import com.travelpedia.api.UserModel.UserModel;
+//import com.travelpedia.api.UserRepository.UserRepository;
 import com.travelpedia.api.experiences.model.ExperienceModel;
 import com.travelpedia.api.experiences.repository.ExperienceRepository;
 import com.travelpedia.api.wishlist.model.WishlistModel;
 import com.travelpedia.api.wishlist.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +25,8 @@ public class WishlistServiceImpl implements WishlistService {
     @Autowired
     ExperienceRepository er;
     @Override
-    public void addWishlist(int userId, long experienceId) {
-        UserModel user=ur.findById(userId).orElseThrow();
+    public void addWishlist(Long userId, Long experienceId) {
+        User user=ur.findById(userId).orElseThrow();
         ExperienceModel experience=er.findByExperienceId(experienceId);
         WishlistModel wishlist=new WishlistModel();
         wishlist.setUser(user);
@@ -31,12 +35,12 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void removeWishlist(long wishlistId) {
+    public void removeWishlist(Long wishlistId) {
       wr.deleteById(wishlistId);
     }
 
     @Override
-    public List<Long> findExperienceId(int userId) {
+    public List<Long> findExperienceId(Long userId) {
         return wr.findLikedExperienceId(userId);
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Vector;
 @CrossOrigin(origins= "http://localhost:5173")
 @RestController
-@RequestMapping("/doc")
+@RequestMapping("/permit/doc")
 public class DocController {
     @Autowired
     private DocService docService;
