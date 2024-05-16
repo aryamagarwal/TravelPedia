@@ -20,17 +20,20 @@ public class ExperienceModel {
     private long experienceId;
     @Column(unique = true, nullable = false)
     private String title;
+    @Column( nullable = false)
+    private String descriptionTitle;
     @Column(nullable = false , length= 5000)
     private String description;
+    @Column(nullable = false , length= 5000)
+    private String essence;
     @Column(nullable = false)
     private String location;
-//    @Column(nullable = false)
-//    private String imageUrl;
-
     @Column(nullable = false)
     private String region;
     @Column(nullable = false)
     private long amount;
     @Column(nullable = false)
     private int days;
+   //storing itinerary details
+
 }

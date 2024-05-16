@@ -63,7 +63,9 @@ public class ExperienceServiceImpl implements ExperienceService {
     public ExperienceModel updateExperience(Long id, ExperienceModel experience) {
         ExperienceModel old=er.findByExperienceId(id);
         old.setTitle(experience.getTitle());
+        old.setDescriptionTitle(experience.getDescriptionTitle());
         old.setDescription(experience.getDescription());
+        old.setEssence(experience.getEssence());
         old.setLocation(experience.getLocation());
         old.setRegion(experience.getRegion());
         old.setAmount(experience.getAmount());
