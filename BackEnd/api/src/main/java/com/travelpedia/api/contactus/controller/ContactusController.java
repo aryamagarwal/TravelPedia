@@ -25,7 +25,7 @@ public class ContactusController {
     @PostMapping("/create")
     public ContactusModel createContactus(@RequestBody RequestModel contactus ,@RequestParam("userId") Long userId )
     {
-        User um = ur.findById(userId).get();
+        User um = ur.findByUserId(userId);
         ContactusModel cm = new ContactusModel();
 //        cm.setCity(contactus.getCity());
         cm.setName(contactus.getName());
