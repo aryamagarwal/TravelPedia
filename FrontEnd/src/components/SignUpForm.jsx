@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { IsLoggedInContext } from "../App.jsx";
 import { authApi } from "../api/authApi.jsx";
 import { handleResponseError } from "../api/util.jsx";
+import { FaRegEye } from "react-icons/fa";
 
 const SignUpForm = () => {
   const [message, setMessage] = useState("");
@@ -18,6 +19,7 @@ const SignUpForm = () => {
   const [usernameErr, setUsernameErr] = useState("");
   const [regErrMsg, setRegErrMsg] = useState("");
   const [usernameSuccessMsg, setUsernameSuccessMsg] = useState("");
+  const [showPassword, setShowPassword] = useState("");
 
   const navigate = useNavigate();
   const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
@@ -263,13 +265,16 @@ const SignUpForm = () => {
             <div className="inputBox flex relative items-center my-3 h-12 w-full">
               <input
                 className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 focus:border-red-400"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 required
                 onChange={checkPass}
                 value={password}
               />
-              <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
+
+              <button onClick={() => setShowPassword((prev) => !prev)}>
+                <FaRegEye className="absolute right-5 top-1/2 -translate-y-2/4" />
+              </button>
             </div>
             <h5 className="text-red-800 bg-white ">{message}</h5>
             <div className="inputBox flex relative items-center my-3 h-12 w-full">
