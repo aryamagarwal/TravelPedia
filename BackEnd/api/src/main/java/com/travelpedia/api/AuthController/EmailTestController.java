@@ -29,7 +29,8 @@ public class EmailTestController {
   private EmailService es;
   @GetMapping("/send")
   public ResponseEntity<?> sendTestMail(@RequestParam("email") String email) {
-      es.sendOtpVerificationEmail(email, "user" ,"ABCDEF");
+//      es.sendOtpVerificationEmail(email, "user" ,"ABCDEF");
+      es.sendqueryEmail(email,"user");
       return ResponseEntity.ok().body("test Verification Mail successfully.");
   }
 }

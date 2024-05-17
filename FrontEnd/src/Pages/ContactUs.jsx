@@ -18,6 +18,7 @@ const fetchDetails = async (url) => {
 
 function ContactUs() {
   const baseUrl = "http://13.60.74.234:8085/permit";
+  // const baseUrl = "http://localhost:8085/permit";
   const { user, isLoggedIn } = useContext(IsLoggedInContext);
   const [data, setData] = useState([]);
   const [showTable, setShowTable] = useState(false);
@@ -62,16 +63,18 @@ function ContactUs() {
     try {
       console.log(user.id);
       const response = await fetch(`${baseUrl}/contactus/create?userId=` + user.id, {
+      
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: name,
-          email: email,
+          name: user.firstname,
+          email: user.userNameOrEmail,
           query: query,
         }),
       });
+      console.log(response);
       const data = await response.json();
       console.log('Success:', data);
       alert('Form submitted successfully');
@@ -112,8 +115,8 @@ function ContactUs() {
               className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
               id="exampleFormControlInput1"
               placeholder="Enter Your name"
-              onChange={e => setName(e.target.value)}
-              value={name}
+              // onChange={e => setName(e.target.value)}
+              value={user.firstname}
             />
           </div>
           <div className="relative flex-grow max-w-full flex-1 px-4"></div>
@@ -129,8 +132,8 @@ function ContactUs() {
               className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
               id="exampleFormControlInput1"
               placeholder="name@example.com"
-              onChange={e => setEmail(e.target.value)}
-              value={email}
+              // onChange={e => setEmail(e.target.value)}
+              value={user.userNameOrEmail}
             />
           </div>
           <div className="relative flex-grow max-w-full flex-1 px-4"></div>
