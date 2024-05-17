@@ -176,8 +176,6 @@ function uploadPhoto(formdata) {
 
 const instance = axios.create({
   baseURL: config.url.API_BASE_URL,
-  //   mode: "cors",
-  //   headers: {},
 });
 
 instance.interceptors.request.use(

@@ -223,7 +223,7 @@ function ContactUs() {
         </div>
         <div className="flex flex-wrap ">
           <div className="relative flex-grow max-w-full flex-1 px-4"></div>
-          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <div className="relative flex-grow max-w-full flex-1 px-4 container  mx-auto sm:px-4 text-center">
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -246,7 +246,7 @@ function ContactUs() {
       <br />
 
       {showTable && (
-        <div className="container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+        <div className="container mx-auto sm:px-4 text-center">
           <table className="min-w-full divide-y divide-gray-200 border border-collapse">
             <thead className="bg-gray-50">
               <tr>
