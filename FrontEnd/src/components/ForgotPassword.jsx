@@ -50,7 +50,11 @@ const ForgotPassword = () => {
         console.log("Logging in");
         authApi.saveToken(accessToken);
         // const authenticatedUser = { data, accessToken };
+
         let myName = await authApi.getMyName();
+        let myId = await authApi.getMyId();
+        myId = myId.data;
+        console.log("myId", myId);
         myName = myName.data;
         console.log(myName);
         setUserNameOrEmail("");
@@ -58,6 +62,7 @@ const ForgotPassword = () => {
         setIsError(false);
         setIsLoggedIn(true);
         setUser({
+          id: myId,
           firstname: myName,
           lastname: "",
           userNameOrEmail: userNameOrEmail,
