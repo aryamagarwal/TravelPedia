@@ -84,14 +84,14 @@ public class SecurityConfig {
     )
     .authorizeHttpRequests(authorize -> authorize
       .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+             .requestMatchers("/permit/**").permitAll()
       .requestMatchers(HttpMethod.POST, "/api/auth/signup", "/api/auth/login").permitAll()
       .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
       .requestMatchers(HttpMethod.GET, "/api/test/**").permitAll()
       .requestMatchers(HttpMethod.POST, "/api/test/**").permitAll()
 	  .requestMatchers(HttpMethod.GET, "/api/user/**").permitAll()
 	  .requestMatchers(HttpMethod.POST, "/api/user/**").permitAll()
-	  .requestMatchers("/permit**").permitAll()
-	  .requestMatchers("/permit/experiences**").permitAll()
+	  .requestMatchers("/permit/experiences/**").permitAll()
       .anyRequest().authenticated()
 
       

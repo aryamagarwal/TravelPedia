@@ -7,5 +7,5 @@ public interface ContactusService {
 public ContactusModel createContactus(ContactusModel contactus);
 
 
-
+    List<ContactusModel> getTickets( Long userId);
 }

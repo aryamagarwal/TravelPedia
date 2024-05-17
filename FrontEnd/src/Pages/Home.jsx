@@ -9,10 +9,14 @@ import Block from '../components/block'
 import UserReview from '../components/UserReview'
 import { Link } from 'react-router-dom'
 import bgImg from '../assets/ecbg.jpg'
+import { useNavigate } from 'react-router-dom'
+import GotYouCovered from '../components/GotYouCovered'
 const Home = () => {
+  const baseUrl = "http://13.60.74.234:8085/permit";
+  const navigate = useNavigate();
   const [experiences, setExperiences] = useState(null);
   useEffect(() => {
-    fetch('http://localhost:8085/experiences/all')
+    fetch(`${baseUrl}/experiences/all`)
       .then(res => res.json())
       .then(data => { setExperiences(data); console.log(data) })
   }, [])
@@ -41,8 +45,28 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <section className='w-full bg-transparent my-5 flex justify-center p-10'>
+        <div className='w-full bg-white rounded-xl p-10 text-2xl'>
+          <div>
+            <h2 className='font-bold'>Sign in to save time</h2>
+          </div>
+          <p >
+            Your Travelpedia account lets you book using your saved details
+          </p>
+          <div >
+            <div >
+              <a >
+                <button onClick={()=>{
+                  navigate('/login')
+                }}className='p-1 border-red-800 border-solid border-2 rounded-3xl mt-2 hover:bg-red-800 hover:text-white'>Sign in</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section >
       <UserReview />
-    </div>
+      <GotYouCovered />
+    </div >
   )
 }
 

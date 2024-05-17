@@ -1,14 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 const ExperienceCard2 = (props) => {
+    const baseUrl = "http://13.60.74.234:8085/permit";
     const navigate = useNavigate()
     return (
-        <div className="flex flex-col shadow-md hover:shadow-2xl w-90 rounded-lg h-96 bg-white items-center m-9 pb-0"
+        <div className="flex flex-col shadow-md hover:shadow-2xl w-90 rounded-lg h-96 bg-white items-center m-9 my-0 pb-0"
         >
             <div className='p-5 h-5/6 items-center flex w-full flex-col'>
                 <div className='h-96 w-full rounded-xl  overflow-hidden '>
                     <div className="h-96 w-full ">
-                        <img className="cardImg" src={"http://localhost:8085/experiences/experienceImage/" + props.details.title} alt="img" />
+                        <img className="cardImg" src={`${baseUrl}/experiences/experienceImage/` + props.details.title} alt="img" />
                     </div>
                 </div>
                 <div className="details h-20 w-full flex flex-row justify-between gap-4 p-3">

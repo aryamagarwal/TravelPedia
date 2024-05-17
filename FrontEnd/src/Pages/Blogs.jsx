@@ -12,7 +12,7 @@ import Block from "../components/block";
 const fetchBlogs = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8085/doc/");
+      const response = await fetch("http://13.60.74.234:8085/permit/doc/");
       const data = await response.json();
       resolve(data);
     } catch (error) {
@@ -40,7 +40,7 @@ const Blog = () => {
     if(confirm("Are you sure you want to add this blog?")===true)
     {
     
-    fetch("http://localhost:8085/doc/", {
+    fetch("http://13.60.74.234:8085/permit/doc/", {
       method: "POST",
       body: JSON.stringify({
         title: addTitle,
