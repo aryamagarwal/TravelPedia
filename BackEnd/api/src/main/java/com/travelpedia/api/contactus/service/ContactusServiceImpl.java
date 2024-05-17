@@ -5,6 +5,7 @@ package com.travelpedia.api.contactus.service;
 //import com.travelpedia.api.UserService.UserService;
 import com.travelpedia.api.AuthModel.User;
 import com.travelpedia.api.AuthRepository.UserRepository;
+import com.travelpedia.api.AuthService.EmailService;
 import com.travelpedia.api.contactus.model.ContactusModel;
 import com.travelpedia.api.contactus.repository.ContactUsRepository;
 
@@ -20,8 +21,14 @@ public class ContactusServiceImpl implements ContactusService {
  ContactUsRepository cr;
  @Autowired
  UserRepository ur;
+    @Autowired
+    EmailService ems;
+
     @Override
     public ContactusModel createContactus(ContactusModel contactus) {
+        System.out.println(contactus.getUser()+" "+contactus.getEmail());
+//        boolean flag= ems.sendqueryEmail(contactus.getEmail(), contactus.getName());
+
         return cr.save(contactus);
     }
 

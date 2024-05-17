@@ -57,7 +57,7 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
       CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://localhost:8080"));
+      configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://localhost:8080","http://13.60.74.234:8085"));
       configuration.setAllowedMethods(Arrays.asList(CorsConfiguration.ALL));
       configuration.setAllowedHeaders(Arrays.asList(CorsConfiguration.ALL));
       configuration.setMaxAge((long) 3600);
@@ -85,6 +85,7 @@ public class SecurityConfig {
     .authorizeHttpRequests(authorize -> authorize
       .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
              .requestMatchers("/permit/**").permitAll()
+//            .requestMatchers(HttpMethod.POST, "/api/test/mail/**").permitAll()
       .requestMatchers(HttpMethod.POST, "/api/auth/signup", "/api/auth/login").permitAll()
       .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
       .requestMatchers(HttpMethod.GET, "/api/test/**").permitAll()
