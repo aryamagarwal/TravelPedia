@@ -14,6 +14,7 @@ export const authApi = {
   saveToken,
   logout,
   forgotPass,
+  getMyId,
 };
 
 function authenticate(userNameOrEmail, password) {
@@ -88,6 +89,12 @@ function getMyDetails() {
   });
 }
 
+function getMyId() {
+  const url = "/api/user/myId";
+  return instance.get(url, {
+    headers: { Authorization: bearerAuth() },
+  });
+}
 function getMyName() {
   const url = "/api/user/myName";
   return instance.get(url, {

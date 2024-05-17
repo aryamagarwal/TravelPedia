@@ -53,7 +53,7 @@ const Navbar = () => {
           {window.scrollY === 0 && <img className="logo h-full w-20 2xl:w-1/4" src={logo} alt="logo" />}
         </Link>
       </div>
-      <div className="logIn hidden 2xl:flex gap-3 h-full float-right border-solid border-b-4 items-center py-11 p-6 border-red-500">
+      <div className="logIn hidden lg:flex gap-3 h-full float-right border-solid border-b-4 items-center py-11 p-6 border-red-500">
         <ul className=" list-none flex gap-10 text-xl whitespace-nowrap mx-3 text-white">
           {items.map((item, i) => (
             <Link to={`/${item.split(" ").join("")}`} key={i}>
@@ -74,7 +74,7 @@ const Navbar = () => {
           />
         </Link>
       </div>
-      <button onClick={() => { setSideMenu(true) }} className="hamburger block 2xl:hidden p-2 mr-8 rounded-xl hover:bg-red-600 h-auto w-auto">
+      <button onClick={() => { setSideMenu(true) }} className="hamburger block lg:hidden p-2 mr-8 rounded-xl hover:bg-red-600 h-auto w-auto">
         <LuMenu className="text-white text-3xl" />
       </button>
       <div className={`sideMenu fixed top-0 right-0 h-full w-1/2  text-white z-50 ${sideMenu ? "" : "hidden"}`}

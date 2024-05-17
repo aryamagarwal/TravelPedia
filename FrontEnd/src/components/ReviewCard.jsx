@@ -25,17 +25,20 @@ const ReviewCard = (props) => {
             <div className=" h-40 w-full rounded-lg m-0 items-center flex justify-center translate-y-1/2" >
                 <img className="w-20 h-20 rounded-full" src={avatar} alt="img" />
             </div>
-            <div className='bg-white w-1/2 m-0 rounded-lg pt-10 p-20 text-white text-3xl'
-                style={{
-                    background: `linear-gradient(rgba(0, 0, 0, 0.1 ) 100%, rgba(0, 0, 0, 0.3 ) 0%)`,
-                }}>
+            <div className='bg-white w-1/2 m-0 rounded-lg p-10 text-3xl'
+                // style={{
+                //     background: `linear-gradient(rgba(0, 0, 0, 0.1 ) 100%, rgba(0, 0, 0, 0.3 ) 0%)`,
+                // }}
+                >
                 <div className="User font-bold  m-4 w-full">
                     {props.details[count].username}
                 </div>
-                {props.details[count].review}
+                <div >
+                    {props.details[count].review}
+                </div>
             </div>
-            <button onClick={back}><IoIosArrowBack className="hover:text-white relative left-0 text-5xl -translate-y-full -translate-x-80" /></button>
-            <button onClick={next}><IoIosArrowForward className="hover:text-white relative right-0 text-5xl -translate-y-24 translate-x-80" /></button>
+            <button onClick={back}><IoIosArrowBack className="hover:text-black text-gray-400 relative left-0 text-5xl -translate-y-full -translate-x-80" /></button>
+            <button onClick={next}><IoIosArrowForward className="hover:text-black text-gray-400 relative right-0 text-5xl -translate-y-24 translate-x-80" /></button>
         </div>
     )
 }

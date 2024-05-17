@@ -79,5 +79,12 @@ public class UserController {
 //		User user = (User) authentication.getPrincipal();
 //		return us.updatePassword(req, user);
 //	}
+	@GetMapping("/myId")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
+	public Long getId() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) authentication.getPrincipal();
+		return user.getId();
+	}
 }
 

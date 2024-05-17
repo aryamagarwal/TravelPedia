@@ -19,7 +19,7 @@ const CardPallete = (props) => {
       }}>
        <IoIosArrowForward />
       </button>
-      <div className='cardPallete px-10 flex mt-1 overflow-visible w-full h-full'>
+      <div className='cardPallete  flex mt-1 overflow-visible w-full h-full'>
       {
         props.details.map((location, i) =>
         (

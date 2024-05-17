@@ -8,12 +8,13 @@ import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { IsLoggedInContext } from '../App';
 import { FaRupeeSign } from "react-icons/fa";
+const baseUrl = "http://13.60.74.234:8085/permit";
 const ExperienceCard = (props) => {
     const { user, isLoggedIn } = useContext(IsLoggedInContext);
     const navigate = useNavigate();
     const [img, setImg] = React.useState(null)
     React.useEffect(() => {
-        fetch("http://localhost:8085/experiences/experienceImage/" + props.details.title)
+        fetch(`${baseUrl}/experiences/experienceImage/`+ props.details.title)
             .then((response) => response.blob())
             .then((blob) => {
                 setImg(URL.createObjectURL(blob))
@@ -22,11 +23,11 @@ const ExperienceCard = (props) => {
     const [liked, setLiked] = React.useState(false);
     const [reviews, setReviews] = React.useState(0);
     React.useEffect(() => {
-        fetch('http://localhost:8085/reviews/' + props.details.title)
+        fetch(`${baseUrl}/reviews/` + props.details.title)
             .then(res => res.json())
             .then(data => { setReviews(data.length); })
         if (isLoggedIn) {
-            fetch('http://localhost:8085/likedExperiences/isLiked/' + props.details.experienceId + '/' + user.id, {
+            fetch(`${baseUrl}/likedExperiences/isLiked/` + props.details.experienceId + '/' + user.id, {
                 method: 'GET'
             })
                 .then(res => res.text())
@@ -49,12 +50,12 @@ const ExperienceCard = (props) => {
                         if (isLoggedIn) {
 
                             if (!liked) {
-                                fetch('http://localhost:8085/likedExperiences/' + props.details.experienceId + '/' + user.id, {
+                                fetch(`${baseUrl}/likedExperiences/` + props.details.experienceId + '/' + user.id, {
                                     method: 'POST'
                                 })
                             }
                             else {
-                                fetch('http://localhost:8085/likedExperiences/' + props.details.experienceId + '/' + user.id, {
+                                fetch(`${baseUrl}/likedExperiences/` + props.details.experienceId + '/' + user.id, {
                                     method: 'DELETE'
                                 })
                             }
@@ -66,7 +67,8 @@ const ExperienceCard = (props) => {
                                 navigate('/login')
                                 window.scrollTo(0, 0);
                             }
-                        };
+                        }
+                        ;
                     }}>
                         {!liked ? <FaRegHeart /> : <FaHeart />}
                     </button>

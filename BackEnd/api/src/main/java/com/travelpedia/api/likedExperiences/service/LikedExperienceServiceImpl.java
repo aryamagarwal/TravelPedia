@@ -3,8 +3,9 @@ package com.travelpedia.api.likedExperiences.service;
 //import com.travelpedia.api.UserModel.UserModel;
 import com.travelpedia.api.AuthModel.User;
 
-import com.travelpedia.api.UserRepository.UserRepository;
+//import com.travelpedia.api.UserRepository.UserRepository;
 import com.travelpedia.api.experiences.repository.ExperienceRepository;
+
 import com.travelpedia.api.likedExperiences.model.LikedExperiencesModel;
 import com.travelpedia.api.likedExperiences.repository.LikedExperiencesRepository;
 
@@ -26,15 +27,14 @@ public class LikedExperienceServiceImpl implements LikedExperienceService {
     public void likeExperience(Long experienceId, Long userId) {
         LikedExperiencesModel lem = new LikedExperiencesModel();
         lem.setExperience(er.findByExperienceId(experienceId));
-        lem.setUser(um.findById(userId));
-
+        lem.setUser(um.findByUserId(userId));
         ler.save(lem);
     }
 
     @Override
     public void unlikeExperience(Long experienceId, Long userId) {
         LikedExperiencesModel lem = ler.findByExperience_ExperienceIdAndUser_Id(experienceId, userId.longValue());
-        ler.deleteById(lem.getId());
+        ler.deleteById(lem.getLikedId());
     }
 
     @Override
@@ -50,5 +50,11 @@ public class LikedExperienceServiceImpl implements LikedExperienceService {
     @Override
     public void deleteLikedExperienceByExperience(Long experienceId) {
         ler.deleteByExperience_ExperienceId(experienceId);
+    }
+
+    @Override
+    public List<LikedExperiencesModel> getLikedExperienceByUser(Long userId) {
+        List<LikedExperiencesModel> likedExperiences = ler.findByUser_Id(userId);
+        return likedExperiences;
     }
 }

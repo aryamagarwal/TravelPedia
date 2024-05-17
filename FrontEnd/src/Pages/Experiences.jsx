@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Block from "../components/block";
-import trial from "../assets/slide1.jpg";
 import ExperienceCard from "../components/ExperienceCard";
 import bgVideo from "../assets/video/video_bg.mp4";
-import useFetch from "../components/useFetch.jsx";
-import { IoIosFunnel } from "react-icons/io";
 import Pagination from "../components/Pagination.jsx";
-import expbg from "../assets/expbg.webp"
-// import Searchbar from "../components/Searchbar.jsx";
 import { IoIosClose } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { RiArrowDropUpFill } from "react-icons/ri";
 import { IsLoggedInContext } from "../App.jsx";
 import { useContext } from "react";
-// import AlertBox from "../components/AlertBox.jsx";
-import { MdDelete } from "react-icons/md";
-import { IoIosRemoveCircle } from "react-icons/io";
 import Loading from "../components/Loading.jsx";
 import FilterMenu from "../components/FilterMenu.jsx";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const fetchExperiences = (url) => {
 
   return new Promise(async (resolve, reject) => {
@@ -32,10 +24,12 @@ const fetchExperiences = (url) => {
   });
 };
 const Experiences = () => {
-  const baseUrl = "http://localhost:8085/";
+  const baseUrl = "http://13.60.74.234:8085/permit";
   const { user, isLoggedIn } = useContext(IsLoggedInContext);
   const [addTitle, setAddTitle] = useState("");
+  const [addDescriptionTitle, setAddDescriptionTitle] = useState("");
   const [addDescription, setAddDescription] = useState("");
+  const [addEssence, setEssence] = useState("");
   const [addLocation, setAddLocation] = useState("");
   const [addImage, setAddImage] = useState("");
   const [addRegion, setAddRegion] = useState("");
@@ -61,7 +55,9 @@ const Experiences = () => {
   // const [results , setResults] = useState([]);
   const resetData = () => {
     setAddTitle("");
+    setAddDescriptionTitle("");
     setAddDescription("");
+    setEssence("");
     setAddLocation("");
     setAddImage("");
     setAddRegion("");
@@ -76,13 +72,15 @@ const Experiences = () => {
   const handleUpdateExperience = (details) => {
     setCurrentExperienceId(details.experienceId);
     setAddTitle(details.title);
+    setAddDescriptionTitle(details.descriptionTitle);
     setAddDescription(details.description);
+    setEssence(details.essence);
     setAddLocation(details.location);
     setAddImage(details.imageUrl);
     setAddRegion(details.region);
     setAddAmount(details.amount);
     setAddDays(details.days);
-    fetch(baseUrl + "experiences/experienceImage/" + details.title)
+    fetch(baseUrl + "/experiences/experienceImage/" + details.title)
       .then((response) => response.blob())
       .then((blob) => {
         // console.log(blob);
@@ -100,14 +98,16 @@ const Experiences = () => {
     // if(alertResponse === false) return;
     else {
       try {
-        const response = await fetch(baseUrl + "experiences/update/" + currentExperienceId, {
+        const response = await fetch(baseUrl + "/experiences/update/" + currentExperienceId, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
             title: addTitle,
+            descriptionTitle: addDescriptionTitle,
             description: addDescription,
+            essence: addEssence,
             location: addLocation,
             region: addRegion,
             amount: addAmount,
@@ -119,23 +119,26 @@ const Experiences = () => {
             const formdata = new FormData();
             formdata.append("file", addImage);
             formdata.append("title", addTitle);
-            const message = await fetch(baseUrl + "experiences/file-upload", {
+            console.log(addImage);
+            console.log(addTitle);
+            const message = await fetch(baseUrl + "/experiences/file-upload", {
               method: "POST",
               // headers: {
               //   "Content-Type" : "multipart/form-data"
               // },
               body: formdata
             })
+
             if (message.ok) {
-              // console.log("message" + message);
+              toast.success("Experience Updated successfully");
             }
           }
           catch (error) {
             toast.error("Failed to update experience");
             console.log("error" + error);
           }
-          toast.success("Experience updated successfully");
-          fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
+          
+          fetchExperiences(baseUrl + "/experiences/regions").then((destinations) => {
             setItems(destinations);
           });
           resetData();
@@ -149,9 +152,11 @@ const Experiences = () => {
       }
     }
   }
+
+
   useEffect(() => {
 
-    fetchExperiences(baseUrl + "experiences/regions").then((regions) => {
+    fetchExperiences(`${baseUrl}/experiences/regions`).then((regions) => {
       setItems(regions);
     });
 
@@ -166,14 +171,16 @@ const Experiences = () => {
     // setAlertMessage("Are you sure you want to add this experience?");
     // if(alertResponse === false) return;
     try {
-      const response = await fetch(baseUrl + "experiences/create", {
+      const response = await fetch(baseUrl + "/experiences/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           title: addTitle,
+          descriptionTitle: addDescriptionTitle,
           description: addDescription,
+          essence: addEssence,
           location: addLocation,
           region: addRegion,
           amount: addAmount,
@@ -185,7 +192,7 @@ const Experiences = () => {
           const formdata = new FormData();
           formdata.append("file", addImage);
           formdata.append("title", addTitle);
-          const message = await fetch(baseUrl + "experiences/file-upload", {
+          const message = await fetch(`${baseUrl}/experiences/file-upload`, {
             method: "POST",
             // headers: {
             //   "Content-Type" : "multipart/form-data"
@@ -202,7 +209,7 @@ const Experiences = () => {
           toast.error("Failed to add new experience");
         }
         console.log("New experience added successfully");
-        fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
+        fetchExperiences(baseUrl + "/experiences/regions").then((destinations) => {
           setItems(destinations);
         });
         resetData();
@@ -218,16 +225,16 @@ const Experiences = () => {
   const handleDeleteExperience = async (id, title) => {
     if (confirm("Are you sure you want to delete this experience?") === false) return;
     try {
-      const response = await fetch(`http://localhost:8085/experiences/delete/${id}`, {
+      const response = await fetch(`${baseUrl}/experiences/delete/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
-        const res = await fetch('http://localhost:8085/experiences/deleteImage/' + title, {
+        const res = await fetch(`${baseUrl}/experiences/deleteImage/` + title, {
           method: "DELETE",
         });
         // console.log("Experience deleted successfully");
         toast.success("Experience deleted successfully");
-        fetchExperiences(baseUrl + "experiences/regions").then((destinations) => {
+        fetchExperiences(baseUrl + "/experiences/regions").then((destinations) => {
           setItems(destinations);
         });
       } else {
@@ -365,13 +372,19 @@ const Experiences = () => {
     s += "&pageNo=" + currentPage;
     s += "&pageSize=5"
     setFilter(s);
-    fetchExperiences(baseUrl + "experiences/filtered" + s).then((experiences) => {
+    fetchExperiences(baseUrl + "/experiences/filtered" + s).then((experiences) => {
       setDetail(experiences.content);
       setPageCount(experiences.totalPages);
       setTotalExperiences(experiences.totalElements);
       setLoading(false);
     });
+
   }, [statusList, amount, dayCount, items, sortOrder, currentPage])
+
+  useEffect(()=>{
+    if(pageCount==1)
+    setCurrentPage(0);
+  } , [pageCount])
 
   useEffect(() => {
     let count = 0;
@@ -380,21 +393,7 @@ const Experiences = () => {
     })
     setTotalPeople(count);
   }, [rooms])
-
-  // const  isLiked = async (eid) => {
-  //   if (isLoggedIn) {
-  //     const res = await fetch('http://localhost:8085/likedExperiences/isLiked/' + eid + '/' + user.id, {
-  //       method: 'GET'
-  //     })
-  //       .then(res => res.text())
-  //       .then(data => { console.log(data); return data === "true" ? true : false });
-
-  //       console.log(eid + " " + user.id+ " res=" + res);
-
-  //     return res;
-  //   }
-  //   return false;
-  // }
+ 
   return (
     <div>
       <div className="header w-full relative overflow-hidden text-center h-screen/3 md:h-screen/2 xl:h-screen  text-white font-bold">
@@ -470,7 +469,12 @@ const Experiences = () => {
             // liked={isLiked(item.experienceId) ? true : false}
             <ExperienceCard key={item.experienceId} totalPeople={totalPeople} details={item} handleDeleteExperience={handleDeleteExperience} handleUpdateExperience={handleUpdateExperience} />
           )}
-          {!loading && pageCount === 0 && <h1 className="text-4xl text-black">No Experiences Found</h1>}
+          {!loading && pageCount === 0 && (
+          <>
+          <h1 className="text-4xl text-black"> :( No Experiences Found</h1>
+          <h1 className="text-2xl text-black mt-4 "> <Link className="text-red-800"to="/contactus">Click here </Link>to Get your customized holiday package today</h1>
+          </>
+        )  }
           {!loading && pageCount !== 0 && <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
         </div>
       </div>
@@ -492,6 +496,15 @@ const Experiences = () => {
                 value={addTitle}
                 className="border-solid border-red-800 border-2 p-3"
               />
+              <label htmlFor="">Description Title</label>
+              <input
+                type="text"
+                required={true}
+                placeholder="Description Title"
+                onChange={(e) => setAddDescriptionTitle(e.target.value)}
+                value={addDescriptionTitle}
+                className="border-solid border-red-800 border-2 p-3"
+              />
               <label htmlFor="">Description</label>
               <textarea
                 ref={(el) => { el && el.setAttribute("style", "height:" + el.scrollHeight + "px"); }}
@@ -500,6 +513,16 @@ const Experiences = () => {
                 placeholder="Description"
                 onChange={(e) => setAddDescription(e.target.value)}
                 value={addDescription}
+                className="border-solid border-red-800 border-2 p-3 h-fit"
+              />
+              <label htmlFor="">Essence</label>
+              <textarea
+                ref={(el) => { el && el.setAttribute("style", "height:" + el.scrollHeight + "px"); }}
+                type="text"
+                required={true}
+                placeholder="Essence of the trip"
+                onChange={(e) => setEssence(e.target.value)}
+                value={addEssence}
                 className="border-solid border-red-800 border-2 p-3 h-fit"
               />
               <label htmlFor="">Location</label>
