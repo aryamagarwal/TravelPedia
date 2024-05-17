@@ -172,7 +172,7 @@ public class EmailService {
         + "          Travelpedia\n"
         + "        </p>\n"
         + "        <p style=\"margin: 0; margin-top: 8px; color: #434343;\">\n"
-        + "          Gurugram, Haryana\n"
+        + "          Indian Institute Of Information Technology,Lucknow\n"
         + "        </p>\n"
         + "        <p style=\"margin: 0; margin-top: 16px; color: #434343;\">\n"
         + "          Copyright © 2023 Company. All rights reserved.\n"
@@ -224,7 +224,7 @@ public class EmailService {
                 "        </main>\n" +
                 "        <footer style=\"width: 100%; max-width: 490px; margin: 20px auto 0; text-align: center; border-top: 1px solid #e6ebf1;\">\n" +
                 "            <p style=\"margin: 0; margin-top: 40px; font-size: 16px; font-weight: 600; color: #434343;\">Travelpedia</p>\n" +
-                "            <p style=\"margin: 0; margin-top: 8px; color: #434343;\">Gurugram, Haryana</p>\n" +
+                "            <p style=\"margin: 0; margin-top: 8px; color: #434343;\">Indian Institute Of Information Technology,Lucknow</p>\n" +
                 "            <p style=\"margin: 0; margin-top: 16px; color: #434343;\">Copyright © 2023 Company. All rights reserved.</p>\n" +
                 "        </footer>\n" +
                 "    </div>\n" +
