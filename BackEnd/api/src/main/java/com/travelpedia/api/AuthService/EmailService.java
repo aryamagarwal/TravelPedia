@@ -15,8 +15,8 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class EmailService {
-	
-	@Autowired
+
+    @Autowired
     private JavaMailSender mailSender;
 
     @Async
@@ -30,8 +30,8 @@ public class EmailService {
             helper.setFrom("${app.mailFrom}");
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
-//            TODO :  logging as sending email failed
-//            throw new IllegalStateException("failed to send email");
+            // TODO : logging as sending email failed
+            // throw new IllegalStateException("failed to send email");
             return false;
         }
         return true;

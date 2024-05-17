@@ -2,10 +2,16 @@ package com.travelpedia.api.AuthService;
 
 //package com.example.travelpediabackendjwt.services;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 //
 //import com.example.travelpediabackendjwt.dto.JwtAuthenticationResponse;
 //import com.example.travelpediabackendjwt.dto.PasswordChangeRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,10 +29,13 @@ import com.travelpedia.api.AuthRepository.UserRepository;
 //import com.travelpedia.api.UserRepository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    @Value("${user.image.location}")
+    private String location;
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepo;
@@ -82,5 +91,50 @@ public class UserService {
     }
     public Boolean checkEmail(String email) {
         return  userRepo.existsByEmail(email);
+    }
+
+    public String uploadFile(MultipartFile file, String title) {
+        if (file.isEmpty())
+            return "File is empty";
+        //check if location directory exists or not
+        Path path = Paths.get(location);
+        if (!path.toFile().exists())
+            try {
+                Files.createDirectories(path);
+            } catch (Exception e) {
+                return "Error in creating directory";
+            }
+        try(InputStream is = file.getInputStream()){
+            Path filePath = Paths.get(location + "\\" + title);
+            Files.copy(is, filePath , StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (Exception e){
+            return "Error in uploading file";
+        }
+        return "file uploaded successfully";
+    }
+
+
+//    @Override
+    public byte[] downloadFile(String fileName) {
+        try {
+            Path path = Paths.get(location + "\\" + fileName);
+            return Files.readAllBytes(path);
+        }
+        catch (Exception e){
+            return new byte[0];
+        }
+
+    }
+
+//    @Override
+    public void deleteFile(String fileName) {
+        try {
+            Path path = Paths.get(location + "\\" + fileName);
+            Files.deleteIfExists(path);
+        }
+        catch (Exception e){
+            System.out.println("Error in deleting file");
+        }
     }
 }
