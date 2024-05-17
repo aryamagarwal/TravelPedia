@@ -48,19 +48,11 @@ function ContactUs() {
   // Define states for form fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [city, setCity] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [country, setCountry] = useState('');
   const [query, setQuery] = useState('');
 
   const reset = () => {
     setName('');
     setEmail('');
-    setCity('');
-    setMobile('');
-    setWhatsapp('');
-    setCountry('');
     setQuery('');
   }
 
@@ -77,10 +69,6 @@ function ContactUs() {
         body: JSON.stringify({
           name: name,
           email: email,
-          city: city,
-          mobile: mobile,
-          whatsApp: whatsapp,
-          country: country,
           query: query,
         }),
       });

@@ -34,7 +34,7 @@ public class ContactusModel {
     @Column
     private String query;
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="id")
             //change by rpince
     @JsonIgnore
     User user;
