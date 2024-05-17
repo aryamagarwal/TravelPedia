@@ -1,9 +1,6 @@
 import Card from "./Card.jsx";
 import { useState, useEffect } from "react";
-//import img1 from "./img/blogimage1.jpg";
-//import img2 from "./img/blogimage2.jpg";
 import img3 from "../assets/blogimage3.jpg";
-import "./Blogs.css";
 const baseUrl = "http://13.60.74.234:8085/permit/";
 
 const fetchBlogs = () => {
@@ -68,127 +65,100 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="app-container bg-white">
+    <div className="bg-white">
       <div
-        className="background-container"
+        className="mt-40 relative bg-cover bg-center py-12 text-white"
         style={{ backgroundImage: `url(${img3})` }}
       >
-        <div className="overlay">
-          <div className="max-width-1 m-auto">
-            <h1 className="text-center text-white">Welcome to Our Blog</h1>
-          </div>
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <h1 className="text-3xl">Welcome to Our Blog</h1>
         </div>
       </div>
-      <div className="max-width-1 m-auto">
-        <div>
-          <hr />
+      <div className="max-w-screen-xl mx-auto my-4">
+        <hr />
+        <div className="flex justify-around my-4">
+          <div className="cursor-pointer">All</div>
+          <div className="cursor-pointer">Latest</div>
+          <div className="cursor-pointer">Guest Post</div>
         </div>
-      </div>
-      <div className="evenlisting-container max-width-1 m-auto my-4">
-        <div className="evenlisting-item">All</div>
-        <div className="evenlisting-item">Latest</div>
-        <div className="evenlisting-item">Guest Post</div>
-      </div>
-      <div>
-        <div>
+        <div className="text-center mb-4">
           <button
-            onClick={() => {
-              setShowAddBlog(true);
-            }}
+            className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800"
+            onClick={() => setShowAddBlog(true)}
           >
             Add Blogs
           </button>
         </div>
-      </div>
-      <div className=" flex flex-col home-articles max-width-1 m-auto">
-        <div>
-          <h2>Featured Articles</h2>
-        </div>
-        {articles.map((article, index) => (
-          <div key={index}>
-            <div>
-              <Card details={article} />
-            </div>
-            <div>
-              <button className="read-more-button">Read More</button>
-            </div>
+        <div className="px-4 py-4 bg-white  mt-6 relative">
+          <h2 className="text-2xl mb-4 text-center text-gray-900">
+            Featured Articles
+          </h2>
+          <div className="flex flex-col gap-6">
+            {articles.map((article, index) => (
+              <div key={index} className="bg-white p-4 shadow-xl rounded-lg">
+                <Card details={article} />
+                <button className="mt-4 bg-brown-600 text-white py-2 px-4 rounded hover:bg-brown-700">
+                  Read More
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
-      {showAddBlog ? (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="w-1/3 bg-white p-5">
-            <div className="font-bold text-2xl text-center text-red-800">
+      {showAddBlog && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-5 rounded w-11/12 md:w-1/3">
+            <h2 className="font-bold text-2xl text-center text-red-800">
               Add a Blog
-            </div>
+            </h2>
             <div className="flex flex-col gap-5">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Enter Title"
-                  onChange={(e) => setAddTitle(e.target.value)}
-                  value={addTitle}
-                  className="border-solid border-red-800 border-2 p-3"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Text"
-                  onChange={(e) => setAddText(e.target.value)}
-                  value={addText}
-                  className="border-solid border-red-800 border-2 p-3"
-                />
-              </div>
-              <div>
-                <input
-                  type="date"
-                  placeholder="Date"
-                  onChange={(e) => setAddDate(e.target.value)}
-                  value={addDate}
-                  className="border-solid border-red-800 border-2 p-3"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Image URL"
-                  onChange={(e) => setAddImage(e.target.value)}
-                  value={addImage}
-                  className="border-solid border-red-800 border-2 p-3"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Author"
-                  onChange={(e) => setAddAuthor(e.target.value)}
-                  value={addAuthor}
-                  className="border-solid border-red-800 border-2 p-3"
-                />
-              </div>
-              <div>
-                <button
-                  className="border-solid border-red-800 border-2 p-3 text-red-800"
-                  onClick={() => handleAddBlog()}
-                >
-                  Add
-                </button>
-              </div>
-              <div>
-                <button
-                  className="p-3 text-red-800"
-                  onClick={() => {
-                    resetData();
-                  }}
-                >
-                  Close
-                </button>
-              </div>
+              <input
+                type="text"
+                placeholder="Enter Title"
+                value={addTitle}
+                onChange={(e) => setAddTitle(e.target.value)}
+                className="border border-red-800 p-3 rounded focus:outline-none focus:border-red-600"
+              />
+              <input
+                type="text"
+                placeholder="Text"
+                value={addText}
+                onChange={(e) => setAddText(e.target.value)}
+                className="border border-red-800 p-3 rounded focus:outline-none focus:border-red-600"
+              />
+              <input
+                type="date"
+                value={addDate}
+                onChange={(e) => setAddDate(e.target.value)}
+                className="border border-red-800 p-3 rounded focus:outline-none focus:border-red-600"
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={addImage}
+                onChange={(e) => setAddImage(e.target.value)}
+                className="border border-red-800 p-3 rounded focus:outline-none focus:border-red-600"
+              />
+              <input
+                type="text"
+                placeholder="Author"
+                value={addAuthor}
+                onChange={(e) => setAddAuthor(e.target.value)}
+                className="border border-red-800 p-3 rounded focus:outline-none focus:border-red-600"
+              />
+              <button
+                className="bg-red-800 text-white p-3 rounded hover:bg-red-900"
+                onClick={handleAddBlog}
+              >
+                Add
+              </button>
+              <button className="p-3 text-red-800" onClick={resetData}>
+                Close
+              </button>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
