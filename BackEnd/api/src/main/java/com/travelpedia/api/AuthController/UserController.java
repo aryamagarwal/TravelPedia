@@ -4,27 +4,26 @@ package com.travelpedia.api.AuthController;
 //
 //import com.example.travelpediabackendjwt.dto.JwtAuthenticationResponse;
 //import com.example.travelpediabackendjwt.dto.PasswordChangeRequest;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import com.travelpedia.api.AuthDto.UserDto;
 import com.travelpedia.api.AuthModel.User;
 import com.travelpedia.api.AuthService.UserService;
+
 
 //import com.example.travelpediabackendjwt.dto.UserDto;
 //import com.example.travelpediabackendjwt.models.User;
 //import com.example.travelpediabackendjwt.services.UserService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -33,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 	private final UserService us;
-	
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	
 	@PostMapping("/checkUsername")
@@ -62,11 +61,16 @@ public class UserController {
 	public UserDto getMyDetails() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
+
+//		var pass=encoder.decode(user.getPassword());
+
 		return UserDto.builder()
 				.userName(user.getUsername())
 				.email(user.getEmail())
 				.firstName(user.getFirstName())
 				.lastName(user.getLastName())
+//				.passWord(encoder.encode(user.getPassword()))
+
 				.build();
 	}
 	
@@ -86,5 +90,16 @@ public class UserController {
 		User user = (User) authentication.getPrincipal();
 		return user.getId();
 	}
+
+
+
+//	@PostMapping("/checkPass")
+//	@ResponseBody
+//	public Boolean checkPass(@RequestBody PasswordCheckDto password) {
+//		return us.checkPass(password.getPassword());
+//	}
+
+	
+	
 }
 

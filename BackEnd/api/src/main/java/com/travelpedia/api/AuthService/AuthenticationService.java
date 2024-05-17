@@ -5,19 +5,18 @@ package com.travelpedia.api.AuthService;
 
 //import com.example.travelpediabackendjwt.dto.*;
 
+import java.util.Objects;
 import java.util.Optional;
 
+import com.travelpedia.api.AuthDto.*;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.cache.support.NullValue;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.travelpedia.api.AuthDto.JwtAuthenticationResponse;
-import com.travelpedia.api.AuthDto.LogInRequest;
-import com.travelpedia.api.AuthDto.MessageResponse;
-import com.travelpedia.api.AuthDto.OtpRequest;
-import com.travelpedia.api.AuthDto.PasswordChangeRequest;
-import com.travelpedia.api.AuthDto.SignUpRequest;
 import com.travelpedia.api.AuthModel.Role;
 import com.travelpedia.api.AuthModel.User;
 import com.travelpedia.api.AuthRepository.UserRepository;
@@ -33,6 +32,7 @@ public class AuthenticationService {
       private final JwtService jwtService;
       private final OtpService otpService;
       private final AuthenticationManager authenticationManager;
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
         var user = User
@@ -74,6 +74,56 @@ public class AuthenticationService {
         return JwtAuthenticationResponse.builder().token(jwt).status(false).build();
     }
 
+    public JwtAuthenticationResponse updateDetails(UpdateDetailsDto request) {
+        var user = userRepository.findByUserNameOrEmail(request.getUsername()).orElse(null);
+        System.out.println(user);
+
+        if(user==null) {
+            return JwtAuthenticationResponse.builder().status(false).build();
+        }
+//        boolean pass=true;
+
+        boolean pass=encoder.matches(request.getOldPassword(),user.getPassword());
+        if(pass){
+            System.out.println(user);
+            user.setIsVerified(Boolean.FALSE);
+            System.out.println(user);
+
+
+            if(request.getNewPassword()!=null){
+                user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+            }
+            user.setFirstName(request.getFirstname());
+            user.setLastName(request.getLastname());
+            user.setEmail(request.getEmail());
+            user = userService.save(user);
+
+
+
+//    	System.out.println(user.getPassword());
+
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), request.getNewPassword()));
+            System.out.println("After authentication");
+//    	 user.setIsVerified(Boolean.FALSE);
+
+            var jwt = jwtService.generateToken(user);
+            return JwtAuthenticationResponse.builder().token(jwt).status(false).build();
+
+        }
+        else{
+            return JwtAuthenticationResponse.builder().status(false).build();
+        }
+
+
+
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(user.getUsername(), request.getOldpassword()));
+
+
+    }
+
+
     public JwtAuthenticationResponse login(LogInRequest request) {
         var user = userRepository.findByUserNameOrEmail(request.getUserNameOrEmail())
                 .orElse(null);
@@ -82,11 +132,15 @@ public class AuthenticationService {
         if(user==null) {
           return JwtAuthenticationResponse.builder().status(false).build();
         }
+        System.out.println(user);
+        System.out.println(user.getUsername()+" "+ request.getPassword());
+
         System.out.println("Before authentication");
         authenticationManager.authenticate(
               new UsernamePasswordAuthenticationToken(user.getUsername(), request.getPassword()));
         System.out.println("After authentication");
         var jwt = jwtService.generateToken(user);
+        System.out.println(jwt);
         var status = user.getIsVerified();
 
         return JwtAuthenticationResponse.builder().token(jwt).status(status).build();

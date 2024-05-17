@@ -1,9 +1,7 @@
 package com.travelpedia.api.AuthDto;
 
-//package com.example.travelpediabackendjwt.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDto {
-	String userName;
-	String email;
-	String firstName;
-	String lastName;
-	String passWord;
+public class UpdateDetailsDto{
+    String username;
+    String firstname;
+    String lastname;
+    String email;
+    String oldPassword;
+    String newPassword;
 }
