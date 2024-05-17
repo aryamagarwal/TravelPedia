@@ -5,7 +5,6 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { IsLoggedInContext } from "../App.jsx";
 import { useNavigate } from "react-router-dom";
-import bg from "../assets/beach.webp";
 // import userData from "../assets/db/user.js";
 import Block from "./block";
 // import useFetch from "./useFetch.jsx";
@@ -71,7 +70,9 @@ const LoginForm = () => {
           lastname: "",
           userNameOrEmail: userNameOrEmail,
         });
+       
         navigate(`/user/dashboard/${myName}`);
+        console.log(user.id);
       }
     } catch (error) {
       handleResponseError(error);

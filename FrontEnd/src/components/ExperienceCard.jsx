@@ -67,7 +67,8 @@ const ExperienceCard = (props) => {
                                 navigate('/login')
                                 window.scrollTo(0, 0);
                             }
-                        };
+                        }
+                        ;
                     }}>
                         {!liked ? <FaRegHeart /> : <FaHeart />}
                     </button>

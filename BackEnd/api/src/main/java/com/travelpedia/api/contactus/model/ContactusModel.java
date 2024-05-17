@@ -1,5 +1,8 @@
 package com.travelpedia.api.contactus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.travelpedia.api.AuthModel.User;
+//import com.travelpedia.api.UserModel.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,15 +23,19 @@ public class ContactusModel {
     private String name;
     @Column
     private String email;
-    @Column
-    private String city;
-    @Column
-    private String mobile;
-    @Column
-    private String WhatsApp;
-    @Column
-    private String country;
+//    @Column
+//    private String city;
+//    @Column
+//    private String mobile;
+//    @Column
+//    private String WhatsApp;
+//    @Column
+//    private String country;
     @Column
     private String query;
-
+    @ManyToOne
+    @JoinColumn(name="user_id")
+            //change by rpince
+    @JsonIgnore
+    User user;
 }
