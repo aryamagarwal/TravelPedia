@@ -1,131 +1,150 @@
 /* Checkout Page Styles */
 
 .checkout-page {
-    display: flex;
-    width: 100%; /* Make sure the checkout page takes up the full width */
-    /* font-family: 'Times New Roman', Times, serif; */
-  }
+  display: flex;
+  width: 100%;
+  margin-top: 170px;
+  font-family: 'Times New Roman', Times, serif; /* Adjusted margin */
+}
+
+.contact-details,
+.activity-payment-details {
+  padding: 1rem;
   
-  .contact-details,
-  .activity-payment-details {
-    padding: 1rem;
-  }
+}
+
+/* Contact Details Styles */
+
+.contact-details {
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  flex: 0.7;
+}
+
+.contact-details h2 {
+  margin-bottom: 1rem; /* Corrected heading tag */
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.contact-details p {
+  margin-bottom: 0.5rem; /* Corrected paragraph tag */
+  font-size: 0.8rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+input[type="text"],
+input[type="email"]
+ {
+  padding: 0.5rem;
+  width: 100%; /* Added width */
+}
+input[type="tel"]{
+  padding: 0.5rem;
+  width: 50%;
+}
+
+.name-inputs {
+  display: flex;
+  gap: 1rem; /* Adjusted gap */
+  margin-bottom: 1rem; /* Added margin */
   
-  /* Contact Details Styles */
-  
-  .contact-details {
-    background-color: #f5f5f5;
-    border-right: 1px solid #ddd; /* Add border to the right side */
-    flex: 0.7; /* Set contact details to take up 70% of the space */
-  }
-  
-  h21 {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold; /* Make headings bold */
-  }
-  
-  p2{
-    margin-bottom: 0.5rem;
-    font-size: 0.8rem;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  label {
-    font-weight: 700; /* Make labels bold */
-    font-size: 17px;
-     font-family :'Times New Roman', Times, serif
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"] {
-    padding: 0.5rem;
-  
-   
-  }
-  
-  .name-inputs {
-    display: flex;
-   /* Arrange first and last name inputs in a row */
-  }
-  
-  .name-inputs label {
-    margin-right: 1rem; /* Add some space between labels and inputs */
-  }
-  
-  .name-inputs input {
-    flex: 1; /* Make name inputs take up equal space */
-  }
-  
-  .checkbox-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .checkbox-container input[type="checkbox"] {
-    margin-right: 0.5rem;
-  }
-  
-  /* Activity & Payment Details Styles */
-  
-  .activity-payment-details {
-    display: flex;
-    flex-direction: column;
-    flex: 0.3; /* Set activity & payment details to take up 30% of the space */
-  }
-  
-  .activity-details,
-  .payment-details {
-    background-color: #f5f5f5;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1rem; /* Add some margin between sections */
-  }
-  
-  .activity-details-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .activity-details-items p {
-    flex-grow: 1;
-  }
-  
-  .booking-fee,
-  .sub-total,
-  .total {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  
-  .payment-details button {
-    background-color: #007bff;
-    color: white;
-    padding: 0.8rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .promo-code {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .promo-code p:nth-child(2),
-  .promo-code p:nth-child(3) {
-    font-size: 0.7rem;
-    color: #ccc;
-  }
- 
+}
+#Age{
+  width: 50%;
+  height: 40px;
+}
+
+.name-inputs label {
+  flex: 1;
+}
+
+.name-inputs input {
+  flex: 2;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Activity & Payment Details Styles */
+
+.activity-payment-details {
+  display: flex;
+  flex-direction: column;
+  flex: 0.3;
+}
+
+.activity-details,
+.payment-details {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.activity-details-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.activity-details-items p {
+  flex: 1;
+}
+
+.booking-fee,
+.sub-total,
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.payment-details button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.promo-code {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.promo-code p:nth-child(2),
+.promo-code p:nth-child(3) {
+  font-size: 0.7rem;
+  color: #ccc;
+}
+#gender{
+  width: 10vw;
+}
+.qr{
+  height: 350px;
+  width: 350px;
+  position: relative;
+  left: 600px;
+  bottom: 110px;
+}
