@@ -190,7 +190,7 @@ function ContactUs() {
         </div>
         <div className="flex flex-wrap ">
           <div className="relative flex-grow max-w-full flex-1 px-4"></div>
-          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <div className="relative flex-grow max-w-full flex-1 px-4 container  mx-auto sm:px-4 text-center">
             <button onClick={()=>{handleOnSubmit()}} type="button" className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-red-800 text-white hover:bg-gray-800">
               SUBMIT
             </button>
@@ -203,35 +203,35 @@ function ContactUs() {
         <br />
         <br />
         <div className="flex justify-center items-center text-red-800 ">
-          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <div className="relative flex-grow max-w-full flex-1 px-4 container  mx-auto sm:px-4 text-center">
             <a href="https://snapchat.com" target="_blank" rel="noopener" className="mb-4 flex justify-center items-center">
               <FaSnapchat style={{ fontSize: 30 }} />
             </a>
             <p className="mb-1"></p>
             <span>SNAPCHAT</span>
           </div>
-          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 text-center">
             <a href="https://twitter.com" target="_blank" rel="noopener" className="mb-4 flex justify-center items-center">
               { <FaTwitter style={{ fontSize: 30 }} /> }
             </a>
             <p className="mb-1"></p>
             <span>TWITTER</span>
           </div>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="relative flex-grow max-w-full flex-1 px-4 container  mx-auto sm:px-4 text-center">
             <div className="mb-4 flex justify-center items-center">
               <FaFacebook style={{ fontSize: 30 }} />
             </div>
             <p className="mb-1"></p>
             <span>FACEBOOK</span>
           </a>
-          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 text-center">
             <a href="https://linkedin.com" target="_blank" rel="noopener" className="mb-4 flex justify-center items-center">
               <FaLinkedin style={{ fontSize: 30 }} />
             </a>
             <p className="mb-1"></p>
             <span>LINKEDIN</span>
           </div>
-          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 mx-auto sm:px-4 text-center">
+          <div className="relative flex-grow max-w-full flex-1 px-4 container mx-auto sm:px-4 text-center">
             <div className="mb-4 flex justify-center items-center">
               { <IoIosCall style={{ fontSize: 30 }} /> }
             </div>
