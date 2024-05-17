@@ -15,6 +15,8 @@ export const authApi = {
   logout,
   forgotPass,
   getMyId,
+  updateDetails,
+  uploadPhoto,
 };
 
 function authenticate(userNameOrEmail, password) {
@@ -48,9 +50,23 @@ function requestOtp(userNameOrEmail) {
   };
   return instance.post(
     url,
-    payload,
+    payload
     // {
     // headers: { Authorization: bearerAuth() },}
+  );
+}
+
+function checkPass(password) {
+  const url = "/api/user/checkPass";
+  const payload = {
+    password: password,
+  };
+  return instance.post(
+    url,
+    payload
+    //   {
+    //   headers: { "Content-type": "application/json" },
+    // }
   );
 }
 
@@ -62,7 +78,7 @@ function verifyUser(userNameOrEmail, otp) {
   };
   return instance.post(
     url,
-    payload,
+    payload
     // {
     // headers: { Authorization: bearerAuth() },}
   );
@@ -75,7 +91,7 @@ function checkUserName(u) {
   };
   return instance.post(
     url,
-    payload,
+    payload
     //   {
     //   headers: { "Content-type": "application/json" },
     // }
@@ -121,6 +137,36 @@ function forgotPass(userNameOrEmail, password) {
   });
 }
 
+function updateDetails(
+  username,
+  firstName,
+  lastname,
+  email,
+  opass,
+  newPassword
+) {
+  const payload = {
+    username: username,
+    firstname: firstName,
+    lastname: lastname,
+    email: email,
+    oldPassword: opass,
+    newPassword: newPassword,
+  };
+  return instance.post("/api/auth/updateDetails", payload, {
+    headers: { "Content-type": "application/json" },
+  });
+}
+
+function uploadPhoto(formdata) {
+  // const payload = {
+  //   formdata: formdata,
+  // };
+  return instance.post("/api/auth/file-upload", formdata, {
+    headers: { Authorization: bearerAuth() },
+  });
+}
+
 // -- Axios
 // axios.defaults.headers.post["Content-Type"] =
 //   "application/x-www-form-urlencoded";
@@ -130,8 +176,6 @@ function forgotPass(userNameOrEmail, password) {
 
 const instance = axios.create({
   baseURL: config.url.API_BASE_URL,
-  //   mode: "cors",
-  //   headers: {},
 });
 
 instance.interceptors.request.use(
@@ -148,7 +192,7 @@ instance.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 // -- Helper functions

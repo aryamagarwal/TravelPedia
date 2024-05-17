@@ -5,7 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 const CardPallete = (props) => {
   const [scroll, setScroll] = React.useState(0);
   useEffect(() => {
-    const cardPallete = document.querySelector('.cardPallete')
+    const cardPallete = document.querySelector(`.${props.className}`)
     cardPallete.style.transform = `translateX(${scroll}px)`
   }, [scroll])
 
@@ -19,7 +19,7 @@ const CardPallete = (props) => {
       }}>
        <IoIosArrowForward />
       </button>
-      <div className='cardPallete  flex mt-1 overflow-visible w-full h-full'>
+      <div className={` ${props.className}  flex mt-1 overflow-visible w-full h-full`}>
       {
         props.details.map((location, i) =>
         (

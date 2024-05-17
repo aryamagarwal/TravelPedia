@@ -17,21 +17,23 @@ import CardPallete from "../components/CardPallete.jsx";
 import { Link } from "react-router-dom";
 import LikedExperiences from "../components/LikedExperiences.jsx";
 const UserDashboard = () => {
+  const baseUrl = "http://13.60.74.234:8085/permit/"
   const { setIsLoggedIn, setUser, user } = useContext(IsLoggedInContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const [experiences, setExperiences] = useState(null);
   useEffect(() => {
-    fetch('http://localhost:8085/permit/experiences/all')
+    fetch(`${baseUrl}experiences/all`)
       .then(res => res.json())
       .then(data => { setExperiences(data); console.log(data) })
   }, [])
   const [likedExperiences, setLikedExperiences] = useState(null);
   useEffect(() => {
-    fetch('http://localhost:8085/permit/likedExperiences/likedByUser/'+user.id)
+    fetch(`${baseUrl}likedExperiences/likedByUser/`+user.id)
       .then(res => res.json())
-      .then(data => { setLikedExperiences(data); console.log(data) })
+      .then(data => { setLikedExperiences(data.map((item)=> item.experience)); console.log(data) })
   }, [])
+  
   
 const logout = (e) => {
     // data.user = id;
@@ -81,7 +83,7 @@ const logout = (e) => {
                 <h1 className='text-black-800 text-3xl font-bold font-gideon'>Liked Experiences</h1>
               </div>
               <div className=''>
-                {likedExperiences !== null ? <CardPallete details={likedExperiences} /> : null}
+                {likedExperiences !== null ? <CardPallete details={likedExperiences} className="likedCardPallete" /> : null}
               </div>
             </div>
           </div>
@@ -94,7 +96,7 @@ const logout = (e) => {
                 </div>
               </div>
               <div className=''>
-                {experiences !== null ? <CardPallete details={experiences} /> : null}
+                {experiences !== null ? <CardPallete details={experiences} className="experiencesCardPallete"/> : null}
               </div>
             </div>
           </div>

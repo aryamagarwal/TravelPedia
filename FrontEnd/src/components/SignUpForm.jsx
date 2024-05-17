@@ -156,7 +156,7 @@ const SignUpForm = () => {
       console.log(response);
       const signupToken = response.data;
       console.log(signupToken);
-      localStorage.setItem("signupToken", signupToken);
+      // localStorage.setItem("signupToken", signupToken);
       setUser(userData);
       // navigate("/LogIn");
       navigate("/verifyAccount");

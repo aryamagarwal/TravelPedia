@@ -41,7 +41,7 @@ const Home = () => {
             </div>
           </div>
           <div className='w-full'>
-            {experiences !== null ? <CardPallete details={experiences} /> : null}
+            {experiences !== null ? <CardPallete details={experiences} className="experiencesHomeCardPallete"/> : null}
           </div>
         </div>
       </div>
