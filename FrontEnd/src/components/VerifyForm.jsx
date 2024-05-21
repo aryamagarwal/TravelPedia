@@ -11,6 +11,7 @@ import Block from "./block.jsx";
 import { authApi } from "../api/authApi.jsx";
 import { handleResponseError, parseJwt } from "../api/util.jsx";
 import { FaRegEye } from "react-icons/fa";
+import { toast } from "react-toastify";
 // import { useAuth } from "../context/AuthContext";
 
 const VerifyForm = () => {
@@ -123,7 +124,10 @@ const VerifyForm = () => {
         setSeconds(0);
       } else {
         console.log("Otp Verified!");
+        toast.success("Otp Verified!");
+
         console.log("Logging in");
+        toast.success("Login Successful");
         authApi.saveToken(token);
         // const authenticatedUser = { data, accessToken };
         const nameResp = await authApi.getMyName();

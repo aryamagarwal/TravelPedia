@@ -45,3 +45,36 @@ body{
   transition: 0.5s ease-in-out;
   
 }
+.loadingShimmer{
+  animation-duration: 2.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(to right, #eee 40%, #fafafa 50%, #eee 60%);
+  background-size: 1200px 100%;
+  min-height: 12px;
+ border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
+.loadingShimmerDiagnol
+{
+  animation-duration: 2.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(45deg, #eee 40%, #fafafa 50%, #eee 60%);
+  background-size: 1200px 100%;
+  min-height: 12px;
+ border-radius: 8px;
+}

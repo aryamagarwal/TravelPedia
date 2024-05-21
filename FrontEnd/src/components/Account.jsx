@@ -163,7 +163,7 @@ const Account = () => {
       // console.log(response);
       // const blob = await response.blob();
       if (response.ok) {
-        toast.success("New experience added successfully");
+        toast.success("New photo uploaded successfully");
       }
     } catch (error) {
       console.error("Error uploading photo:", error);

@@ -11,6 +11,7 @@ import Loading from "../components/Loading.jsx";
 import FilterMenu from "../components/FilterMenu.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import ExperienceCardLoader from "../components/ExperienceCardLoader.jsx";
 const fetchExperiences = (url) => {
 
   return new Promise(async (resolve, reject) => {
@@ -49,10 +50,6 @@ const Experiences = () => {
   const [totalPeople, setTotalPeople] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
   const [filterMenu, setFilterMenu] = React.useState(false);
-  // const [showAlert , setShowAlert] = useState(false);
-  // const [alertMessage , setAlertMessage] = useState("");
-  // const [alertResponse , setAlertResponse] = useState(false);
-  // const [results , setResults] = useState([]);
   const resetData = () => {
     setAddTitle("");
     setAddDescriptionTitle("");
@@ -65,9 +62,6 @@ const Experiences = () => {
     setAddDays();
     setShowAddExperience(false);
     setUpdateExperience(false);
-    // setShowAlert(false);
-    // setAlertMessage("");
-    // setAlertResponse(false);
   }
   const handleUpdateExperience = (details) => {
     setCurrentExperienceId(details.experienceId);
@@ -83,14 +77,12 @@ const Experiences = () => {
     fetch(baseUrl + "/experiences/experienceImage/" + details.title)
       .then((response) => response.blob())
       .then((blob) => {
-        // console.log(blob);
         var file = new File([blob], details.title, { type: "image/*", lastModified: Date.now() });
-        // console.log(file);
         setAddImage(file);
         setShowAddExperience(true);
         setUpdateExperience(!updateExperience);
       })
-  }
+    }
   const postUpdatedExperience = async () => {
     if (confirm("Are you sure you want to update this experience?") === false) return;
     // setShowAlert(true);
@@ -353,7 +345,6 @@ const Experiences = () => {
     }
   }, [clearFilters])
   useEffect(() => {
-    // setCurrentPage(0);
     setLoading(true);
     let s = "";
     if (statusList.length > 0)
@@ -461,7 +452,11 @@ const Experiences = () => {
               </ul>
             </div>
           </div>
-          {loading && <Loading />}
+          { loading && (
+          [...Array(10)].map((e,i)=>{
+            return <ExperienceCardLoader key={i} />
+          })
+          )}
 
 
           {/* <h3 className="align-left">Total '{totalExperiences}' Experiences</h3> */}

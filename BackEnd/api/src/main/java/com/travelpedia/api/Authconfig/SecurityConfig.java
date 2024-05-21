@@ -57,7 +57,7 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
       CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://localhost:8080","http://13.60.74.234:8085"));
+      configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://localhost:8080","http://13.60.74.234:8085","http://travelpedia2024.s3-website.eu-north-1.amazonaws.com"));
       configuration.setAllowedMethods(Arrays.asList(CorsConfiguration.ALL));
       configuration.setAllowedHeaders(Arrays.asList(CorsConfiguration.ALL));
       configuration.setMaxAge((long) 3600);

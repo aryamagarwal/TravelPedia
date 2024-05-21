@@ -50,7 +50,7 @@ const Navbar = () => {
     <div className="navbar flex justify-between fixed top-0 z-20 w-full navBg items-center h-auto flex-row  pl-5 ">
       <div className="h-full ">
         <Link to={"/"}>
-          {window.scrollY === 0 && <img className="logo h-full w-20 2xl:w-1/4" src={logo} alt="logo" />}
+          {window.scrollY === 0 && <img className="logo h-full w-20 2xl:w-2/4" src={logo} alt="logo" />}
         </Link>
       </div>
       <div className="logIn hidden lg:flex gap-3 h-full float-right border-solid border-b-4 items-center py-11 p-6 border-red-500">

@@ -155,6 +155,9 @@ const SignUpForm = () => {
       const response = await authApi.signup(userData);
       console.log(response);
       const signupToken = response.data;
+      if(signupToken){
+        toast.success("Registeration Successful");
+      }
       console.log(signupToken);
       // localStorage.setItem("signupToken", signupToken);
       setUser(userData);
@@ -272,9 +275,13 @@ const SignUpForm = () => {
                 value={password}
               />
 
-              <button onClick={() => setShowPassword((prev) => !prev)}>
-                <FaRegEye className="absolute right-5 top-1/2 -translate-y-2/4" />
-              </button>
+                    <FaRegEye
+                      className="absolute right-5 top-1/2 -translate-y-2/4"
+                      onMouseOver={() => {
+                        // e.preventDefault();
+                        setShowPassword((prev) => !prev);
+                      }}
+                    />
             </div>
             <h5 className="text-red-800 bg-white ">{message}</h5>
             <div className="inputBox flex relative items-center my-3 h-12 w-full">

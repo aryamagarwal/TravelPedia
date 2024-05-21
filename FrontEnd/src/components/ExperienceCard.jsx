@@ -11,13 +11,16 @@ import { FaRupeeSign } from "react-icons/fa";
 const baseUrl = "http://13.60.74.234:8085/permit";
 const ExperienceCard = (props) => {
     const { user, isLoggedIn } = useContext(IsLoggedInContext);
+    const [loadingImage, setLoadingImage] = React.useState(true)
     const navigate = useNavigate();
     const [img, setImg] = React.useState(null)
     React.useEffect(() => {
+        setLoadingImage(true)
         fetch(`${baseUrl}/experiences/experienceImage/`+ props.details.title)
             .then((response) => response.blob())
             .then((blob) => {
                 setImg(URL.createObjectURL(blob))
+                setLoadingImage(false)
             })
     }, [])
     const [liked, setLiked] = React.useState(false);
@@ -37,7 +40,7 @@ const ExperienceCard = (props) => {
 
     return (
 
-        <div className="flex flex-col w-full shadow-md rounded-md p-5 lg:p-1 lg-m-9 items-center m-3 "
+       <div className="flex flex-col w-full shadow-md rounded-md p-5 lg:p-1 lg-m-9 items-center m-3 "
         // style={{
         //     background: `linear-gradient(rgba(225, 225, 225, 0.8 ) 100%, rgba(225, 225, 225, 0.8 ) 0%)`,
 
@@ -45,8 +48,9 @@ const ExperienceCard = (props) => {
         >
             <div className="flex flex-col lg:items-center lg:flex-row rounded-md w-full ">
                 <div className="h-60 w-full lg:w-1/3 2xl:w-1/4 flex rounded-xl items-center justify-center overflow-hidden relative" >
+                    {loadingImage && <div className="loadingShimmerDiagnol h-full cardImg w-3/5 lg:w-full "></div>}
                     {img && <img className="cardImg w-3/5 lg:w-full " src={img} alt="img" />}
-                    <button className='absolute right-10 top-5 p-4 bg-gray-200 rounded-full text-2xl text-red-800' onClick={() => {
+                     <button className='absolute right-10 top-5 p-4 bg-gray-200 rounded-full text-2xl text-red-800' onClick={() => {
                         if (isLoggedIn) {
 
                             if (!liked) {

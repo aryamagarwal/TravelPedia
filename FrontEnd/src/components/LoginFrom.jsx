@@ -11,6 +11,7 @@ import Block from "./block";
 import { authApi } from "../api/authApi.jsx";
 import { handleResponseError, parseJwt } from "../api/util.jsx";
 import { FaRegEye } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [userNameOrEmail, setUserNameOrEmail] = useState("");
@@ -18,6 +19,9 @@ const LoginForm = () => {
   const { setIsLoggedIn, setUser } = useContext(IsLoggedInContext);
   const [invalidCredMsg, setInvalidCredMsg] = useState("");
   const [showPassword, setShowPassword] = useState("");
+  const [message2, setMessage2] = useState("");
+  // const [showPassword, setShowPassword] = useState("");
+
 
   const updateUserNameOrEmail = (e) => {
     setUserNameOrEmail(e.target.value);
@@ -40,13 +44,25 @@ const LoginForm = () => {
       console.log(response);
       const authResp = response.data;
       const accessToken = authResp.token;
+      if (authResp.status) {
+        setMessage2("");
+        toast.success("Login Successful");
+      }
+      else if(!response.data.token) {
+        setMessage2("Enter correct Details");
+        toast.error("Login Failed . Enter correct Details");
+        return;
+      }
+
       console.log(typeof accessToken);
       const data = parseJwt(accessToken);
       const isVerified = authResp.status;
       if (!isVerified) {
         console.log("Not a verified user!");
+        toast.success("Verify your account");
         navigate("/verifyAccount");
       } else {
+        toast.success("Login Successful");
         console.log("Logging in");
         console.log("hi");
         authApi.saveToken(accessToken);
@@ -77,6 +93,10 @@ const LoginForm = () => {
     } catch (error) {
       handleResponseError(error);
       setIsError(true);
+      // if(!authResp.status){
+      //   setMessage2("Enter correct Details");
+      //   toast.error("Login Failed . Enter correct Details");
+      // }
     }
   };
 
@@ -123,9 +143,13 @@ const LoginForm = () => {
                 value={password}
               />
               {/* <RiLockPasswordFill className="absolute right-5 to?p-1/2 -translate-y-2/4" ?/> */}
-              <button onClick={() => setShowPassword((prev) => !prev)}>
-                <FaRegEye className="absolute right-5 top-1/2 -translate-y-2/4" />
-              </button>
+              <FaRegEye
+                      className="absolute right-5 top-1/2 -translate-y-2/4"
+                      onMouseOver={() => {
+                        // e.preventDefault();
+                        setShowPassword((prev) => !prev);
+                      }}
+                    />
             </div>
             <div className="rememberForgot flex justify-between my-3">
               <label>
@@ -152,6 +176,9 @@ const LoginForm = () => {
             >
               Login
             </button>
+            <center>
+                    <h5 className="text-red-800 bg-white ">{message2}</h5>
+                  </center>
             <div className="register text-center mt-5 mb-10">
               <p>
                 Don't have an account?{" "}

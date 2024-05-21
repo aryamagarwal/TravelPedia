@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { authApi } from "../api/authApi.jsx";
 import { handleResponseError, parseJwt } from "../api/util.jsx";
 import { FaRegEye } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [userNameOrEmail, setUserNameOrEmail] = useState("");
@@ -42,6 +43,9 @@ const ForgotPassword = () => {
       const accessToken = authResp.token;
       console.log(typeof accessToken);
       const data = parseJwt(accessToken);
+      if(accessToken){  
+        toast.success("Password Reset Successful");
+      }
       const isVerified = authResp.status;
       if (!isVerified) {
         console.log("Not a verified user!");
@@ -49,6 +53,7 @@ const ForgotPassword = () => {
       } else {
         console.log("Logging in");
         authApi.saveToken(accessToken);
+        
         // const authenticatedUser = { data, accessToken };
 
         let myName = await authApi.getMyName();
