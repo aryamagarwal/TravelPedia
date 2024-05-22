@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { IoIosRemoveCircle } from 'react-icons/io'
+import { useActionData } from 'react-router-dom'
+
 function FilterMenu(props) {
+    useEffect(()=>{
+        AOS.init({duration: 1000});
+    } , [])
+ 
     return (
-        <div className={`${props.filterMenu ? "flex absolute z-30 xl:hidden" : "hidden"} flex-col my-7 p-7 w-1/4 xl:flex rounded-lg  top-8 shadow-lg shadow-gray-400 bg-white`}>
+        <div data-aos="fade-right" className={`${props.filterMenu ? "flex absolute z-30 xl:hidden" : "hidden"} hover:shadow-2xl flex-col my-7 p-7 w-1/4 xl:flex rounded-lg  top-8 shadow-lg shadow-gray-400 bg-white`}>
             <button className={`${props.filterMenu ? "block" : "hidden"} absolute top-2 left-1 text-3xl text-red-800`} onClick={() => props.setFilterMenu(false)}>X</button>
             <button className=" w-full mt-3  border-solid border-red-800 text-red-800 text-xl border-2 p-1 rounded-full hover:text-white hover:bg-red-800  " onClick={() => {
                 props.setClearFilters(true)

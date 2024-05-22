@@ -1,10 +1,13 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 function Pagination(props) {
     const pageCount = props.pageCount;
-    
+    useEffect(()=>{
+        AOS.init({duration: 1000});
+    } , [])
   return (
-    <div>
+    <div data-aos="zoom-in" className="mt-3">
       <div>
         <button className='mx-2 text-red-800 border-solid border-2 border-red-800 p-3' onClick={()=>{props.currentPage===0 ? props.setCurrentPage(pageCount-1) : props.setCurrentPage(props.currentPage -1 )}}>Prev</button>
                 {Array.from({ length: pageCount }, (_, index) => (

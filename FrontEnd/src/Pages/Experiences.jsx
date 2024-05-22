@@ -111,8 +111,6 @@ const Experiences = () => {
             const formdata = new FormData();
             formdata.append("file", addImage);
             formdata.append("title", addTitle);
-            console.log(addImage);
-            console.log(addTitle);
             const message = await fetch(baseUrl + "/experiences/file-upload", {
               method: "POST",
               // headers: {
@@ -127,7 +125,7 @@ const Experiences = () => {
           }
           catch (error) {
             toast.error("Failed to update experience");
-            console.log("error" + error);
+            // console.log("error" + error);
           }
           
           fetchExperiences(baseUrl + "/experiences/regions").then((destinations) => {
@@ -140,7 +138,7 @@ const Experiences = () => {
         }
       } catch (error) {
         toast.error("Failed to update experience");
-        console.log("Error:", error);
+        // console.log("Error:", error);
       }
     }
   }
@@ -197,10 +195,8 @@ const Experiences = () => {
           // console.log("message" + message);
         }
         catch (error) {
-          console.log("error" + error);
-          toast.error("Failed to add new experience");
+        toast.error("Failed to add new experience");
         }
-        console.log("New experience added successfully");
         fetchExperiences(baseUrl + "/experiences/regions").then((destinations) => {
           setItems(destinations);
         });
@@ -210,7 +206,6 @@ const Experiences = () => {
         toast.error("Failed to add new experience")
       }
     } catch (error) {
-      console.log("Error:" + error);
       toast.error("Failed to add new experience")
     }
   };
@@ -233,7 +228,6 @@ const Experiences = () => {
         toast.error("Failed to delete experience")
       }
     } catch (error) {
-      console.log("Error:", error);
       toast.error("Failed to delete experience")
     }
   };
@@ -249,7 +243,6 @@ const Experiences = () => {
       newList = newList.filter((ex) => ex !== item);
     }
     setStatusList(newList);
-    // console.log(newList);
   };
 
   const [amount, setAmount] = useState(0);
@@ -363,12 +356,14 @@ const Experiences = () => {
     s += "&pageNo=" + currentPage;
     s += "&pageSize=5"
     setFilter(s);
-    fetchExperiences(baseUrl + "/experiences/filtered" + s).then((experiences) => {
+    fetchExperiences(baseUrl + "/experiences/filtered" + s)
+    .then((experiences) => {
       setDetail(experiences.content);
       setPageCount(experiences.totalPages);
       setTotalExperiences(experiences.totalElements);
       setLoading(false);
-    });
+    })
+    .catch(error =>{toast.error("Failed to fetch experiences")})
 
   }, [statusList, amount, dayCount, items, sortOrder, currentPage])
 
@@ -422,7 +417,7 @@ const Experiences = () => {
           handleOnChange={handleOnChange} handleCountDecrement={handleCountDecrement} handleCountIncrement={handleCountIncrement} handleRemoveRoom={handleRemoveRoom} setClearFilters={setClearFilters} filterMenu={false} />
 
         <div className="my-5 w-full flex flex-col items-center relative">
-          <button className="border-solid w-1/2 mb-3 md:mb-10 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
+          <button data-aos="fade-down"className="border-solid w-1/2 mb-3 md:mb-10 border-red-800 border-2 p-3 text-red-800" onClick={() => { setShowAddExperience(true) }}>Add Experience</button>
           <div className="w-full justify-between flex items-center">
             <div className="block xl:hidden left-0 top-1">
               <button onClick={() => { setFilterMenu(true) }} className="border-solid border-black border-2 p-4 rounded-xl font-bold">Filters</button>
@@ -434,7 +429,7 @@ const Experiences = () => {
               {/* <button onClick={() => { sortItem() }} ><IoIosFunnel className={sortOrder === "" ? "text-red-300 hover:text-red-500 text-4xl" : "text-red-800 hover:text-red-500 text-4xl"} /></button> */}
               {/* <p className="text-red-900">Sort Price Lowest to Highest</p> */}
 
-              <div className="border-2 border-gray-800 border-solid p-1 lg:p-3 rounded-2xl m-5  items-center flex flex-col lg:flex-row ">
+              <div data-aos="fade-down" className="border-2 border-gray-800 border-solid p-1 lg:p-3 rounded-2xl m-5  items-center flex flex-col lg:flex-row ">
                 <span className="text-sm lg:text-lg font-bold mr-3 whitespace-nowrap">Sorted By: </span>
                 <div className="flex items-center w-auto">
                   <span className="value text-xs">{sortOrder === "" ? "Not Sorted" : sortOrder.split(",").join(" ").replace("ASC", "Low to High").replace("DESC", "High to Low").replace("amount", "Price-").replace("days Low to High", "Duration-Short to Long").replace("days High to Low", "Duration-Long to Short")}</span>

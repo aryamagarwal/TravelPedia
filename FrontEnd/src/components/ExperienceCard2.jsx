@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const ExperienceCard2 = (props) => {
     const baseUrl = "http://13.60.74.234:8085/permit";
     const navigate = useNavigate()
+    const [loadingImage, setLoadingImage] = React.useState(true)
+    const [img, setImg] = React.useState(null)
+    React.useEffect(() => {
+        setLoadingImage(true)
+        fetch(`${baseUrl}/experiences/experienceImage/`+ props.details.title)
+            .then((response) => response.blob())
+            .then((blob) => {
+                setImg(URL.createObjectURL(blob))
+                setLoadingImage(false)
+            })
+    }, [])
+    useEffect(()=>{
+        AOS.init({duration: 1000});
+    } , [])
     return (
-        <div className="flex flex-col shadow-md hover:shadow-2xl w-90 rounded-lg h-96 bg-white items-center m-9 my-0 pb-0"
+        <div data-aos="flip-down" className="flex flex-col shadow-md hover:shadow-2xl w-full rounded-lg h-full bg-white items-center m-9 my-0 pb-0"
         >
-            <div className='p-5 h-5/6 items-center flex w-full flex-col'>
-                <div className='h-96 w-full rounded-xl  overflow-hidden '>
-                    <div className="h-96 w-full ">
-                        <img className="cardImg" src={`${baseUrl}/experiences/experienceImage/` + props.details.title} alt="img" />
+            <div className='p-5 h-80  items-center flex w-96 flex-col'>
+                <div  data-aos="zoom-in"className='h-96 w-full rounded-xl  overflow-hidden '>
+                    <div className="h-96 w-full relative">
+                      {loadingImage && <div className="loadingShimmerDiagnol h-full cardImg w-3/5 lg:w-full "></div>}
+                      { !loadingImage &&  < img  className="absolute   cardImg" src={img} alt="img" />}
                     </div>
                 </div>
                 <div className="details h-20 w-full flex flex-row justify-between gap-4 p-3">

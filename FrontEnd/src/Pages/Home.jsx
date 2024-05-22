@@ -11,21 +11,30 @@ import { Link } from 'react-router-dom'
 import bgImg from '../assets/ecbg.jpg'
 import { useNavigate } from 'react-router-dom'
 import GotYouCovered from '../components/GotYouCovered'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 const Home = () => {
   const baseUrl = "http://13.60.74.234:8085/permit";
   const navigate = useNavigate();
   const [experiences, setExperiences] = useState(null);
+  const[loading , setLoading] = useState(true)
   useEffect(() => {
+    setLoading(true)
     fetch(`${baseUrl}/experiences/all`)
       .then(res => res.json())
-      .then(data => { setExperiences(data); console.log(data) })
+      .then(data => { setExperiences(data); console.log(data)
+        setLoading(false)
+       })
   }, [])
+  useEffect(()=>{
+    AOS.init({duration: 1000});
+  } , [])
   return (
     <div className='bg-gray-200'>
       <header className="flex">
         <SlideShow duration={7000} slides={slides} />
       </header>
-      <div className="flex-row my-10  h-auto w-full "
+      <div  data-aos="fade-left" className=" flex-row my-10  h-auto w-full "
       // style={{
       //   background: `linear-gradient(rgba(225, 225, 225, 1 ) 40%, rgba(0, 0, 0, 0.6) 60% ), URL(${bgImg})`,
       //   backgroundSize: 'cover',
@@ -41,11 +50,11 @@ const Home = () => {
             </div>
           </div>
           <div className='w-full'>
-            {experiences !== null ? <CardPallete details={experiences} className="experiencesHomeCardPallete"/> : null}
+            <CardPallete details={experiences} loading={loading} className="experiencesHomeCardPallete"/>
           </div>
         </div>
       </div>
-      <section className='w-full bg-transparent my-5 flex justify-center p-10'>
+      <section data-aos="fade-right" className='w-full bg-transparent my-5 flex justify-center p-10'>
         <div className='w-full bg-white rounded-xl p-10 text-2xl'>
           <div>
             <h2 className='font-bold'>Sign in to save time</h2>
@@ -65,7 +74,7 @@ const Home = () => {
         </div>
       </section >
       <UserReview />
-      <GotYouCovered />
+      <GotYouCovered data-aos="fade-right" />
     </div >
   )
 }

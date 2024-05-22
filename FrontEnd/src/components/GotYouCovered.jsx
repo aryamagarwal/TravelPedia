@@ -1,10 +1,14 @@
 import React from 'react'
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 function GotYouCovered() {
+  React.useEffect(()=>{
+    AOS.init({duration: 1000});
+  } , [])
   return (
-    <div className='w-full bg-transparent h-auto my-5 p-5'>
+    <div data-aos="fade-right"className='w-full bg-transparent h-auto my-5 p-5'>
     <div className='felx flex-col bg-white items-center w-fit rounded-xl p-5 ml-10 my-4'>
-      <h1 className='text-2xl font-bold my-2'>We've got you covered</h1>
+      <h1  className='text-2xl font-bold my-2'>We've got you covered</h1>
       <div className='flex text-xl mt-4 items-center justify-evenly ml-5 gap-5'>
            <div className='inline-block'>
              

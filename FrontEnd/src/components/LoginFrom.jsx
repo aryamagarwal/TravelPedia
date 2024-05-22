@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -12,6 +12,8 @@ import { authApi } from "../api/authApi.jsx";
 import { handleResponseError, parseJwt } from "../api/util.jsx";
 import { FaRegEye } from "react-icons/fa";
 import { toast } from "react-toastify";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const LoginForm = () => {
   const [userNameOrEmail, setUserNameOrEmail] = useState("");
@@ -22,7 +24,9 @@ const LoginForm = () => {
   const [message2, setMessage2] = useState("");
   // const [showPassword, setShowPassword] = useState("");
 
-
+ useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
   const updateUserNameOrEmail = (e) => {
     setUserNameOrEmail(e.target.value);
   };
@@ -108,7 +112,7 @@ const LoginForm = () => {
   return (
     <>
       {/* <Block></Block> */}
-      <div className="flex flex-col items-center w-full h-full justify-center p-32  "
+      <div data-aos="fade-up" className="flex flex-col items-center w-full h-full justify-center p-32  "
       // style={{
       //   backgroundImage: `url(${bg})`,
       //   backgroundSize: 'cover',

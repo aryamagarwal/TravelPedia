@@ -2,7 +2,7 @@ import React from 'react'
 
 function ExperienceCardLoader() {
   return (
-    <div className="flex flex-col w-full shadow-md rounded-md p-5 lg:p-1 lg-m-9 items-center m-3 "
+    <div className="flex flex-col w-full hover:shadow-2xl shadow-md rounded-md p-5 lg:p-1 lg-m-9 items-center m-3 "
         >
             <div className="flex flex-col lg:items-center lg:flex-row rounded-md w-full ">
                 <div className="loadingShimmer h-60 w-full lg:w-1/3 2xl:w-1/4 flex rounded-xl items-center justify-center overflow-hidden relative" >
@@ -12,7 +12,7 @@ function ExperienceCardLoader() {
                         <div className=" mx-2 loadingShimmer">
                             
                         </div>
-                        <div className='loadingShimmer p-3 text-sm sm:text-lg my-2 sm:my-5' >
+                        <div className='loadingShimmer  my-2 sm:my-5' >
                            
                         </div>
                     </div>
