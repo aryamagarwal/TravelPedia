@@ -62,6 +62,7 @@ public class AuthenticationService {
     	System.out.println(user);
         user = userService.save(user);
     	user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user = userService.save(user);
     	
 //    	System.out.println(user.getPassword());
     	

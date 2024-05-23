@@ -22,9 +22,10 @@ const LoginForm = () => {
   const [invalidCredMsg, setInvalidCredMsg] = useState("");
   const [showPassword, setShowPassword] = useState("");
   const [message2, setMessage2] = useState("");
+  const [base2, setBase2] = useState(false);
   // const [showPassword, setShowPassword] = useState("");
 
- useEffect(() => {
+  useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
   const updateUserNameOrEmail = (e) => {
@@ -48,11 +49,16 @@ const LoginForm = () => {
       console.log(response);
       const authResp = response.data;
       const accessToken = authResp.token;
+      console.log(authResp.status);
       if (authResp.status) {
         setMessage2("");
+        setBase2(true);
         toast.success("Login Successful");
-      }
-      else if(!response.data.token) {
+      // } else if (authResp.status == "") {
+      //   setMessage2("Enter correct Details");
+      //   toast.error("Login Failed . Enter correct Details");
+      //   return;
+      } else if (!accessToken) {
         setMessage2("Enter correct Details");
         toast.error("Login Failed . Enter correct Details");
         return;
@@ -90,14 +96,16 @@ const LoginForm = () => {
           lastname: "",
           userNameOrEmail: userNameOrEmail,
         });
-       
+
         navigate(`/user/dashboard/${myName}`);
         console.log(user.id);
       }
     } catch (error) {
       handleResponseError(error);
       setIsError(true);
-      // if(!authResp.status){
+      console.log("hello");
+      setMessage2("Enter correct Details");
+      // if (!base2) {
       //   setMessage2("Enter correct Details");
       //   toast.error("Login Failed . Enter correct Details");
       // }
@@ -112,13 +120,15 @@ const LoginForm = () => {
   return (
     <>
       {/* <Block></Block> */}
-      <div data-aos="fade-up" className="flex flex-col items-center w-full h-full justify-center p-32  "
-      // style={{
-      //   backgroundImage: `url(${bg})`,
-      //   backgroundSize: 'cover',
-      //   backgroundRepeat: 'repeat'
-      
-      // }}
+      <div
+        data-aos="fade-up"
+        className="flex flex-col items-center w-full h-full justify-center p-32  "
+        // style={{
+        //   backgroundImage: `url(${bg})`,
+        //   backgroundSize: 'cover',
+        //   backgroundRepeat: 'repeat'
+
+        // }}
       >
         <h1 className="text-3xl font-bold mt-10">WELCOME TO TRAVELPEDIA</h1>
         <div className="backdrop-blur-sm w-96 mt-20 bg-transparent p-7 mb-20 box-content shadow-md rounded-lg ">
@@ -148,12 +158,12 @@ const LoginForm = () => {
               />
               {/* <RiLockPasswordFill className="absolute right-5 to?p-1/2 -translate-y-2/4" ?/> */}
               <FaRegEye
-                      className="absolute right-5 top-1/2 -translate-y-2/4"
-                      onMouseOver={() => {
-                        // e.preventDefault();
-                        setShowPassword((prev) => !prev);
-                      }}
-                    />
+                className="absolute right-5 top-1/2 -translate-y-2/4"
+                onMouseOver={() => {
+                  // e.preventDefault();
+                  setShowPassword((prev) => !prev);
+                }}
+              />
             </div>
             <div className="rememberForgot flex justify-between my-3">
               <label>
@@ -181,8 +191,8 @@ const LoginForm = () => {
               Login
             </button>
             <center>
-                    <h5 className="text-red-800 bg-white ">{message2}</h5>
-                  </center>
+              <h5 className="text-red-800 bg-white ">{message2}</h5>
+            </center>
             <div className="register text-center mt-5 mb-10">
               <p>
                 Don't have an account?{" "}
