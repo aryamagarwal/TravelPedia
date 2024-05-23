@@ -18,8 +18,9 @@ import { IsLoggedInContext } from "../App.jsx";
 import { authApi } from "../api/authApi";
 import { handleResponseError, parseJwt } from "../api/util";
 import { FaRegEye } from "react-icons/fa";
-
-const Account = () => {
+import { IoMdArrowRoundBack } from "react-icons/io";
+import {toast} from 'react-toastify'
+const Account = (props) => {
   const [message, setMessage] = useState("");
   const [addImage, setAddImage] = useState("");
 
@@ -149,21 +150,22 @@ const Account = () => {
 
   const handleImgSubmit2 = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-
+    document.getElementById('accountPageFileUpload').click()
     try {
+
       const formdata = new FormData();
-      var file = new File([blob], userDetails.username, {
-        type: blob.type,
-        lastModified: Date.now(),
-      });
-      setAddImage(file);
       formdata.append("file", addImage);
-      formdata.append("title", userDetails.username);
+      formdata.append("title", userDetails.userName);
       const response = await authApi.uploadPhoto(formdata);
       // console.log(response);
       // const blob = await response.blob();
       if (response.ok) {
         toast.success("New photo uploaded successfully");
+      }
+      else
+      {
+        toast.error("error uploading file!");
+        
       }
     } catch (error) {
       console.error("Error uploading photo:", error);
@@ -239,246 +241,217 @@ const Account = () => {
   //   setMessage2("");
   // }
 
-  const logout = (e) => {
-    if (confirm("The action will log you out!") === false) {
-      // return;
-    }
-    setIsLoggedIn(false);
-    setUser([]);
-    console.log("button pressed logout");
-    navigate(`/LogIn`);
-  };
 
   return (
-    <>
-      <img src={bg}></img>
-      <div className="flex flex-row gap-3 w-full ">
-        <div className="flex flex-col m-4 mr-0 w-2/12 p-10 shadow-md rounded-xl shadow-gray-400">
-          <div className="w-auto min:w-6/12 h-full">
-            <div className="flex flex-col justify-between">
-              <div className="p-3 w-full hover:text-red-800">
-                <button>Account</button>
-              </div>
-              <div className="p-3 w-full hover:text-red-800">
-                <button onClick={logout}>LogOut</button>
-              </div>
-            </div>
+    <div className="w-full flex relative flex-col justify-center items-center">
+      <div className=" w-full bg-white">
+        <center className="relative">
+          <button className=" absolute -top-1/2 left-0 w-fit rounded-full p-3 border-solid border-red-800 border-2 hover:text-white hover:bg-red-800" onClick={() => {
+            props.setShowAccount(false);
+            window.scroll(0, 0)
+          }}>
+            <IoMdArrowRoundBack />
+          </button>
+          <div className="border-b-8 w-fit flex relative border-red-800 border-solid text-black text-4xl   mt-8 ">
+
+            <center>Account Details</center>
           </div>
-        </div>
-        <div className="flex flex-col items-center m-4 mx-0 w-8/12 min:w-6/12 p-10 shadow-md rounded-xl shadow-gray-400">
-          <div className="mt-12 bg-gray-50">
+        </center>
+
+        <div className="flex flex-row justify-between w-full">
+          <div className="mt-5 w-3/5">
+            <form className="w-full"
+              onSubmit={() => {
+                e.preventDefault();
+              }}
+            >
+              <div className="inputBox flex flex-col relative justify-center my-3 h-12 w-full">
+                <h1 className="pl-8  m-1 text-xl">Username</h1>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    className="bg-transparent w-full p-5 h-full text-xl ml-8  outline-none border-2 focus:border-black"
+                    type="text"
+                    disabled
+                    title="Username cannot be changed"
+                    placeholder="Username"
+                    // required
+                    value={username}
+                  // onChange={(e) => setuserName(e.target.value)}
+                  />
+                  <FaUser className="absolute right-5" />
+                </div>
+              </div>
+
+              <div className="inputBox flex flex-col relative justify-center  my-3 h-12 w-full">
+                <div className="pl-8  m-1 text-xl">First Name</div>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    className="bg-transparent w-full p-5 h-full text-xl ml-8  outline-none border-2 focus:border-black"
+                    type="text"
+                    placeholder="First Name"
+                    required
+                    value={firstname}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                  <FaUser className="absolute right-5" />
+                </div>
+              </div>
+
+              <div className="inputBox  flex flex-col relative justify-center my-3 h-12 w-full">
+                <div className="pl-8  m-1 text-xl ">Last Name</div>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    className="bg-transparent w-full p-5 h-full text-xl ml-8 outline-none border-2 focus:border-black"
+                    type="text"
+                    placeholder="LastName"
+                    value={lastname}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                  <FaUser className="absolute right-5" />
+                </div>
+              </div>
+
+              <div className="inputBox relative flex flex-col  justify-center my-3 h-12 w-full">
+                <div className="pl-8  m-1 text-xl ">Old Password</div>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    className={`bg-transparent w-full p-2 h-full text-xl ml-8 outline-none border-2 focus:border-black`}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    required
+                    onChange={checkopass2}
+                  />
+                  <FaRegEye
+                    className="absolute right-5 "
+                    onMouseOver={() => {
+                      setShowPassword((prev) => !prev);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="inputBox  flex flex-col relative justify-center my-3 h-12 w-full">
+                <div className="pl-8  m-1 text-xl ">New Password</div>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    className="bg-transparent w-full p-2 h-full text-xl ml-8 outline-none border-2 focus:border-black"
+                    type={showPassword1 ? "text" : "password"}
+                    placeholder="Password"
+                    // required
+                    onChange={checkPass}
+                    value={newPassword}
+                  />
+
+                  <FaRegEye
+                    className="absolute right-5 "
+                    onMouseOver={() => {
+                      // e.preventDefault();
+                      setShowPassword1((prev) => !prev);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <h5 className="text-red-800 bg-white ">{message}</h5>
+
+              <div className="inputBox  flex flex-col relative justify-center my-3 h-12 w-full">
+                <div className="pl-8  m-1 text-xl">Confirm new Password</div>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    className="bg-transparent w-full p-2 h-full text-xl ml-8  outline-none border-2 focus:border-black"
+                    type="password"
+                    placeholder="Confirm Password"
+                    // required
+                    onChange={checkCpass}
+                    value={Cpass}
+                  />
+                  <RiLockPasswordFill className="absolute right-5 " />
+                </div>
+              </div>
+              <center>
+                {" "}
+                <h5 className="text-red-800 bg-white ">{passwdErrMsg}</h5>
+              </center>
+
+              <div className="inputBox  flex flex-col relative justify-center my-3  h-12 w-full ">
+                <div className="pl-8  m-1 text-xl">Email:</div>
+                <div className="w-full flex items-center justify-center">
+                  <input
+                    pattern="([a-z][a-z0-9_]{3,23}[a-z0-9])|(([A-Za-z0-9_.]{5,64})([@])([a-z0-9\-.]{1,252})([.])([a-z]{2,3}))"
+                    className="bg-transparent w-full p-5 h-full text-xl  ml-8 outline-none border-2 focus:border-black"
+                    type="email"
+                    placeholder="Email"
+                    required
+                    value={email}
+                    // disabled
+                    // onChange={(e) => setEmail(e.target.value)}
+                    onChange={handleOnChangeEmail}
+                  />
+                  <FaUser className="absolute right-5" />
+                </div>
+              </div>
+              <h5 className="text-red-800 ml-4 bg-white ">
+                {emailErrMsg}
+              </h5>
+
+              <center>
+                <div className="w-40 mt-4 mb-4">
+                  <button
+                    // disabled={!password.length >= 1}
+                    className="w-full h-auto rounded-3xl font-bold hover:bg-red-600 bg-red-800 text-white p-2"
+                    onClick={handleSubmit}
+                  >
+                    Update
+                  </button>
+                </div>
+                {base && (
+                  <div className="text-lg w-80 mb-16 ">
+                    Details Updated Succesfully
+                  </div>
+                )}
+              </center>
+              <center>
+                <h5 className="text-red-800 bg-white ">{message2}</h5>
+              </center>
+            </form>
+          </div>
+          <div className="w-2/5 p-5 items-center flex flex-col">
             <center>
-              <div className="bg-red-800 text-white text-4xl w-full rounded-lg  mt-8 ">
-                <center>Account Details</center>
+              <div className="rounded-full overflow-hidden flex items-center justify-center bg-white h-28 w-28 ">
+                {addImage && addImage !== "" && addImage.size > 0 && (
+                  <img
+                    className="rounded-full"
+                    src={URL.createObjectURL(addImage)}
+                    alt="preview Image"
+                  />
+                )}
+                {!addImage  && (
+                  <img
+                    className="rounded-full"
+                    src={avatar}
+                    alt="img"
+                  />
+                )}
+              </div>
+              <div className="w-full  flex flex-col">
+              <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    setAddImage(e.target.files[0]);
+                  }}
+                  id="accountPageFileUpload"
+                  className=" hidden "
+                />
+                <button className="text-red-800 mt-5"onClick={handleImgSubmit2}>Change picture</button>
               </div>
             </center>
-
-            <div className="flex flex-row justify-between w-full">
-              <div className="mt-5 w-3/5">
-                <form className="w-full"
-                  onSubmit={() => {
-                    e.preventDefault();
-                  }}
-                >
-                  <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                    <div className="pl-8 ">UserName:</div>
-
-                    <input
-                      className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
-                      type="text"
-                      disabled
-                      title="Username cannot be changed"
-                      placeholder="Username"
-                      // required
-                      value={username}
-                    // onChange={(e) => setuserName(e.target.value)}
-                    />
-                    <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
-                  </div>
-
-                  <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                    <div className="pl-8 ">FirstName:</div>
-
-                    <input
-                      className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
-                      type="text"
-                      placeholder="FirstName"
-                      required
-                      value={firstname}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
-                  </div>
-
-                  <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                    <div className="pl-8 ">LastName:</div>
-
-                    <input
-                      className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
-                      type="text"
-                      placeholder="LastName"
-                      value={lastname}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
-                  </div>
-
-                  <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                    <div className="pl-8 ">Old Password</div>
-                    <input
-                      className="bg-transparent w-full p-5 h-full text-xl ml-8  rounded-3xl outline-none border-2 focus:border-red-400"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Password"
-                      required
-                      // onChange={checkPass}
-                      // value={password}
-                      onChange={checkopass2}
-                    />
-
-                    <FaRegEye
-                      className="absolute right-5 top-1/2 -translate-y-2/4"
-                      onMouseOver={() => {
-                        // e.preventDefault();
-                        setShowPassword((prev) => !prev);
-                      }}
-                    />
-                  </div>
-                  {/* <center>
-                      <h5 className="text-red-800 bg-white ">
-                        {opasswdErrMsg}
-                      </h5>
-                    </center> */}
-
-                  <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                    <div className="pl-8 ">New Password</div>
-                    <input
-                      className="bg-transparent w-full p-5 h-full text-xl  rounded-3xl outline-none border-2 focus:border-red-400"
-                      type={showPassword1 ? "text" : "password"}
-                      placeholder="Password"
-                      // required
-                      onChange={checkPass}
-                      value={newPassword}
-                    />
-
-                    <FaRegEye
-                      className="absolute right-5 top-1/2 -translate-y-2/4"
-                      onMouseOver={() => {
-                        // e.preventDefault();
-                        setShowPassword1((prev) => !prev);
-                      }}
-                    />
-                  </div>
-                  <h5 className="text-red-800 bg-white ">{message}</h5>
-
-                  <div className="inputBox flex relative items-center my-3 h-12 w-full">
-                    <div className="pl-8 ">Confirm new Password</div>
-                    <input
-                      className="bg-transparent w-full p-5 h-full text-xl rounded-3xl outline-none border-2 focus:border-red-400"
-                      type="password"
-                      placeholder="Confirm Password"
-                      // required
-                      onChange={checkCpass}
-                      value={Cpass}
-                    />
-                    <RiLockPasswordFill className="absolute right-5 top-1/2 -translate-y-2/4" />
-                  </div>
-                  <center>
-                    {" "}
-                    <h5 className="text-red-800 bg-white ">{passwdErrMsg}</h5>
-                  </center>
-
-                  <div className="inputBox flex relative items-center my-3 mt-12 h-12 w-full ">
-                    <div className="pl-8">Email:</div>
-
-                    <input
-                      pattern="([a-z][a-z0-9_]{3,23}[a-z0-9])|(([A-Za-z0-9_.]{5,64})([@])([a-z0-9\-.]{1,252})([.])([a-z]{2,3}))"
-                      className="bg-transparent w-full p-5 h-full text-xl rounded-3xl ml-16 outline-none border-2 focus:border-red-400"
-                      type="email"
-                      placeholder="Email"
-                      required
-                      value={email}
-                      // disabled
-                      // onChange={(e) => setEmail(e.target.value)}
-                      onChange={handleOnChangeEmail}
-                    />
-                    <FaUser className="absolute right-5 top-1/2 -translate-y-2/4" />
-                  </div>
-                  <h5 className="text-red-800 ml-4 bg-white ">
-                    {emailErrMsg}
-                  </h5>
-
-                  <center>
-                    <div className="w-40 mt-4 mb-4">
-                      <button
-                        // disabled={!password.length >= 1}
-                        className="w-full h-auto rounded-3xl font-bold hover:bg-red-600 bg-red-800 text-white p-2"
-                        onClick={handleSubmit}
-                      >
-                        Update
-                      </button>
-                    </div>
-                    {base && (
-                      <div className="text-lg w-80 mb-16 ">
-                        Details Updated Succesfully
-                      </div>
-                    )}
-                  </center>
-                  <center>
-                    <h5 className="text-red-800 bg-white ">{message2}</h5>
-                  </center>
-                </form>
-              </div>
-              <div className="w-2/5  p-5 mt-32  justify-center flex flex-col">
-                <center>
-                  <div className="box-border border-4 h-60 w-60 ">
-                    {addImage && addImage !== "" && addImage.size > 0 && (
-                      <img
-                        src={URL.createObjectURL(addImage)}
-                        alt="preview Image"
-                      />
-                    )}
-                    {!addImage && addImage == "" && addImage.size <= 0 && (
-                      <img
-                        className="pt-12 w-20 h-32 rounded-full"
-                        src={avatar}
-                        alt="img"
-                      />
-                    )}
-                  </div>
-                  <div className="w-full  flex flex-col">
-                    <button onClick={handleImgSubmit2}>Upload photo</button>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => {
-                        setAddImage(e.target.files[0]);
-                      }}
-                      className="border-solid border-red-800 border-2 p-3 w-full "
-                    />
-                  </div>
-                </center>
-              </div>
-            </div>
           </div>
-          <button className=" w-1/2 rounded-full p-3 shadow-md"onClick={()=>{
-            navigate(`/user/dashboard/${id}`)
-          }}>
-            Back
-          </button>
-        </div>
-        <div className="flex flex-col m-4 ml-0 w-2/12 p-10 shadow-md shadow-gray-800 rounded-xl ">
-          <div className="flex items-center justify-evenly">
-            <img
-              className="w-20 rounded-full"
-              src={avatar}
-              alt="img"
-            />
-            <h1>name</h1>
-          </div>
-        </div>
-      </div>
-      
-    </>
+        </div >
+      </div >
+
+    </div>
+
   );
 };
 

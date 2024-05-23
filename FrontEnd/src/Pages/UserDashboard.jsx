@@ -15,10 +15,15 @@ import dashbaordbg from "../assets/dashboardBg.png";
 import bg from '../assets/bg.avif'
 import CardPallete from "../components/CardPallete.jsx";
 import { Link } from "react-router-dom";
+import {toast} from 'react-toastify'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import LikedExperiences from "../components/LikedExperiences.jsx";
+import Account from "../components/Account.jsx";
+import { MdOutlineAccountCircle } from "react-icons/md";
+import { IoMdLogOut } from "react-icons/io";
 const UserDashboard = () => {
+  const [showAccount, setShowAccount] = useState(false);
   const baseUrl = "http://13.60.74.234:8085/permit/"
   const { setIsLoggedIn, setUser, user } = useContext(IsLoggedInContext);
   const navigate = useNavigate();
@@ -57,13 +62,14 @@ const UserDashboard = () => {
     authApi.logout();
     setIsLoggedIn(false);
     setUser([]);
+    toast.success("Logged out successfully!")
     navigate(`/LogIn`);
     window.scrollTo(0, 0);
+    
   };
 
   const account = (e) => {
-    navigate(`/Account/${id}`);
-    window.scrollTo(0,0);
+    setShowAccount(true);
   };
 
 
@@ -71,42 +77,48 @@ const UserDashboard = () => {
     <>
       <img src={bg}></img>
       <div className="flex flex-row gap-3 w-full ">
-        <div data-aos="fade-right" className="flex flex-col m-4 mr-0 w-2/12 p-10 shadow-md rounded-xl shadow-gray-400">
-          <div className="p-3 w-full hover:text-red-800">
-              <button onClick={account}>Account</button>
-            </div>
-            <div className="p-3 w-full hover:text-red-800">
-              <button onClick={logout}>LogOut</button>
-            </div>
-        </div>
-        <div data-aos="fade-down" className="flex flex-col m-4 mx-0  w-8/12 min:w-6/12 p-10 shadow-md rounded-xl shadow-gray-400">
-          <h1 className="text-3xl whitespace-nowrap font-bold ">Welcome! {id}</h1>
-          <div className="flex-row my-10  h-auto w-full ">
-            <div className=' rounded-2xl bg-white'>
-              <div className="h-fit flex items-center justify-between w-full px-10 pt-1 ">
-                <h1 className='text-black-800 text-3xl font-bold font-gideon'>Liked Experiences</h1>
-              </div>
-              <div className=''>
-                {likedExperiences !== null ? <CardPallete loading={isLikedExperienceLoading} details={likedExperiences} className="likedCardPallete" /> : null}
-              </div>
-            </div>
+        <div data-aos="fade-right" className=" hover:shadow-2xl flex flex-col m-4 mr-0 w-2/12 p-10 shadow-md rounded-xl shadow-gray-400">
+          <div className="p-3 flex items-center  gap-2 w-full hover:text-red-800">
+            <MdOutlineAccountCircle className="text-2xl"/> 
+            <button onClick={account}>Account</button>
           </div>
-          <div className="flex-row my-10  h-auto w-full ">
-            <div className=' rounded-2xl bg-white'>
-              <div className="h-fit flex items-center justify-between w-full px-10 pt-1 ">
-                <h1 className='text-black-800 text-3xl font-bold font-gideon'>More Experiences</h1>
-                <div >
-                  <Link to={"/experiences"}><button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-3xl p-3 pl-5 pr-5">View All</button></Link>
+          <div className="p-3 flex gap-3 items-center jsutify-center  w-full hover:text-red-800">
+            <IoMdLogOut className="text-2xl"/>
+            <button onClick={logout}>Logout</button>
+          </div>
+        </div>
+        <div data-aos="fade-down" className="hover:shadow-2xl flex flex-col m-4 mx-0  w-8/12 min:w-6/12 p-10 shadow-md rounded-xl shadow-gray-400">
+          {!showAccount &&
+            <>
+              <h1 className="text-3xl whitespace-nowrap font-bold ">Welcome! {id}</h1>
+              <div data-aos="fade-left" className="flex-row my-10  h-auto w-full ">
+                <div className=' rounded-2xl bg-white'>
+                  <div className="h-fit flex items-center justify-between w-full px-10 pt-1 ">
+                    <h1 className='text-black-800 text-3xl font-bold font-gideon'>Liked Experiences</h1>
+                  </div>
+                  <div className=''>
+                    {likedExperiences !== null ? <CardPallete loading={isLikedExperienceLoading} details={likedExperiences} className="likedCardPallete" /> : null}
+                  </div>
                 </div>
               </div>
-              <div className=''>
-                {experiences !== null ? <CardPallete loading={isExperiencesLoading} details={experiences} className="experiencesCardPallete" /> : null}
+              <div data-aos="fade-right"className="flex-row my-10  h-auto w-full ">
+                <div className=' rounded-2xl bg-white'>
+                  <div className="h-fit flex items-center justify-between w-full px-10 pt-1 ">
+                    <h1 className='text-black-800 text-3xl font-bold font-gideon'>More Experiences</h1>
+                    <div >
+                      <Link to={"/experiences"}><button className="text-center hover:bg-red-800 bg-red-600 text-white rounded-3xl p-3 pl-5 pr-5">View All</button></Link>
+                    </div>
+                  </div>
+                  <div className=''>
+                    {experiences !== null ? <CardPallete loading={isExperiencesLoading} details={experiences} className="experiencesCardPallete" /> : null}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
+            </>
+          }
+          {showAccount && <Account setShowAccount={setShowAccount} />}
         </div>
-        <div data-aos="fade-left"className="flex flex-col m-4 ml-0 w-2/12 p-10 shadow-md rounded-xl shadow-gray-400">
+        <div data-aos="fade-left" className="hover:shadow-2xl flex flex-col m-4 ml-0 w-2/12 p-10 shadow-md rounded-xl shadow-gray-400">
           <div className="flex flex-col items-center justify-evenly">
             <img
               className="w-20 rounded-full"

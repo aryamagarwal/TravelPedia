@@ -1,7 +1,8 @@
 import axios from "axios";
 import { config } from "../environment.jsx";
 import { parseJwt } from "./util";
-
+import { IsLoggedInContext } from "../App.jsx";
+import { useContext } from "react";
 export const authApi = {
   signup,
   checkEmail,
@@ -158,14 +159,25 @@ function updateDetails(
   });
 }
 
-function uploadPhoto(formdata) {
+async function uploadPhoto(formdata) {
   // const payload = {
   //   formdata: formdata,
   // };
-  return instance.post("/api/auth/file-upload", formdata, {
+  console.log("entered") 
+  // return instance.post("/api/auth/file-upload", formdata, {
+  //   headers: { Authorization: bearerAuth() },
+  // });
+  const message = await fetch(`${config.url.API_BASE_URL}/api/auth/file-upload`, {
+    method: "POST",
     headers: { Authorization: bearerAuth() },
-  });
+    // headers: {
+    //   "Content-Type" : "multipart/form-data"
+    // },
+    body: formdata
+  })
+  return message
 }
+
 
 // -- Axios
 // axios.defaults.headers.post["Content-Type"] =
@@ -180,12 +192,15 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
+    const {setIsLoggedIn , setUser} = useContext(IsLoggedInContext)
     // If token is expired, redirect user to login
     if (config.headers.Authorization) {
       const token = config.headers.Authorization.split(" ")[1];
       const data = parseJwt(token);
       if (Date.now() > data.exp * 1000) {
-        window.location.href = "/LogIn";
+        toast.error("Your session has expired!")
+        setIsLoggedIn(false)
+        setUser()
       }
     }
     return config;
