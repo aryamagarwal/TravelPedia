@@ -36,6 +36,8 @@ Our Goal Is to Make the Most Out of Your Trip and Create Unforgettable Memories.
 
 ## Home page
 
+Home page being the first page the users usually visit, presents before the user everythign that Travelpedia offer.
+
 ![alt text](image-2.png)
 ![alt text](<Screenshot from 2024-05-22 17-28-37.png>)
 ![alt text](<Screenshot from 2024-05-22 17-28-51.png>)
@@ -43,6 +45,14 @@ Our Goal Is to Make the Most Out of Your Trip and Create Unforgettable Memories.
 ![alt text](image.png)
 
 ## Experiences
+
+Experience page showcases the list of all the available experiences provided by Travelpedia. Alongisde it's intuituve UI, it provides users a range of features:-
+
+1) Users can sort the experiences in a click as per one of the following options:-
+
+2) Users can apply filter experiences as per their requirements to find those that suit their needs and fit in their budgets
+
+3) Pagination is also added which helps to load only the required data in smaller parts and improves the overall User Epxerience.
 
 ![alt text](image-3.png)
 ![alt text](image-4.png)
