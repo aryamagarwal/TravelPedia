@@ -274,6 +274,12 @@ The account section allows the user to modify his details provided by him while 
 
 The user is naviated to the verify form upon updating his account details. Upn filling up the verify form the email is sent to user with an One Time Password(OTP)for security purposes upon entering the correct details the user is logged in and a token is provided to him and his corresponding verified field in the user database is set to true.
 
+Features of account section
+
+- <b><i> Details update</i></b>: The user can easily update his details using the account section where he can fill the necessary details that he want to update. Also the username and email fields are prefilled and cannot be changed to prevent hampering uniqueness of the data.
+
+- <b><i>Profile Pic upload/download</i></b>: The user can also set his profile photo making the site more engaging for the user . The user can easily select on upload photo option and then a can easily upload photo from his local file system.
+
 # Steps for cloning the project:-
 
 - Open Git Bash.
@@ -290,4 +296,3 @@ The user is naviated to the verify form upon updating his account details. Upn f
   `npx json-server --watch src/assets/db/db.json --port 8000`
 
 \*Whenever you pull, make sure you run `npm install` to install the dependencies added to the project.
-hello
