@@ -48,18 +48,27 @@ Home page being the first page the users usually visit, presents before the user
 
 Experience page showcases the list of all the available experiences provided by Travelpedia. Alongisde it's intuituve UI, it provides users a range of features:-
 
-1) Users can sort the experiences in a click as per one of the following options:-
+* 1) Users can sort the experiences in a click as per one of the following options:-
 
-2) Users can apply filter experiences as per their requirements to find those that suit their needs and fit in their budgets
+https://github.com/aryamagarwal/TravelPedia/assets/143252449/1ac9b2c0-c126-46c1-820f-d31e95514bd2
 
-3) Pagination is also added which helps to load only the required data in smaller parts and improves the overall User Epxerience.
+* 2) Users can apply filter experiences as per their requirements to find those that suit their needs and fit in their budgets
 
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+https://github.com/aryamagarwal/TravelPedia/assets/143252449/27ae4ce0-9dc9-4ca7-863c-6297ab71efa7
+
+* 3) Pagination is also added which helps to load only the required data in smaller parts and improves the overall User Epxerience.
+
+https://github.com/aryamagarwal/TravelPedia/assets/143252449/97b95bf6-3aea-47c5-8656-08cd064ec20a
+
+* 4) Users can like experience once logged in.
+
+<img width="676" alt="image" src="https://github.com/aryamagarwal/TravelPedia/assets/143252449/a74fe47b-9718-4e77-b217-3a7c5eb98d51">
+
+* 5) Allows admin to add , update and delete experiences
 ![alt text](<Screenshot from 2024-05-22 17-34-37.png>)
 ![alt text](image-7.png)
+
+* 6) Browse experiences in detail.
 ![alt text](<Screenshot from 2024-05-22 23-05-40.png>)
 ![alt text](image-18.png)
 
