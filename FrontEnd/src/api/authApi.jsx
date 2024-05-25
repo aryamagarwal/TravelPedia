@@ -178,8 +178,27 @@ async function uploadPhoto(formdata) {
       body: formdata,
     },
   );
+  if(!message.ok)
+    console.error(message)
   return message;
 }
+
+// async function downloadPhoto(title) {
+//   // const payload = {
+//   //   formdata: formdata,
+//   // };
+//   console.log("entered");
+//   // return instance.post("/api/auth/file-upload", formdata, {
+//   //   headers: { Authorization: bearerAuth() },
+//   // });
+//   const message = await fetch(`${config.url.API_BASE_URL}/api/auth/profileImage/`+ title)
+//   .then((response) => response.blob())
+//   .then((blob) => {
+//       return URL.createObjectURL(blob)
+      
+//    })
+//   return message;
+// }
 
 // -- Axios
 // axios.defaults.headers.post["Content-Type"] =

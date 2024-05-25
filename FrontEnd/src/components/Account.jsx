@@ -152,7 +152,6 @@ const Account = (props) => {
     e.preventDefault(); // Prevent the default form submission behavior
     document.getElementById('accountPageFileUpload').click()
     try {
-
       const formdata = new FormData();
       formdata.append("file", addImage);
       formdata.append("title", userDetails.userName);
@@ -417,7 +416,7 @@ const Account = (props) => {
           </div>
           <div className="w-2/5 p-5 items-center flex flex-col">
             <center>
-              <div className="rounded-full overflow-hidden flex items-center justify-center bg-white h-28 w-28 ">
+              <div className="rounded-full overflow-hidden flex items-center justify-center bg-white max-h-28 max-w-28 ">
                 {addImage && addImage !== "" && addImage.size > 0 && (
                   <img
                     className="rounded-full"

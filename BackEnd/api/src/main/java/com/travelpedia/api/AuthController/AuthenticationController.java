@@ -81,13 +81,14 @@ public class AuthenticationController {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return us.uploadFile(file , title);
 	}
-	@GetMapping("/experienceImage/{fileName}")
-//	@PreAuthorize("hasAuthority('ROLE_USER')")
+
+	@GetMapping("/profileImage/{fileName}")
 	public ResponseEntity<?> downloadFile(@PathVariable("fileName") String fileName){
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		byte [ ] file = us.downloadFile(fileName);
 		return ResponseEntity.ok().contentType(MediaType.valueOf("image/jpeg")).body(file);
 	}
+
+
 
 
 //
